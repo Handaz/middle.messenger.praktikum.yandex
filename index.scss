@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Sora:wght@400;600&display=swap');
+
+:root {
+  // Цвета
+  --primary: #4d82ff;
+  --primary900: #282c35;
+  --clr-font: #dbdcde;
+}
+
+body {
+  margin: 0;
+  background: var(--primary900);
+  color: var(--clr-font);
+  font-family: 'Sora', sans-serif;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: inherit;
+}
