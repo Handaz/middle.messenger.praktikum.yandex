@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
-import template from './button.tmpl';
+import template from './input.tmpl';
 
-import './Button.module.scss';
+import './input.module.scss';
 
 const render = Handlebars.compile(template, { noEscape: true });
 

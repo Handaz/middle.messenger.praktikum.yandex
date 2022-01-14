@@ -1,8 +1,13 @@
-import button from '../../components/button';
-import { loginTmpl } from './login.tmpl';
 import Handlebars from 'handlebars';
+import link from '../../components/link';
+import loginTmpl from './login.tmpl';
+import { loginForm } from './modules/loginForm';
 
 const template = Handlebars.compile(loginTmpl, { noEscape: true });
-const login = template({ form: `${button.render({ text: 'button' })}` });
 
-document.body.innerHTML = login;
+const login = template({
+  form: loginForm(),
+  link: link.render({ text: 'Sign up', url: './register.html' }),
+});
+
+document.querySelector('#root').innerHTML = login;

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "parcel static/pages/*.html",
     "start": "npm run build && node app.js",
-    "build": "parcel build static/pages/*.html --no-source-maps"
+    "build": "parcel build static/pages/*.html"
   },
   "repository": {
     "type": "git",

@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Sora:wght@400;600&display=swap');
+@import './global.scss';
 
 :root {
-  // Цвета
   --primary: #4d82ff;
+  --primary800: #2c303b;
   --primary900: #282c35;
   --clr-font: #dbdcde;
 }

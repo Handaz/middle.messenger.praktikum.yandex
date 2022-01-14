@@ -1,2 +1,1 @@
-export const registerTmpl =
-  '<div>' + 'asd<a href="/login.html">Sign in</a>' + '</div>';
+export default '<div class="register"}> {{ form }} {{ link }} </div>';
