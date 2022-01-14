@@ -7,7 +7,7 @@ const template = Handlebars.compile(loginTmpl, { noEscape: true });
 
 const login = template({
   form: loginForm(),
-  link: link.render({ text: 'Sign up', url: './register.html' }),
+  link: link.render({ content: 'Sign up', url: './register.html' }),
 });
 
 document.querySelector('#root').innerHTML = login;

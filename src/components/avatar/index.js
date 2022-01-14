@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import template from './button.tmpl';
+import template from './avatar.tmpl';
 
 const render = Handlebars.compile(template, { noEscape: true });
 

@@ -7,22 +7,20 @@ import contentBlock from '../../../../components/contentBlock';
 import { fieldsData } from './utils';
 
 export const registerForm = () => {
-  const registerButton = `${button.render({
-    text: 'Sign in',
+  const registerButton = button.render({
+    content: 'Sign in',
     type: 'submit',
-  })}`;
-  const fields = fieldsData.map(
-    ({ name, placeholder, type }) =>
-      `${input.render({ name, placeholder, type })}`
+  });
+  const fields = fieldsData.map(({ name, placeholder, type }) =>
+    input.render({ name, placeholder, type })
   );
-  const form = `${emptyForm.render({ fields, button: registerButton })}`;
-  const content = `${contentBlock.render({
+  const form = emptyForm.render({ fields, button: registerButton });
+  const content = contentBlock.render({
     title: 'Sign up',
     content: form,
-  })}`;
+  });
   const template = Handlebars.compile(registerFormTmpl, {
     noEscape: true,
   });
-  const registerForm = `${template({ content })}`;
-  return registerForm;
+  return template({ content });
 };
