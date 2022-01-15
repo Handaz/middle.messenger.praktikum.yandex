@@ -1,7 +1,7 @@
 import classes from './profileInfo.module.scss';
 
 export default `<div>{{ avatar }}</div>` +
-  `<div>{{ username }} </div>` +
+  `<div >{{ username }} </div>` +
   `<div class=${classes.infoFields}>` +
   '{{#each profileFields}}' +
   `<div class=${classes.infoField}>` +
@@ -15,5 +15,4 @@ export default `<div>{{ avatar }}</div>` +
   '{{#each links}}' +
   '{{this}}' +
   '{{/each}}' +
-  '</div>' +
   '</div>';
