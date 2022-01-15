@@ -1,5 +1,6 @@
 import Handlebars from 'handlebars';
 import chatsTmpl from './chats.tmpl';
+import sidebar from '../../components/sidebar';
 import chat from './components/chat';
 import input from '../../components/form/input';
 import link from '../../components/link';
@@ -27,10 +28,12 @@ export const chats = () => {
     })
   );
 
-  const chats = `${template({
-    profile: profileLink,
-    search: input.render(),
-    chatList: chatList,
-  })}`;
+  const chats = sidebar.render({
+    content: template({
+      profile: profileLink,
+      search: input.render(),
+      chatList: chatList,
+    }),
+  });
   return chats;
 };

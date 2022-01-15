@@ -1,10 +1,9 @@
 import Handlebars from 'handlebars';
-import registerTmpl from './register.tmpl';
+import authorization from '../../layouts/authorization';
 import link from '../../components/link';
 import { registerForm } from './modules/registerForm';
 
-const template = Handlebars.compile(registerTmpl, { noEscape: true });
-const register = template({
+const register = authorization.render({
   form: registerForm(),
   link: link.render({ content: 'Sign up', url: './login.html' }),
 });
