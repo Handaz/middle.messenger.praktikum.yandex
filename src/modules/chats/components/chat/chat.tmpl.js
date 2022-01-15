@@ -5,7 +5,7 @@ export default `<li class=${classes.chat}>` +
   '<div>' +
   '<div> {{ username }} </div>' +
   '<div>' +
-  '<span> {{ sender }} </span>' +
+  '{{#if sender}} <span> {{ sender }} </span> {{/if}}' +
   '<span> {{ message }} </span>' +
   '</div>' +
   '</div>' +

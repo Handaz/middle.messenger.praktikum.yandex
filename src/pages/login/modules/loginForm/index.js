@@ -14,7 +14,11 @@ export const loginForm = () => {
   const fields = fieldsData.map(({ name, placeholder, type }) =>
     input.render({ name, placeholder, type })
   );
-  const form = emptyForm.render({ fields, button: loginButton });
+  const form = emptyForm.render({
+    fields,
+    button: loginButton,
+    vertical: true,
+  });
   const content = contentBlock.render({
     title: 'Sign in',
     content: form,

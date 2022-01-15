@@ -14,7 +14,11 @@ export const registerForm = () => {
   const fields = fieldsData.map(({ name, placeholder, type }) =>
     input.render({ name, placeholder, type })
   );
-  const form = emptyForm.render({ fields, button: registerButton });
+  const form = emptyForm.render({
+    fields,
+    button: registerButton,
+    vertical: true,
+  });
   const content = contentBlock.render({
     title: 'Sign up',
     content: form,

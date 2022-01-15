@@ -1,6 +1,8 @@
+@import '../../styles/global.scss';
+
 .form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flexCenter;
+  &.vertical {
+    flex-direction: column;
+  }
 }

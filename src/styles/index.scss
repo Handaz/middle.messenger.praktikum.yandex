@@ -3,6 +3,7 @@
 
 :root {
   --primary: #4d82ff;
+  --primary700: #3a4151;
   --primary800: #2c303b;
   --primary900: #282c35;
   --clr-font: #dbdcde;
@@ -18,6 +19,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
 }
 
 ul,

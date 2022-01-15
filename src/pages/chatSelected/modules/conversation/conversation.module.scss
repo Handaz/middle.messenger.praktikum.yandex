@@ -1,0 +1,9 @@
+@import '../../../../styles/global.scss';
+.messages {
+  display: flex;
+  flex-direction: column;
+  padding: 19px 15px;
+  gap: 10px;
+  height: calc(100vh - 70px - 54px);
+  overflow: scroll;
+}
