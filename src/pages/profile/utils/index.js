@@ -6,3 +6,9 @@ export const profileFields = [
   { label: 'Chat name', value: 'testChatName' },
   { label: 'Phone', value: 'testPhoneNumber' },
 ];
+
+export const profileLinks = [
+  { url: 'profileChange.html', content: 'Change profile' },
+  { url: 'passwordChange.html', content: 'Change password' },
+  { url: 'login.html', content: 'Sign out' },
+];
