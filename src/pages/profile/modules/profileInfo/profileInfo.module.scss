@@ -1,0 +1,11 @@
+@import '../../../../styles/global.scss';
+
+.infoFields {
+  max-width: 510px;
+  width: 100%;
+
+  & .infoField {
+    @include flexBetween;
+    padding: 10px 0px;
+  }
+}
