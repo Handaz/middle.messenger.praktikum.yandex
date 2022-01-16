@@ -1,15 +1,22 @@
 const express = require('express');
-const PORT = 3000;
+const fs = require('fs');
+
 const app = express();
+const port = 3000;
 
 app.use(express.static(`${__dirname}/dist`));
 
-app.use(function (req, res, next) {
-  res
-    .status(404)
-    .render('404_error_template', { title: 'Sorry, page not found' });
+app.all('*', (req, res) => {
+  const filePath = `${__dirname}/dist/${req.path}.html`;
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      res.sendFile(`${__dirname}/dist/404.html`);
+    } else {
+      res.sendFile(`${__dirname}${distPath}${req.path}.html`);
+    }
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`App is running on port ${PORT}!`);
+app.listen(port, () => {
+  console.log('Server is up on port 3000');
 });
