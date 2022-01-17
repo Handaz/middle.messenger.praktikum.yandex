@@ -12,7 +12,7 @@ app.all('*', (req, res) => {
     if (err) {
       res.sendFile(`${__dirname}/dist/404.html`);
     } else {
-      res.sendFile(`${__dirname}${distPath}${req.path}.html`);
+      res.sendFile(`${__dirname}/dist/${req.path}.html`);
     }
   });
 });
