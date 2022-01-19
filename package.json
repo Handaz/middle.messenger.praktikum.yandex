@@ -1,0 +1,29 @@
+{
+  "name": "middle.messenger.praktikum.yandex",
+  "version": "1.0.0",
+  "description": "Messanger project",
+  "scripts": {
+    "dev": "parcel static/pages/*.html",
+    "start": "npm run build && node app.js",
+    "build": "parcel build static/pages/*.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Handaz/middle.messenger.praktikum.yandex.git"
+  },
+  "author": "Ilya Zabolotny",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Handaz/middle.messenger.praktikum.yandex/issues"
+  },
+  "homepage": "https://github.com/Handaz/middle.messenger.praktikum.yandex#readme",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.2.0",
+    "express": "^4.17.2",
+    "parcel": "^2.2.0",
+    "sass": "^1.48.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.7"
+  }
+}

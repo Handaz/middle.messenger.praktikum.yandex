@@ -1,0 +1,8 @@
+@import '../../styles/global.scss';
+
+.form {
+  @include flexCenter;
+  &.vertical {
+    flex-direction: column;
+  }
+}
