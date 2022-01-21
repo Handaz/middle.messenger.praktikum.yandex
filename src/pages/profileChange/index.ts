@@ -7,4 +7,8 @@ const profileChange = profile.render({
   content: profileForm(),
 });
 
-document.querySelector('#root').innerHTML = profileChange;
+const root = document.querySelector('#root');
+
+if (root) {
+  root.innerHTML = profileChange;
+}

@@ -7,4 +7,8 @@ const passwordChange = profile.render({
   content: passwordForm(),
 });
 
-document.querySelector('#root').innerHTML = passwordChange;
+const root = document.querySelector('#root');
+
+if (root) {
+  root.innerHTML = passwordChange;
+}

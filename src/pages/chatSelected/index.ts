@@ -7,4 +7,8 @@ const chatSelected = main.render({
   content: conversation(),
 });
 
-document.querySelector('#root').innerHTML = chatSelected;
+const root = document.querySelector('#root');
+
+if (root) {
+  root.innerHTML = chatSelected;
+}

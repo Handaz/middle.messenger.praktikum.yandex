@@ -7,4 +7,8 @@ const notFoundError = error.render({
   link: link.render({ url: 'chatSelect.html', content: 'Back to chats' }),
 });
 
-document.querySelector('#root').innerHTML = notFoundError;
+const root = document.querySelector('#root');
+
+if (root) {
+  root.innerHTML = notFoundError;
+}

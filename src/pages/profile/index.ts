@@ -7,4 +7,8 @@ const profileContent = profile.render({
   content: profileInfo(),
 });
 
-document.querySelector('#root').innerHTML = profileContent;
+const root = document.querySelector('#root');
+
+if (root) {
+  root.innerHTML = profileContent;
+}

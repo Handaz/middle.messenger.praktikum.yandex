@@ -7,4 +7,8 @@ const serverDownError = error.render({
   link: link.render({ url: 'chatSelect.html', content: 'Back to chats' }),
 });
 
-document.querySelector('#root').innerHTML = serverDownError;
+const root = document.querySelector('#root');
+
+if (root) {
+  root.innerHTML = serverDownError;
+}

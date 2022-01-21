@@ -9,4 +9,8 @@ const chatSelect = main.render({
   }),
 });
 
-document.querySelector('#root').innerHTML = chatSelect;
+const root = document.querySelector('#root');
+
+if (root) {
+  root.innerHTML = chatSelect;
+}

@@ -1,4 +1,3 @@
-import Handlebars from 'handlebars';
 import authorization from '../../layouts/authorization';
 import link from '../../components/link';
 import { registerForm } from './modules/registerForm';
@@ -8,4 +7,8 @@ const register = authorization.render({
   link: link.render({ content: 'Sign up', url: './login.html' }),
 });
 
-document.querySelector('#root').innerHTML = register;
+const root = document.querySelector('#root');
+
+if (root) {
+  root.innerHTML = register;
+}

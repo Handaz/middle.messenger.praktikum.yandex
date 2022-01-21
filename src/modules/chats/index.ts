@@ -8,12 +8,12 @@ import avatar from '../../components/avatar';
 import profile from './components/profile';
 import { chatsData } from './utils';
 
-export const chats = () => {
+const chats = () => {
   const template = Handlebars.compile(chatsTmpl, {
     noEscape: true,
   });
   const profileLink = link.render({
-    content: profile.render(),
+    content: profile.render({}),
     url: 'profile.html',
   });
   const chatList = chatsData.map(({ username, sender, message, time }) =>
@@ -31,9 +31,11 @@ export const chats = () => {
   const chats = sidebar.render({
     content: template({
       profile: profileLink,
-      search: input.render(),
-      chatList: chatList,
+      search: input.render({}),
+      chatList,
     }),
   });
   return chats;
 };
+
+export default chats;
