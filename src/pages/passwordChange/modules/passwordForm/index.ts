@@ -4,15 +4,15 @@ import form from '../../../../components/form';
 import input from '../../../../components/form/input';
 import button from '../../../../components/button';
 import avatar from '../../../../components/avatar';
-import { fieldsData } from './utils';
+import fieldsData from './utils';
 
-export const passwordForm = () => {
+const passwordForm = () => {
   const template = Handlebars.compile(passwordFormTmpl, {
     noEscape: true,
   });
 
   const fields = fieldsData.map(({ name, placeholder, type }) =>
-    input.render({ name, placeholder, type })
+    input.render({ name, placeholder, type }),
   );
 
   const content = template({
@@ -28,3 +28,5 @@ export const passwordForm = () => {
 
   return content;
 };
+
+export default passwordForm;

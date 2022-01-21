@@ -9,7 +9,7 @@ import input from '../../../../components/form/input';
 import form from '../../../../components/form';
 import { conversationData, infoIcon, optionsIcon } from './utils';
 
-export const conversation = () => {
+const conversation = () => {
   const template = Handlebars.compile(conversationTmpl, {
     noEscape: true,
   });
@@ -23,7 +23,12 @@ export const conversation = () => {
   });
 
   const messages = conversationData.map(({ own, content, status, time }) =>
-    message.render({ own, content, status, time })
+    message.render({
+      own,
+      content,
+      status,
+      time,
+    }),
   );
 
   const bottomBar = conversationActions.render({
@@ -40,7 +45,9 @@ export const conversation = () => {
     }),
   });
 
-  const conversation = `${template({ topBar, messages, bottomBar })}`;
-  return conversation;
+  const content = `${template({ topBar, messages, bottomBar })}`;
+
+  return content;
 };
-// export default '<div>{{ avatar }} {{ username }} {{ button }}</div>';
+
+export default conversation;

@@ -1,6 +1,6 @@
 import authorization from '../../layouts/authorization';
 import link from '../../components/link';
-import { registerForm } from './modules/registerForm';
+import registerForm from './modules/registerForm';
 
 const register = authorization.render({
   form: registerForm(),

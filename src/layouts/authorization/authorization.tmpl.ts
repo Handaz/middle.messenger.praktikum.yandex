@@ -1,3 +1,9 @@
-import classes from './authorization.module.scss';
+import * as classes from './authorization.module.scss';
 
-export default `<main><div class=${classes.authorization}><div>{{ form }}<div> {{link}}</div></main>`;
+export default `
+<main>
+    <div class=${classes.authorization}>
+        <div> {{ form }} </div> 
+        {{link}}
+    </div>
+</main>`;

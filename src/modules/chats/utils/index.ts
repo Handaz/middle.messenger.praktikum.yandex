@@ -1,4 +1,4 @@
-export const chatsData = [
+export default [
   {
     username: 'test',
     sender: '',

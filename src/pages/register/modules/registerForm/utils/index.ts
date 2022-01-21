@@ -1,4 +1,4 @@
-export const fieldsData = [
+export default [
   { name: 'email', placeholder: 'Email', type: 'email' },
   { name: 'login', placeholder: 'Login', type: 'text' },
   { name: 'first_name', placeholder: 'Name', type: 'text' },

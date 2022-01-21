@@ -6,7 +6,7 @@ import input from '../../components/form/input';
 import link from '../../components/link';
 import avatar from '../../components/avatar';
 import profile from './components/profile';
-import { chatsData } from './utils';
+import chatsData from './utils';
 
 const chats = () => {
   const template = Handlebars.compile(chatsTmpl, {
@@ -25,17 +25,17 @@ const chats = () => {
       sender,
       message,
       time,
-    })
+    }),
   );
 
-  const chats = sidebar.render({
+  const content = sidebar.render({
     content: template({
       profile: profileLink,
       search: input.render({}),
       chatList,
     }),
   });
-  return chats;
+  return content;
 };
 
 export default chats;

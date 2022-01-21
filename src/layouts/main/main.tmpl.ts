@@ -1,3 +1,7 @@
-import classes from './main.module.scss';
+import * as classes from './main.module.scss';
 
-export default `<main class=${classes.main}>{{ chats }} {{ content }}</main>`;
+export default `
+<main class=${classes.main}>
+    {{ chats }} 
+    {{ content }}
+</main>`;

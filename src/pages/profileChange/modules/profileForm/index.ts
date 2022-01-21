@@ -4,15 +4,15 @@ import form from '../../../../components/form';
 import input from '../../../../components/form/input';
 import button from '../../../../components/button';
 import avatar from '../../../../components/avatar';
-import { fieldsData } from './utils';
+import fieldsData from './utils';
 
-export const profileForm = () => {
+const profileForm = () => {
   const template = Handlebars.compile(profileFormTmpl, {
     noEscape: true,
   });
 
   const fields = fieldsData.map(({ name, placeholder, type }) =>
-    input.render({ name, placeholder, type })
+    input.render({ name, placeholder, type }),
   );
 
   const content = template({
@@ -28,3 +28,5 @@ export const profileForm = () => {
 
   return content;
 };
+
+export default profileForm;

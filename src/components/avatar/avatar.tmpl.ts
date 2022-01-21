@@ -1,1 +1,1 @@
-export default '<img src="{{ source }}" >';
+export default `<img src="{{ source }}" >`;

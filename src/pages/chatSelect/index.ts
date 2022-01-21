@@ -1,6 +1,6 @@
 import main from '../../layouts/main';
 import systemMessage from './components/systemMessage';
-import { chats } from '../../modules/chats';
+import chats from '../../modules/chats';
 
 const chatSelect = main.render({
   chats: chats(),

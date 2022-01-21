@@ -4,12 +4,12 @@ import link from '../../../../components/link';
 import avatar from '../../../../components/avatar';
 import { profileFields, profileLinks } from '../../utils';
 
-export const profileInfo = () => {
+const profileInfo = () => {
   const template = Handlebars.compile(profileInfoTmpl, {
     noEscape: true,
   });
   const links = profileLinks.map(({ url, content }) =>
-    link.render({ url, content })
+    link.render({ url, content }),
   );
 
   const content = template({
@@ -23,3 +23,5 @@ export const profileInfo = () => {
 
   return content;
 };
+
+export default profileInfo;

@@ -3,7 +3,7 @@ import navigationTmpl from './navigation.tmpl';
 import link from '../../components/link';
 import sidebar from '../../components/sidebar';
 
-export const navigation = () => {
+const navigation = () => {
   const template = Handlebars.compile(navigationTmpl, {
     noEscape: true,
   });
@@ -17,3 +17,5 @@ export const navigation = () => {
 
   return sidebar.render({ content });
 };
+
+export default navigation;

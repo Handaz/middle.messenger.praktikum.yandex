@@ -1,1 +1,1 @@
-export default '<input type="{{ type }}" name="{{ name }}" placeholder="{{ placeholder }}" />';
+export default `<input type="{{ type }}" name="{{ name }}" placeholder="{{ placeholder }}" />`;

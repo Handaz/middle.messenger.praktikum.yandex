@@ -1,1 +1,1 @@
-export default '<div class="registerForm">{{ content }}</div>';
+export default `<div class="registerForm">{{ content }}</div>`;
