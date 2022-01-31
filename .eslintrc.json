@@ -4,7 +4,10 @@
   "plugins": ["prettier", "@typescript-eslint"],
   "rules": {
     "@typescript-eslint/no-unused-vars": 2,
-    "global-require": "off"
+    "global-require": "off",
+    "no-underscore-dangle": "off",
+    "no-param-reassign": "off",
+    "class-methods-use-this": "off"
   },
   "parserOptions": {
     "project": "./tsconfig.json"
