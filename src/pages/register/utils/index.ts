@@ -1,4 +1,6 @@
-export default [
+import { IInput } from '../../../components/form/input/types';
+
+const fieldsData: IInput[] = [
   { name: 'email', placeholder: 'Email', type: 'email' },
   { name: 'login', placeholder: 'Login', type: 'text' },
   { name: 'first_name', placeholder: 'Name', type: 'text' },
@@ -7,3 +9,5 @@ export default [
   { name: 'password', placeholder: 'Password', type: 'password' },
   { name: 'password', placeholder: 'Confirm password', type: 'password' },
 ];
+
+export default fieldsData;

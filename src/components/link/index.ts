@@ -1,8 +1,15 @@
-import Handlebars from 'handlebars';
 import template from './link.tmpl';
+import { ILink } from './types';
+import Block from '../../modules/block';
 
-const render = Handlebars.compile(template, { noEscape: true });
+export default class Form extends Block {
+  constructor(props: ILink) {
+    super(template, props);
+  }
 
-export default {
-  render,
-};
+  render() {
+    const { url, content } = this.props;
+
+    return this.compile({ url, content });
+  }
+}

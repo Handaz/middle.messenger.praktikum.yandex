@@ -1,14 +1,19 @@
-import Button from '../../components/button';
 import Block from '../../modules/block';
+import LoginForm from './modules/loginForm';
+
+import ContentBlock from '../../components/contentBlock';
+import Button from '../../components/button';
 import Input from '../../components/form/input';
 import Form from '../../components/form';
-import LoginForm from './modules/loginForm';
+import Link from '../../components/link';
+
+import { ILogin } from './types';
 import authorization from '../../layouts/authorization';
 import fieldsData from './utils';
 import render from '../../utils/renderDom';
 
 class Login extends Block {
-  constructor(props: any) {
+  constructor(props: ILogin) {
     super(authorization.template, props);
   }
 
@@ -42,18 +47,19 @@ const loginForm = new LoginForm({
   content: form,
 });
 
+const link = new Link({ content: 'Sign up', url: './register.html' });
+
 const login = new Login({
   form: loginForm,
-  // link: link.render({ content: 'Sign up', url: './register.html' }),
+  link,
 });
 
-setTimeout(() => {
-  button.setProps({
-    events: {
-      click: () => console.log('b'),
-    },
-  });
-}, 3000);
+const content = new ContentBlock({
+  title: 'Sign in',
+  content: login,
+});
+
+render('#root', content);
 
 // const login = authorization.render({
 //   form: loginForm(),
@@ -79,5 +85,3 @@ setTimeout(() => {
 
 //   return template({ content });
 // };
-
-render('#root', login);

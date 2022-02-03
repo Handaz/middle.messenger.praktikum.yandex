@@ -1,6 +1,6 @@
-import { InputType } from '../../../components/form/input/types';
+import { IInput } from '../../../components/form/input/types';
 
-const fieldsData: { name: string; placeholder: string; type: InputType }[] = [
+const fieldsData: IInput[] = [
   { name: 'login', placeholder: 'Login', type: 'text' },
   { name: 'password', placeholder: 'Password', type: 'password' },
 ];

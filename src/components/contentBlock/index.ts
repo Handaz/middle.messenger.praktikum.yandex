@@ -1,8 +1,15 @@
-import Handlebars from 'handlebars';
+import Block from '../../modules/block';
 import template from './contentBlock.tmpl';
+import { IContentBlock } from './types';
 
-const render = Handlebars.compile(template, { noEscape: true });
+export default class ContentBlock extends Block {
+  constructor(props: IContentBlock) {
+    super(template, props);
+  }
 
-export default {
-  render,
-};
+  render() {
+    const { title, content } = this.props;
+
+    return this.compile({ title, content });
+  }
+}
