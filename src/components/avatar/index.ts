@@ -1,8 +1,15 @@
-import Handlebars from 'handlebars';
+import Block from '../../modules/block';
 import template from './avatar.tmpl';
+import { IAvatar } from './types';
 
-const render = Handlebars.compile(template, { noEscape: true });
+export default class Avatar extends Block {
+  constructor(props: IAvatar) {
+    super(template, props);
+  }
 
-export default {
-  render,
-};
+  render() {
+    const { source } = this.props;
+
+    return this.compile({ source });
+  }
+}

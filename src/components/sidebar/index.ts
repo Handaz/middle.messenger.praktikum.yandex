@@ -1,8 +1,15 @@
-import Handlebars from 'handlebars';
+import Block from '../../modules/block';
 import template from './sidebar.tmpl';
+import { ISidebar } from './types';
 
-const render = Handlebars.compile(template, { noEscape: true });
+export default class Sidebar extends Block {
+  constructor(props: ISidebar) {
+    super(template, props);
+  }
 
-export default {
-  render,
-};
+  render() {
+    const { content } = this.props;
+
+    return this.compile({ content });
+  }
+}

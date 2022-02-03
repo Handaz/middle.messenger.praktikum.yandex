@@ -1,41 +1,19 @@
-import Handlebars from 'handlebars';
+import Block from '../block';
 import chatsTmpl from './chats.tmpl';
-import sidebar from '../../components/sidebar';
-import chat from './components/chat';
-import input from '../../components/form/input';
-import link from '../../components/link';
-import avatar from '../../components/avatar';
-import profile from './components/profile';
-import chatsData from './utils';
+import { IChats } from './types';
 
-const chats = () => {
-  const template = Handlebars.compile(chatsTmpl, {
-    noEscape: true,
-  });
-  const profileLink = link.render({
-    content: profile.render({}),
-    url: 'profile.html',
-  });
-  const chatList = chatsData.map(({ username, sender, message, time }) =>
-    chat.render({
-      avatar: avatar.render({
-        source: require('../../../static/images/userAvatar.png'),
-      }),
-      username: link.render({ content: username, url: 'chatSelected.html' }),
-      sender,
-      message,
-      time,
-    }),
-  );
+export default class Chats extends Block {
+  constructor(props: IChats) {
+    super(chatsTmpl, props);
+  }
 
-  const content = sidebar.render({
-    content: template({
-      profile: profileLink,
-      search: input.render({}),
+  render() {
+    const { profile, search, chatList } = this.props;
+
+    return this.compile({
+      profile,
+      search,
       chatList,
-    }),
-  });
-  return content;
-};
-
-export default chats;
+    });
+  }
+}

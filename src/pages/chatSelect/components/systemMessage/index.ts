@@ -1,8 +1,15 @@
-import Handlebars from 'handlebars';
+import Block from '../../../../modules/block';
 import template from './systemMessage.tmpl';
+import { ISystemMessage } from './types';
 
-const render = Handlebars.compile(template, { noEscape: true });
+export default class SystemMessage extends Block {
+  constructor(props: ISystemMessage) {
+    super(template, props);
+  }
 
-export default {
-  render,
-};
+  render() {
+    const { message } = this.props;
+
+    return this.compile({ message });
+  }
+}
