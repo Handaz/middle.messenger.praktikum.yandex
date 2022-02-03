@@ -1,16 +1,16 @@
 import Handlebars from 'handlebars';
 import registerFormTmpl from './registerForm.tmpl';
 import emptyForm from '../../../../components/form';
-import button from '../../../../components/button';
+// import button from '../../../../components/button';
 import input from '../../../../components/form/input';
 import contentBlock from '../../../../components/contentBlock';
 import fieldsData from './utils';
 
 const registerForm = () => {
-  const registerButton = button.render({
-    content: 'Sign in',
-    type: 'submit',
-  });
+  // const registerButton = button.render({
+  //   content: 'Sign in',
+  //   type: 'submit',
+  // });
 
   const fields = fieldsData.map(({ name, placeholder, type }) =>
     input.render({ name, placeholder, type }),
@@ -18,7 +18,7 @@ const registerForm = () => {
 
   const form = emptyForm.render({
     fields,
-    button: registerButton,
+    // button: registerButton,
     vertical: true,
   });
 

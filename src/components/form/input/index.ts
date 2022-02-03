@@ -1,10 +1,15 @@
-import Handlebars from 'handlebars';
 import template from './input.tmpl';
+import { IInput } from './types';
+import Block from '../../../modules/block';
 
-import './input.module.scss';
+export default class Input extends Block {
+  constructor(props: IInput) {
+    super(template, props);
+  }
 
-const render = Handlebars.compile(template, { noEscape: true });
+  render() {
+    const { type, name, placeholder } = this.props;
 
-export default {
-  render,
-};
+    return this.compile({ type, name, placeholder });
+  }
+}

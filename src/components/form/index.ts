@@ -1,10 +1,15 @@
-import Handlebars from 'handlebars';
 import template from './form.tmpl';
+import { IForm } from './types';
+import Block from '../../modules/block';
 
-import './form.module.scss';
+export default class Form extends Block {
+  constructor(props: IForm) {
+    super(template, props);
+  }
 
-const render = Handlebars.compile(template, { noEscape: true });
+  render() {
+    const { vertical, fields, button } = this.props;
 
-export default {
-  render,
-};
+    return this.compile({ vertical, fields, button });
+  }
+}

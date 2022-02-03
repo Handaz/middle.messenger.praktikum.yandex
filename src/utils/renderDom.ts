@@ -8,8 +8,7 @@ export default function render(query: string, block: Block): Nullable<Element> {
     return root;
   }
 
-  // Можно завязаться на реализации вашего класса Block
-  root.appendChild(block.getContent());
+  root.appendChild(block.getContent()!);
 
   block.dispatchComponentDidMount();
 

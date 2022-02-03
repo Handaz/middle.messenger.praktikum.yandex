@@ -1,8 +1,15 @@
-import Handlebars from 'handlebars';
+import Block from '../../modules/block';
 import template from './button.tmpl';
+import { IButton } from './types';
 
-const render = Handlebars.compile(template, { noEscape: true });
+export default class Button extends Block {
+  constructor(props: IButton) {
+    super(template, props);
+  }
 
-export default {
-  render,
-};
+  render() {
+    const { type, content } = this.props;
+
+    return this.compile({ type, content });
+  }
+}
