@@ -1,5 +1,4 @@
 import Block from '../../modules/block';
-import RegisterForm from './modules/registerForm';
 
 import ContentBlock from '../../components/contentBlock';
 import Button from '../../components/button';
@@ -42,20 +41,17 @@ const form = new Form({
   button,
 });
 
-const registerForm = new RegisterForm({
-  content: form,
-});
-
 const link = new Link({ content: 'Sign up', url: './register.html' });
 
 const register = new Register({
-  form: registerForm,
+  form,
   link,
 });
 
 const content = new ContentBlock({
   title: 'Sign up',
   content: register,
+  authForm: true,
 });
 
 render('#root', content);

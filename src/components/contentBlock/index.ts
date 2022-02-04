@@ -8,8 +8,8 @@ export default class ContentBlock extends Block {
   }
 
   render() {
-    const { title, content } = this.props;
+    const { title, content, authForm } = this.props;
 
-    return this.compile({ title, content });
+    return this.compile({ title, content, authForm });
   }
 }
