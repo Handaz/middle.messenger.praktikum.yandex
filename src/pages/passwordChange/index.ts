@@ -1,5 +1,5 @@
 import Block from '../../modules/block';
-import PasswordForm from './modules/passwordForm';
+import ProfileForm from '../../modules/profileForm';
 import Navigation from '../../modules/navigation';
 
 import Sidebar from '../../components/sidebar';
@@ -11,7 +11,7 @@ import Avatar from '../../components/avatar';
 
 import { IPasswordChange } from './types';
 import profile from '../../layouts/profile';
-import userAvatar from '../../../static/images/userAvatar.png';
+import profilePicture from '../../../static/images/profilePicture.png';
 import fieldsData from './utils';
 import render from '../../utils/renderDom';
 
@@ -59,10 +59,10 @@ const form = new Form({
 });
 
 const avatar = new Avatar({
-  source: userAvatar,
+  source: profilePicture,
 });
 
-const passwordForm = new PasswordForm({
+const passwordForm = new ProfileForm({
   avatar,
   form,
 });
