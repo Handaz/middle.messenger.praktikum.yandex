@@ -13,6 +13,7 @@ import main from '../../layouts/main';
 import chatsData from '../../utils/chatsData';
 import render from '../../utils/renderDom';
 import burgerIcon from '../../../static/icons/burgerIcon.svg';
+import userAvatar from '../../../static/images/userAvatar.png';
 
 class ChatSelect extends Block {
   constructor(props: IChatSelect) {
@@ -36,7 +37,7 @@ const chatList = chatsData.map(
   ({ username, sender, message, time }) =>
     new Chat({
       avatar: new Avatar({
-        source: require('../../../static/images/userAvatar.png'),
+        source: userAvatar,
       }),
       username: new Link({ content: username, url: 'chatSelected.html' }),
       sender,

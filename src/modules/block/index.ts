@@ -192,7 +192,9 @@ export default class Block<P = any> {
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
-      } else if (Array.isArray(value)) {
+      }
+      // TODO: ПРОРАБОТАЙ СЛУЧАЙ, КОГДА В ПРОПСАХ ПРИХОДИТ МАССИВ ДЕТЕЙ
+      else if (Array.isArray(value)) {
         value.forEach((el: Block, index) => {
           children[`child${index}`] = el;
         });
