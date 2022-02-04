@@ -1,4 +1,7 @@
-export const profileFields = [
+import { ILink } from '../../../components/link/types';
+import { IProfileField } from '../modules/profileInfo/types';
+
+export const profileFields: IProfileField[] = [
   { label: 'Email', value: 'test@yandex.ru' },
   { label: 'Login', value: 'test' },
   { label: 'Name', value: 'testName' },
@@ -7,7 +10,7 @@ export const profileFields = [
   { label: 'Phone', value: 'testPhoneNumber' },
 ];
 
-export const profileLinks = [
+export const profileLinks: ILink[] = [
   { url: 'profileChange.html', content: 'Change profile' },
   { url: 'passwordChange.html', content: 'Change password' },
   { url: 'login.html', content: 'Sign out' },

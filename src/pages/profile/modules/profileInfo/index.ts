@@ -1,27 +1,20 @@
-import Handlebars from 'handlebars';
-import profileInfoTmpl from './profileInfo.tmpl';
-import link from '../../../../components/link';
-import avatar from '../../../../components/avatar';
-import { profileFields, profileLinks } from '../../utils';
+import template from './profileInfo.tmpl';
+import Block from '../../../../modules/block';
+import { IProfileInfo } from './types';
 
-const profileInfo = () => {
-  const template = Handlebars.compile(profileInfoTmpl, {
-    noEscape: true,
-  });
-  const links = profileLinks.map(({ url, content }) =>
-    link.render({ url, content }),
-  );
+export default class ProfileInfo extends Block {
+  constructor(props: IProfileInfo) {
+    super(template, props);
+  }
 
-  const content = template({
-    avatar: avatar.render({
-      source: require('../../../../../static/images/profilePicture.png'),
-    }),
-    username: 'test',
-    profileFields,
-    links,
-  });
+  render() {
+    const { avatar, username, profileFields, links } = this.props;
 
-  return content;
-};
-
-export default profileInfo;
+    return this.compile({
+      avatar,
+      username,
+      profileFields,
+      links,
+    });
+  }
+}

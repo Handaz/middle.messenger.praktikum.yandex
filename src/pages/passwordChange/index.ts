@@ -31,8 +31,8 @@ class PasswordChange extends Block {
 }
 
 const link = new Link({
-  content: 'Back to chats',
-  url: 'chatSelect.html',
+  content: 'Back to profile',
+  url: 'profile.html',
 });
 
 const navigation = new Navigation({
