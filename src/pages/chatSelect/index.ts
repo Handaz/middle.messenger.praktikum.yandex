@@ -21,9 +21,11 @@ class ChatSelect extends Block {
   }
 
   render() {
+    const { chats, content } = this.props;
+
     return this.compile({
-      chats: this.props.chats,
-      message: this.props.systemMessage,
+      chats,
+      content,
     });
   }
 }

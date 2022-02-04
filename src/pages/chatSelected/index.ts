@@ -29,9 +29,11 @@ class ChatSelected extends Block {
   }
 
   render() {
+    const { chats, content } = this.props;
+
     return this.compile({
-      chats: this.props.chats,
-      message: this.props.systemMessage,
+      chats,
+      content,
     });
   }
 }
@@ -120,12 +122,12 @@ const content = new Conversation({
   bottomBar,
 });
 
-const chatSelect = new ChatSelected({
+const chatSelected = new ChatSelected({
   chats,
   content,
 });
 
-render('#root', chatSelect);
+render('#root', chatSelected);
 
 // const conversation = () => {
 //   const template = Handlebars.compile(conversationTmpl, {

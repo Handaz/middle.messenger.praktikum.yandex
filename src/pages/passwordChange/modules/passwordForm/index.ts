@@ -1,32 +1,18 @@
-import Handlebars from 'handlebars';
-import passwordFormTmpl from './passwordForm.tmpl';
-import form from '../../../../components/form';
-import input from '../../../../components/form/input';
-// import button from '../../../../components/button';
-import avatar from '../../../../components/avatar';
-import fieldsData from './utils';
+import template from './passwordForm.tmpl';
+import Block from '../../../../modules/block';
+import { IPasswordForm } from './types';
 
-const passwordForm = () => {
-  const template = Handlebars.compile(passwordFormTmpl, {
-    noEscape: true,
-  });
+export default class PasswordForm extends Block {
+  constructor(props: IPasswordForm) {
+    super(template, props);
+  }
 
-  const fields = fieldsData.map(({ name, placeholder, type }) =>
-    input.render({ name, placeholder, type }),
-  );
+  render() {
+    const { avatar, form } = this.props;
 
-  const content = template({
-    avatar: avatar.render({
-      source: require('../../../../../static/images/profilePicture.png'),
-    }),
-    form: form.render({
-      fields,
-      // button: button.render({ type: 'submit', content: 'Save' }),
-      vertical: true,
-    }),
-  });
-
-  return content;
-};
-
-export default passwordForm;
+    return this.compile({
+      avatar,
+      form,
+    });
+  }
+}

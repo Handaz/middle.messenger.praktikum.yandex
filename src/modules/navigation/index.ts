@@ -1,21 +1,17 @@
-import Handlebars from 'handlebars';
-import navigationTmpl from './navigation.tmpl';
-import link from '../../components/link';
-import sidebar from '../../components/sidebar';
+import Block from '../block';
+import template from './navigation.tmpl';
+import { INavigation } from './types';
 
-const navigation = () => {
-  const template = Handlebars.compile(navigationTmpl, {
-    noEscape: true,
-  });
+export default class Navigation extends Block {
+  constructor(props: INavigation) {
+    super(template, props);
+  }
 
-  const navButton = link.render({
-    content: 'Back to chats',
-    url: 'chatSelect.html',
-  });
+  render() {
+    const { link } = this.props;
 
-  const content = template({ button: navButton });
-
-  return sidebar.render({ content });
-};
-
-export default navigation;
+    return this.compile({
+      link,
+    });
+  }
+}
