@@ -1,8 +1,18 @@
-import Handlebars from 'handlebars';
+import Block from '../../../../../../modules/block';
 import template from './conversationActions.tmpl';
+import { IConversationActions } from './types';
 
-const render = Handlebars.compile(template, { noEscape: true });
+export default class ConversationActions extends Block {
+  constructor(props: IConversationActions) {
+    super(template, props);
+  }
 
-export default {
-  render,
-};
+  render() {
+    const { attachments, messageForm } = this.props;
+
+    return this.compile({
+      attachments,
+      messageForm,
+    });
+  }
+}

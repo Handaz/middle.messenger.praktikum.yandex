@@ -3,7 +3,7 @@ import Button from '../button';
 import Input from './input';
 
 export interface IForm extends BlockProps {
-  vertical: boolean;
+  vertical?: boolean;
   fields: Input[];
   button: Button;
 }

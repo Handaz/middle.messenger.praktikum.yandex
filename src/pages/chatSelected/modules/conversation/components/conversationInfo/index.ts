@@ -1,8 +1,19 @@
-import Handlebars from 'handlebars';
+import Block from '../../../../../../modules/block';
 import template from './conversationInfo.tmpl';
+import { IConversationInfo } from './types';
 
-const render = Handlebars.compile(template, { noEscape: true });
+export default class ConversationInfo extends Block {
+  constructor(props: IConversationInfo) {
+    super(template, props);
+  }
 
-export default {
-  render,
-};
+  render() {
+    const { avatar, username, button } = this.props;
+
+    return this.compile({
+      avatar,
+      username,
+      button,
+    });
+  }
+}
