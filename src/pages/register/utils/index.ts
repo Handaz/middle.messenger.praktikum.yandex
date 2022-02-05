@@ -7,7 +7,11 @@ const fieldsData: IInput[] = [
   { name: 'second_name', placeholder: 'Surname', type: 'text' },
   { name: 'phone', placeholder: 'Phone', type: 'text' },
   { name: 'password', placeholder: 'Password', type: 'password' },
-  { name: 'password', placeholder: 'Confirm password', type: 'password' },
+  {
+    name: 'passwordConfirm',
+    placeholder: 'Confirm password',
+    type: 'password',
+  },
 ];
 
 export default fieldsData;

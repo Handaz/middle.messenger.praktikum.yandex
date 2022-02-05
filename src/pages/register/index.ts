@@ -9,6 +9,7 @@ import Link from '../../components/link';
 import { IRegister } from './types';
 import authorization from '../../layouts/authorization';
 import fieldsData from './utils';
+import getFormValues from '../../utils/getFormValues';
 import render from '../../utils/renderDom';
 
 class Register extends Block {
@@ -17,18 +18,17 @@ class Register extends Block {
   }
 
   render() {
+    const { form, link } = this.props;
+
     return this.compile({
-      form: this.props.form,
-      link: this.props.link,
+      form,
+      link,
     });
   }
 }
 const button = new Button({
   content: 'Sign up',
   type: 'submit',
-  events: {
-    click: () => console.log('a'),
-  },
 });
 
 const fields = fieldsData.map(
@@ -39,6 +39,12 @@ const form = new Form({
   vertical: true,
   fields,
   button,
+  events: {
+    submit: (e: SubmitEvent) => {
+      e.preventDefault();
+      console.log(getFormValues(e.target));
+    },
+  },
 });
 
 const link = new Link({ content: 'Sign in', url: './login.html' });
@@ -55,44 +61,3 @@ const content = new Register({
 });
 
 render('#root', content);
-
-// const register = authorization.render({
-//   form: registerForm(),
-//   link: link.render({ content: 'Sign up', url: './login.html' }),
-// });
-
-// const root = document.querySelector('#root');
-
-// if (root) {
-//   root.innerHTML = register;
-// }
-
-// const registerForm = () => {
-//   // const registerButton = button.render({
-//   //   content: 'Sign in',
-//   //   type: 'submit',
-//   // });
-
-//   const fields = fieldsData.map(({ name, placeholder, type }) =>
-//     input.render({ name, placeholder, type }),
-//   );
-
-//   const form = emptyForm.render({
-//     fields,
-//     // button: registerButton,
-//     vertical: true,
-//   });
-
-//   const content = contentBlock.render({
-//     title: 'Sign up',
-//     content: form,
-//   });
-
-//   const template = Handlebars.compile(registerFormTmpl, {
-//     noEscape: true,
-//   });
-
-//   return template({ content });
-// };
-
-// export default registerForm;

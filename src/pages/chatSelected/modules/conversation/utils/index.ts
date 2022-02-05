@@ -1,3 +1,5 @@
+import cameraPhoto from '../../../../../../static/images/cameraPhoto.png';
+
 const conversationData = [
   {
     own: false,
@@ -8,7 +10,7 @@ const conversationData = [
   },
   {
     own: false,
-    content: `<img src='${require('../../../../static/images/cameraPhoto.png')}'>`,
+    content: `<img src='${cameraPhoto}'>`,
     status: null,
     time: '16:20',
   },

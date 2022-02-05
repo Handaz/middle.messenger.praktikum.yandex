@@ -9,6 +9,7 @@ import Link from '../../components/link';
 import { ILogin } from './types';
 import authorization from '../../layouts/authorization';
 import fieldsData from './utils';
+import getFormValues from '../../utils/getFormValues';
 import render from '../../utils/renderDom';
 
 class Login extends Block {
@@ -17,9 +18,11 @@ class Login extends Block {
   }
 
   render() {
+    const { form, link } = this.props;
+
     return this.compile({
-      form: this.props.form,
-      link: this.props.link,
+      form,
+      link,
     });
   }
 }
@@ -27,9 +30,6 @@ class Login extends Block {
 const button = new Button({
   content: 'Sign in',
   type: 'submit',
-  events: {
-    click: () => console.log('a'),
-  },
 });
 
 const fields = fieldsData.map(
@@ -40,6 +40,12 @@ const form = new Form({
   vertical: true,
   fields,
   button,
+  events: {
+    submit: (e: SubmitEvent) => {
+      e.preventDefault();
+      console.log(getFormValues(e.target));
+    },
+  },
 });
 
 const link = new Link({ content: 'Sign up', url: './register.html' });
@@ -56,28 +62,3 @@ const content = new Login({
 });
 
 render('#root', content);
-
-// const login = authorization.render({
-//   form: loginForm(),
-//   link: link.render({ content: 'Sign up', url: './register.html' }),
-// });
-
-// const loginForm = () => {
-//   const fields = fieldsData.map(({ name, placeholder, type }) =>
-//     input.render({ name, placeholder, type }),
-//   );
-//   const form = emptyForm.render({
-//     fields,
-//     button: loginButton,
-//     vertical: true,
-//   });
-//   const content = contentBlock.render({
-//     title: 'Sign in',
-//     content: form,
-//   });
-//   const template = Handlebars.compile(loginFormTmpl, {
-//     noEscape: true,
-//   });
-
-//   return template({ content });
-// };
