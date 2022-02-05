@@ -6,11 +6,11 @@ import Input from '../../components/form/input';
 import Form from '../../components/form';
 import Link from '../../components/link';
 
-import { ILogin } from './types';
 import authorization from '../../layouts/authorization';
+import { ILogin } from './types';
 import fieldsData from './utils';
-import handleSubmit from '../../utils/handleSubmit';
-import render from '../../utils/renderDom';
+import handleSubmit from '../../utils/functions/handleSubmit';
+import render from '../../utils/functions/renderDom';
 
 class Login extends Block {
   constructor(props: ILogin) {
@@ -41,7 +41,7 @@ const form = new Form({
   fields,
   button,
   events: {
-    submit: (e: SubmitEvent) => handleSubmit.bind(fields)(e),
+    submit: (e: SubmitEvent) => handleSubmit({ fields, e }),
   },
 });
 

@@ -4,7 +4,7 @@ import Link from '../../components/link';
 
 import error from '../../layouts/error';
 import { IError500 } from './types';
-import render from '../../utils/renderDom';
+import render from '../../utils/functions/renderDom';
 
 class Error500 extends Block {
   constructor(props: IError500) {
@@ -34,18 +34,3 @@ const content = new Error500({
 });
 
 render('#root', content);
-
-// import error from '../../layouts/error';
-// import link from '../../components/link';
-
-// const serverDownError = error.render({
-//   code: '500',
-//   text: 'We are fixing it',
-//   link: link.render({ url: 'chatSelect.html', content: 'Back to chats' }),
-// });
-
-// const root = document.querySelector('#root');
-
-// if (root) {
-//   root.innerHTML = serverDownError;
-// }

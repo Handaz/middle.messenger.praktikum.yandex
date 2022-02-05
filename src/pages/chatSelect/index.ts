@@ -1,12 +1,12 @@
 import Block from '../../modules/block';
-import Chats from '../../modules/chats';
+import { ChatsModule } from '../../modules/chats';
 
 import Sidebar from '../../components/sidebar';
 import SystemMessage from './components/systemMessage';
-import { IChatSelect } from './types';
 
 import main from '../../layouts/main';
-import render from '../../utils/renderDom';
+import { IChatSelect } from './types';
+import render from '../../utils/functions/renderDom';
 
 class ChatSelect extends Block {
   constructor(props: IChatSelect) {
@@ -23,17 +23,17 @@ class ChatSelect extends Block {
   }
 }
 
-const chats = Chats();
+const chats = ChatsModule();
 
 const sidebar = new Sidebar({
   content: chats,
 });
 
-const chatSelect = new ChatSelect({
+const content = new ChatSelect({
   chats: sidebar,
   content: new SystemMessage({
     message: 'Select a chat to start messaging',
   }),
 });
 
-render('#root', chatSelect);
+render('#root', content);

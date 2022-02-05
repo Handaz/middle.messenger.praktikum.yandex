@@ -9,9 +9,9 @@ import Link from '../../components/link';
 import { IChats } from './types';
 import burgerIcon from '../../../static/icons/burgerIcon';
 import userAvatar from '../../../static/images/userAvatar.png';
-import chatsData from '../../utils/chatsData';
+import chatsData from '../../utils/data/chatsData';
 
-class Chats extends Block {
+export class Chats extends Block {
   constructor(props: IChats) {
     super(chatsTmpl, props);
   }
@@ -27,7 +27,7 @@ class Chats extends Block {
   }
 }
 
-export default function chats(): Chats {
+export function ChatsModule(): Chats {
   const link = new Link({
     content: burgerIcon,
     url: 'profile.html',

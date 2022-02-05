@@ -1,16 +1,17 @@
-import template from './profileForm.tmpl';
 import Block from '../block';
-import { IProfileForm } from './types';
+import template from './profileForm.tmpl';
 
 import Input from '../../components/form/input';
 import Button from '../../components/button';
 import Form from '../../components/form';
 import Avatar from '../../components/avatar';
 
+import { IProfileForm } from './types';
+import { ValidationSchema } from '../../types';
 import profilePicture from '../../../static/images/profilePicture.png';
-import getFormValues from '../../utils/getFormValues';
+import handleSubmit from '../../utils/functions/handleSubmit';
 
-class ProfileForm extends Block {
+export class ProfileForm extends Block {
   constructor(props: IProfileForm) {
     super(template, props);
   }
@@ -25,7 +26,10 @@ class ProfileForm extends Block {
   }
 }
 
-export default function profileForm(fields: Input[]): ProfileForm {
+export function ProfileFormModule(
+  fields: Input[],
+  validationSchema: ValidationSchema,
+): ProfileForm {
   const button = new Button({
     type: 'submit',
     content: 'Save',
@@ -36,10 +40,7 @@ export default function profileForm(fields: Input[]): ProfileForm {
     button,
     vertical: true,
     events: {
-      submit: (e: SubmitEvent) => {
-        e.preventDefault();
-        console.log(getFormValues(e.target));
-      },
+      submit: (e: SubmitEvent) => handleSubmit({ e, fields, validationSchema }),
     },
   });
 

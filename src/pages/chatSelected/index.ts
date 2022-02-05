@@ -1,12 +1,12 @@
 import Block from '../../modules/block';
-import Chats from '../../modules/chats';
-import Conversation from './modules/conversation';
+import { ChatsModule } from '../../modules/chats';
+import { ConversationModule } from './modules/conversation';
 
 import Sidebar from '../../components/sidebar';
 
-import { IChatSelected } from './types';
 import main from '../../layouts/main';
-import render from '../../utils/renderDom';
+import { IChatSelected } from './types';
+import render from '../../utils/functions/renderDom';
 
 class ChatSelected extends Block {
   constructor(props: IChatSelected) {
@@ -24,10 +24,10 @@ class ChatSelected extends Block {
 }
 
 const sidebar = new Sidebar({
-  content: Chats(),
+  content: ChatsModule(),
 });
 
-const conversation = Conversation();
+const conversation = ConversationModule();
 
 const content = new ChatSelected({
   chats: sidebar,

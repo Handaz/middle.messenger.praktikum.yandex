@@ -1,5 +1,5 @@
-import Input from '../components/form/input';
-import { FormValues, ValidationSchema } from '../types';
+import Input from '../../components/form/input';
+import { FormValues, ValidationSchema } from '../../types';
 
 export default function validateForm(
   fields: Input[],
@@ -7,6 +7,10 @@ export default function validateForm(
   validationSchema: ValidationSchema,
 ) {
   Object.entries(formValues).forEach(([name, value]) => {
+    if (!validationSchema[name]) {
+      return;
+    }
+
     const { rule, error } = validationSchema[name];
 
     if (rule instanceof RegExp) {

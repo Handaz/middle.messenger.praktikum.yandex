@@ -6,11 +6,12 @@ import Input from '../../components/form/input';
 import Form from '../../components/form';
 import Link from '../../components/link';
 
-import { IRegister } from './types';
 import authorization from '../../layouts/authorization';
-import { fieldsData, validationSchema } from './utils';
-import render from '../../utils/renderDom';
-import handleSubmit from '../../utils/handleSubmit';
+import { IRegister } from './types';
+import fieldsData from './utils';
+import validationSchema from '../../utils/data/userValidationSchema';
+import render from '../../utils/functions/renderDom';
+import handleSubmit from '../../utils/functions/handleSubmit';
 
 class Register extends Block {
   constructor(props: IRegister) {
@@ -40,7 +41,7 @@ const form = new Form({
   fields,
   button,
   events: {
-    submit: (e: SubmitEvent) => handleSubmit.bind(fields)(e, validationSchema),
+    submit: (e: SubmitEvent) => handleSubmit({ fields, e, validationSchema }),
   },
 });
 

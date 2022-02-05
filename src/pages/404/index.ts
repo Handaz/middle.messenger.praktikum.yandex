@@ -4,7 +4,7 @@ import Link from '../../components/link';
 
 import error from '../../layouts/error';
 import { IError404 } from './types';
-import render from '../../utils/renderDom';
+import render from '../../utils/functions/renderDom';
 
 class Error404 extends Block {
   constructor(props: IError404) {
@@ -34,18 +34,3 @@ const content = new Error404({
 });
 
 render('#root', content);
-
-// import error from '../../layouts/error';
-// import link from '../../components/link';
-
-// const notFoundError = error.render({
-//   code: '404',
-//   text: 'Wrong path',
-//   link: link.render({ url: 'chatSelect.html', content: 'Back to chats' }),
-// });
-
-// const root = document.querySelector('#root');
-
-// if (root) {
-//   root.innerHTML = notFoundError;
-// }

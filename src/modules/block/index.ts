@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
-import { Nullable } from '../../types';
 import EventBus from '../eventBus';
+import { Nullable } from '../../types';
 
 type Events = typeof Block.EVENTS[keyof typeof Block.EVENTS];
 

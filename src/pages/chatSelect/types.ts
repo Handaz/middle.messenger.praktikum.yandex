@@ -1,4 +1,4 @@
-import Chats from '../../modules/chats';
+import { Chats } from '../../modules/chats';
 import SystemMessage from './components/systemMessage';
 import { BlockProps } from '../../types';
 

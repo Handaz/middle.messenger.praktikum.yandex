@@ -1,6 +1,6 @@
+import Block from '../../modules/block';
 import template from './form.tmpl';
 import { IForm } from './types';
-import Block from '../../modules/block';
 
 export default class Form extends Block {
   constructor(props: IForm) {

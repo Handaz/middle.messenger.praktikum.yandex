@@ -1,5 +1,5 @@
-import template from './profileInfo.tmpl';
 import Block from '../../../../modules/block';
+import template from './profileInfo.tmpl';
 
 import Link from '../../../../components/link';
 import Avatar from '../../../../components/avatar';
@@ -8,7 +8,7 @@ import { IProfileInfo } from './types';
 import { profileLinks, fields } from './utils';
 import profilePicture from '../../../../../static/images/profilePicture.png';
 
-class ProfileInfo extends Block {
+export class ProfileInfo extends Block {
   constructor(props: IProfileInfo) {
     super(template, props);
   }
@@ -25,7 +25,7 @@ class ProfileInfo extends Block {
   }
 }
 
-export default function profileInfo(): ProfileInfo {
+export function ProfileInfoModule(): ProfileInfo {
   const links = profileLinks.map(
     ({ url, content }) => new Link({ url, content }),
   );
@@ -33,6 +33,7 @@ export default function profileInfo(): ProfileInfo {
   const avatar = new Avatar({
     source: profilePicture,
   });
+
   return new ProfileInfo({
     avatar,
     links,

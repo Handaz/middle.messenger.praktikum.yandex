@@ -1,15 +1,16 @@
 import Block from '../../modules/block';
-import ProfileForm from '../../modules/profileForm';
+import { ProfileFormModule } from '../../modules/profileForm';
 
 import Navigation from '../../components/navigation';
 import Sidebar from '../../components/sidebar';
 import Input from '../../components/form/input';
 import Link from '../../components/link';
 
-import { IProfileChange } from './types';
 import profile from '../../layouts/profile';
+import { IProfileChange } from './types';
 import fieldsData from './utils';
-import render from '../../utils/renderDom';
+import validationSchema from '../../utils/data/userValidationSchema';
+import render from '../../utils/functions/renderDom';
 
 class ProfileChange extends Block {
   constructor(props: IProfileChange) {
@@ -43,7 +44,7 @@ const fields = fieldsData.map(
   ({ name, placeholder, type }) => new Input({ name, placeholder, type }),
 );
 
-const passwordForm = ProfileForm(fields);
+const passwordForm = ProfileFormModule(fields, validationSchema);
 
 const content = new ProfileChange({
   sidebar,

@@ -1,13 +1,13 @@
 import Block from '../../modules/block';
-import ProfileInfo from './modules/profileInfo';
+import { ProfileInfoModule } from './modules/profileInfo';
 
 import Navigation from '../../components/navigation';
 import Sidebar from '../../components/sidebar';
 import Link from '../../components/link';
 
-import { IProfile } from './types';
 import profile from '../../layouts/profile';
-import render from '../../utils/renderDom';
+import { IProfile } from './types';
+import render from '../../utils/functions/renderDom';
 
 class Profile extends Block {
   constructor(props: IProfile) {
@@ -37,7 +37,7 @@ const sidebar = new Sidebar({
   content: navigation,
 });
 
-const profileInfo = ProfileInfo();
+const profileInfo = ProfileInfoModule();
 
 const content = new Profile({
   sidebar,

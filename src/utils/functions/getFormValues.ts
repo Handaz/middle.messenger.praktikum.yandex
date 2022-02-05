@@ -1,4 +1,4 @@
-import { FormValues } from '../types';
+import { FormValues } from '../../types';
 
 export default function getFormValues(
   eventTarget: EventTarget | null,

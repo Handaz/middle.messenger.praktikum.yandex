@@ -14,9 +14,9 @@ import infoIcon from '../../../../../static/icons/infoIcon';
 import optionsIcon from '../../../../../static/icons/optionsIcon';
 import userAvatar from '../../../../../static/images/userAvatar.png';
 import { conversationData, validationSchema } from './utils';
-import handleSubmit from '../../../../utils/handleSubmit';
+import handleSubmit from '../../../../utils/functions/handleSubmit';
 
-class Conversation extends Block {
+export class Conversation extends Block {
   constructor(props: IConversation) {
     super(template, props);
   }
@@ -32,7 +32,7 @@ class Conversation extends Block {
   }
 }
 
-export default function conversation(): Conversation {
+export function ConversationModule(): Conversation {
   const infoButton = new Button({
     type: 'button',
     content: infoIcon,
@@ -79,7 +79,7 @@ export default function conversation(): Conversation {
     button: messageButton,
     events: {
       submit: (e: SubmitEvent) =>
-        handleSubmit.bind(messageField)(e, validationSchema),
+        handleSubmit({ e, fields: messageField, validationSchema }),
     },
   });
 
