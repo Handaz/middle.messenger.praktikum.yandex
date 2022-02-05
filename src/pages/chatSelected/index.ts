@@ -17,9 +17,9 @@ import { IChatSelected } from './types';
 import main from '../../layouts/main';
 import chatsData from '../../utils/chatsData';
 import render from '../../utils/renderDom';
-import burgerIcon from '../../../static/icons/burgerIcon.svg';
-import infoIcon from '../../../static/icons/infoIcon.svg';
-import optionsIcon from '../../../static/icons/optionsIcon.svg';
+import burgerIcon from '../../../static/icons/burgerIcon';
+import infoIcon from '../../../static/icons/infoIcon';
+import optionsIcon from '../../../static/icons/optionsIcon';
 import userAvatar from '../../../static/images/userAvatar.png';
 import conversationData from './utils';
 

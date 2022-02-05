@@ -12,7 +12,7 @@ import { IChatSelect } from './types';
 import main from '../../layouts/main';
 import chatsData from '../../utils/chatsData';
 import render from '../../utils/renderDom';
-import burgerIcon from '../../../static/icons/burgerIcon.svg';
+import burgerIcon from '../../../static/icons/burgerIcon';
 import userAvatar from '../../../static/images/userAvatar.png';
 
 class ChatSelect extends Block {
