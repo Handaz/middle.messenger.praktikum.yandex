@@ -1,7 +1,7 @@
-import { ILink } from '../../../components/link/types';
-import { IProfileField } from '../modules/profileInfo/types';
+import { ILink } from '../../../../../components/link/types';
+import { IProfileField } from '../types';
 
-export const profileFields: IProfileField[] = [
+export const fields: IProfileField[] = [
   { label: 'Email', value: 'test@yandex.ru' },
   { label: 'Login', value: 'test' },
   { label: 'Name', value: 'testName' },

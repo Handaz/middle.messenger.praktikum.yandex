@@ -4,11 +4,8 @@ import ProfileInfo from './modules/profileInfo';
 import Navigation from '../../components/navigation';
 import Sidebar from '../../components/sidebar';
 import Link from '../../components/link';
-import Avatar from '../../components/avatar';
 
 import { IProfile } from './types';
-import { profileLinks, profileFields } from './utils';
-import profilePicture from '../../../static/images/profilePicture.png';
 import profile from '../../layouts/profile';
 import render from '../../utils/renderDom';
 
@@ -40,20 +37,7 @@ const sidebar = new Sidebar({
   content: navigation,
 });
 
-const links = profileLinks.map(
-  ({ url, content }) => new Link({ url, content }),
-);
-
-const avatar = new Avatar({
-  source: profilePicture,
-});
-
-const profileInfo = new ProfileInfo({
-  avatar,
-  links,
-  username: 'test',
-  profileFields,
-});
+const profileInfo = ProfileInfo();
 
 const content = new Profile({
   sidebar,
