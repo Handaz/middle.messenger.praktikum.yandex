@@ -1,6 +1,7 @@
 import cameraPhoto from '../../../../../../static/images/cameraPhoto.png';
+import { ValidationSchema } from '../../../../../types';
 
-const conversationData = [
+export const conversationData = [
   {
     own: false,
     content:
@@ -22,4 +23,11 @@ const conversationData = [
   },
 ];
 
-export default conversationData;
+const messageRule = /^(?!\s*$)[a-zA-Z.+\s'-]+$/g;
+
+export const validationSchema: ValidationSchema = {
+  message: {
+    rule: messageRule,
+    error: '',
+  },
+};

@@ -6,15 +6,15 @@ import Avatar from '../../../../components/avatar';
 import Button from '../../../../components/button';
 import Input from '../../../../components/form/input';
 import Form from '../../../../components/form';
+import Message from './components/message';
 import ConversationActions from './components/conversationActions';
 
 import { IConversation } from './types';
 import infoIcon from '../../../../../static/icons/infoIcon';
 import optionsIcon from '../../../../../static/icons/optionsIcon';
 import userAvatar from '../../../../../static/images/userAvatar.png';
-import conversationData from './utils';
-import Message from './components/message';
-import getFormValues from '../../../../utils/getFormValues';
+import { conversationData, validationSchema } from './utils';
+import handleSubmit from '../../../../utils/handleSubmit';
 
 class Conversation extends Block {
   constructor(props: IConversation) {
@@ -61,11 +61,13 @@ export default function conversation(): Conversation {
     content: optionsIcon,
   });
 
-  const messageField = new Input({
-    name: 'message',
-    placeholder: 'Write a message...',
-    type: 'text',
-  });
+  const messageField = [
+    new Input({
+      name: 'message',
+      placeholder: 'Write a message...',
+      type: 'text',
+    }),
+  ];
 
   const messageButton = new Button({
     type: 'submit',
@@ -73,13 +75,11 @@ export default function conversation(): Conversation {
   });
 
   const messageForm = new Form({
-    fields: [messageField],
+    fields: messageField,
     button: messageButton,
     events: {
-      submit: (e: SubmitEvent) => {
-        e.preventDefault();
-        console.log(getFormValues(e.target));
-      },
+      submit: (e: SubmitEvent) =>
+        handleSubmit.bind(messageField)(e, validationSchema),
     },
   });
 

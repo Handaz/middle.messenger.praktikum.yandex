@@ -8,9 +8,9 @@ import Link from '../../components/link';
 
 import { IRegister } from './types';
 import authorization from '../../layouts/authorization';
-import fieldsData from './utils';
-import getFormValues from '../../utils/getFormValues';
+import { fieldsData, validationSchema } from './utils';
 import render from '../../utils/renderDom';
+import handleSubmit from '../../utils/handleSubmit';
 
 class Register extends Block {
   constructor(props: IRegister) {
@@ -40,10 +40,7 @@ const form = new Form({
   fields,
   button,
   events: {
-    submit: (e: SubmitEvent) => {
-      e.preventDefault();
-      console.log(getFormValues(e.target));
-    },
+    submit: (e: SubmitEvent) => handleSubmit.bind(fields)(e, validationSchema),
   },
 });
 

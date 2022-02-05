@@ -9,7 +9,7 @@ import Link from '../../components/link';
 import { ILogin } from './types';
 import authorization from '../../layouts/authorization';
 import fieldsData from './utils';
-import getFormValues from '../../utils/getFormValues';
+import handleSubmit from '../../utils/handleSubmit';
 import render from '../../utils/renderDom';
 
 class Login extends Block {
@@ -41,10 +41,7 @@ const form = new Form({
   fields,
   button,
   events: {
-    submit: (e: SubmitEvent) => {
-      e.preventDefault();
-      console.log(getFormValues(e.target));
-    },
+    submit: (e: SubmitEvent) => handleSubmit.bind(fields)(e),
   },
 });
 

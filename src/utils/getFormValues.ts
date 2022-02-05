@@ -1,4 +1,4 @@
-type FormValues = Record<string, string | number>;
+import { FormValues } from '../types';
 
 export default function getFormValues(
   eventTarget: EventTarget | null,
