@@ -1,6 +1,7 @@
 export default `
-<div>{{ avatar }}</div>
+<div>
+  <div>{{ avatar }}</div>
   <div>
     {{ form }}
   </<div>
-<div>`;
+</div>`;

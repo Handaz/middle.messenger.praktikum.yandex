@@ -171,7 +171,6 @@ export default class Block<P = any> {
     });
 
     const fragment = document.createElement('template');
-
     const render = Handlebars.compile(this._template, { noEscape: true });
     fragment.insertAdjacentHTML('afterbegin', render(propsAndStubs));
 

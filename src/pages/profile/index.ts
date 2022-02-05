@@ -8,7 +8,7 @@ import Avatar from '../../components/avatar';
 
 import { IProfile } from './types';
 import { profileLinks, profileFields } from './utils';
-import userAvatar from '../../../static/images/userAvatar.png';
+import profilePicture from '../../../static/images/profilePicture.png';
 import profile from '../../layouts/profile';
 import render from '../../utils/renderDom';
 
@@ -45,7 +45,7 @@ const links = profileLinks.map(
 );
 
 const avatar = new Avatar({
-  source: userAvatar,
+  source: profilePicture,
 });
 
 const profileInfo = new ProfileInfo({
