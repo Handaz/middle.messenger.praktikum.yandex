@@ -1,4 +1,4 @@
-import Block from '../block';
+import Block from '../../modules/block';
 import template from './navigation.tmpl';
 import { INavigation } from './types';
 

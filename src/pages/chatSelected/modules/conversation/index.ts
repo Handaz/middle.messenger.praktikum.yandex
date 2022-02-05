@@ -14,6 +14,7 @@ import optionsIcon from '../../../../../static/icons/optionsIcon';
 import userAvatar from '../../../../../static/images/userAvatar.png';
 import conversationData from './utils';
 import Message from './components/message';
+import getFormValues from '../../../../utils/getFormValues';
 
 class Conversation extends Block {
   constructor(props: IConversation) {
@@ -74,6 +75,12 @@ export default function conversation(): Conversation {
   const messageForm = new Form({
     fields: [messageField],
     button: messageButton,
+    events: {
+      submit: (e: SubmitEvent) => {
+        e.preventDefault();
+        console.log(getFormValues(e.target));
+      },
+    },
   });
 
   const bottomBar = new ConversationActions({

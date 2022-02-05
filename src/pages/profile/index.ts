@@ -1,7 +1,7 @@
 import Block from '../../modules/block';
-import Navigation from '../../modules/navigation';
 import ProfileInfo from './modules/profileInfo';
 
+import Navigation from '../../components/navigation';
 import Sidebar from '../../components/sidebar';
 import Link from '../../components/link';
 import Avatar from '../../components/avatar';
@@ -61,44 +61,3 @@ const content = new Profile({
 });
 
 render('#root', content);
-
-// import Handlebars from 'handlebars';
-// import profileInfoTmpl from './profileInfo.tmpl';
-// import link from '../../../../components/link';
-// import avatar from '../../../../components/avatar';
-// import { profileFields, profileLinks } from '../../utils';
-
-// const profileInfo = () => {
-//   const template = Handlebars.compile(profileInfoTmpl, {
-//     noEscape: true,
-//   });
-//   const links = profileLinks.map(({ url, content }) =>
-//     link.render({ url, content }),
-//   );
-
-//   const content = template({
-//     avatar: avatar.render({
-//       source: require('../../../../../static/images/profilePicture.png'),
-//     }),
-//     username: 'test',
-//     profileFields,
-//     links,
-//   });
-
-//   return content;
-// };
-
-// import profile from '../../layouts/profile';
-// import navigation from '../../modules/navigation';
-// import profileInfo from './modules/profileInfo';
-
-// const profileContent = profile.render({
-//   sidebar: navigation(),
-//   content: profileInfo(),
-// });
-
-// const root = document.querySelector('#root');
-
-// if (root) {
-//   root.innerHTML = profileContent;
-// }
