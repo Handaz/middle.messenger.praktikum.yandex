@@ -13,7 +13,7 @@ export default class Block<P = any> {
     FLOW_RENDER: 'flow:render',
   };
 
-  children: Record<string, Block>;
+  children: Record<string, Block | Block[]>;
 
   eventBus: () => EventBus<Events>;
 
@@ -58,7 +58,13 @@ export default class Block<P = any> {
     this.componentDidMount();
 
     Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount();
+      if (Array.isArray(child)) {
+        child.forEach((subChild) => {
+          subChild.dispatchComponentDidMount();
+        });
+      } else {
+        child.dispatchComponentDidMount();
+      }
     });
   }
 
@@ -153,9 +159,15 @@ export default class Block<P = any> {
     const propsAndStubs = { ...props };
 
     Object.entries(this.children).forEach(([key, child]) => {
-      (propsAndStubs as Record<string, any>)[
-        key
-      ] = `<div data-id="${child._id}"></div>`;
+      if (Array.isArray(child)) {
+        (propsAndStubs as Record<string, any>)[key] = child.map(
+          (subChild) => `<div data-id="${subChild._id}"></div>`,
+        );
+      } else {
+        (propsAndStubs as Record<string, any>)[
+          key
+        ] = `<div data-id="${child._id}"></div>`;
+      }
     });
 
     const fragment = document.createElement('template');
@@ -166,13 +178,25 @@ export default class Block<P = any> {
     const element = fragment.firstElementChild as HTMLElement;
 
     Object.values(this.children).forEach((child) => {
-      const stub = element.querySelector(`[data-id="${child._id}"]`);
+      if (Array.isArray(child)) {
+        child.forEach((subChild) => {
+          const stub = element.querySelector(`[data-id="${subChild._id}"]`);
 
-      if (!stub || !child.element) {
-        return;
+          if (!stub || !subChild.element) {
+            return;
+          }
+
+          stub!.replaceWith(subChild.element);
+        });
+      } else {
+        const stub = element.querySelector(`[data-id="${child._id}"]`);
+
+        if (!stub || !child.element) {
+          return;
+        }
+
+        stub!.replaceWith(child.element);
       }
-
-      stub!.replaceWith(child.element);
     });
 
     return element;
@@ -183,21 +207,18 @@ export default class Block<P = any> {
   }
 
   _getChildren(propsAndChildren: Record<string, any | Block>): {
-    children: Record<string, Block>;
+    children: Record<string, Block | Block[]>;
     props: P;
   } {
-    const children: Record<string, Block> = {};
+    const children: Record<string, Block | Block[]> = {};
     const props: P = {} as unknown as P;
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (value instanceof Block) {
+      if (
+        value instanceof Block ||
+        (Array.isArray(value) && value[0] instanceof Block)
+      ) {
         children[key] = value;
-      }
-      // TODO: ПРОРАБОТАЙ СЛУЧАЙ, КОГДА В ПРОПСАХ ПРИХОДИТ МАССИВ ДЕТЕЙ
-      else if (Array.isArray(value)) {
-        value.forEach((el: Block, index) => {
-          children[`child${index}`] = el;
-        });
       } else {
         (props as Record<string, any>)[key] = value;
       }

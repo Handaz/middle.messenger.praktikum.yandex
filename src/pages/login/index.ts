@@ -44,15 +44,15 @@ const form = new Form({
 
 const link = new Link({ content: 'Sign up', url: './register.html' });
 
-const login = new Login({
-  form,
-  link,
+const loginForm = new ContentBlock({
+  title: 'Sign in',
+  content: form,
+  authForm: true,
 });
 
-const content = new ContentBlock({
-  title: 'Sign in',
-  content: login,
-  authForm: true,
+const content = new Login({
+  form: loginForm,
+  link,
 });
 
 render('#root', content);

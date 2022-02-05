@@ -41,17 +41,17 @@ const form = new Form({
   button,
 });
 
-const link = new Link({ content: 'Sign up', url: './register.html' });
+const link = new Link({ content: 'Sign in', url: './login.html' });
 
-const register = new Register({
-  form,
-  link,
+const registerForm = new ContentBlock({
+  title: 'Sign up',
+  content: form,
+  authForm: true,
 });
 
-const content = new ContentBlock({
-  title: 'Sign up',
-  content: register,
-  authForm: true,
+const content = new Register({
+  form: registerForm,
+  link,
 });
 
 render('#root', content);

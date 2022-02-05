@@ -8,7 +8,7 @@ const conversationData = [
   },
   {
     own: false,
-    content: `<img src='${require('../../../../../../static/images/cameraPhoto.png')}'>`,
+    content: `<img src='${require('../../../../static/images/cameraPhoto.png')}'>`,
     status: null,
     time: '16:20',
   },
