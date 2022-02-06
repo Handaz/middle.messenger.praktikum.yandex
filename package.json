@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "npm run checkTsc && parcel static/pages/*.html",
     "start": "npm run build && node app.js",
-    "build": "npm run checkTsc && npm run linter && parcel build static/pages/*.html",
+    "build": "npm run checkTsc && npm run linter && npm run slinter && parcel build static/pages/*.html",
     "checkTsc": "npx tsc --noEmit",
-    "linter": "npx eslint . --ext .ts --fix"
+    "linter": "npx eslint . --ext .ts --fix",
+    "slinter": "npx stylelint '**/*.scss' --fix"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,10 @@
     "parcel": "^2.2.0",
     "prettier": "2.5.1",
     "sass": "^1.48.0",
+    "stylelint": "^14.3.0",
+    "stylelint-config-prettier-scss": "^0.0.1",
+    "stylelint-config-standard-scss": "^3.0.0",
+    "stylelint-scss": "^4.1.0",
     "typescript": "^4.5.4"
   },
   "dependencies": {

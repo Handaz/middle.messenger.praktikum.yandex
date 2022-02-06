@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&family=Sora:wght@400;600&display=swap');
-@import './global.scss';
+@import './global';
 
 :root {
   --danger: #f65d53;
@@ -18,17 +18,22 @@ body {
   margin: 0;
   background: var(--primary900);
   color: var(--clr-font);
-  font-family: 'Sora', sans-serif;
+  font-family: Sora, sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family:
+    source-code-pro,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Courier New',
     monospace;
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
   box-sizing: border-box;
 }
 

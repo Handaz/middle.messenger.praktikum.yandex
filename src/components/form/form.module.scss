@@ -1,7 +1,8 @@
-@import '../../styles/global.scss';
+@import '../../styles/global';
 
 .form {
   @include flexCenter;
+
   &.vertical {
     flex-direction: column;
   }
@@ -9,5 +10,5 @@
 
 .inputWrapper {
   position: relative;
-  padding: 10px 0px;
+  padding: 10px 0;
 }
