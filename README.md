@@ -5,6 +5,7 @@ This is a messanger project done by Ilya Zabolotny in terms of Yandex.Praktikum 
 Primarly inspired by [Telegram](https://web.telegram.org/) and its features.
 
 The project is built using handlebars template engine, sass and css modules.
+It's built around two main classes: Block and EventBus, which allow the implementation of 'reactive-components'.
 
 ```
 npm start - build project and start server
