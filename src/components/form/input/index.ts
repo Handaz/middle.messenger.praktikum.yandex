@@ -8,8 +8,8 @@ export default class Input extends Block {
   }
 
   render() {
-    const { type, name, placeholder, error } = this.props;
+    const { type, name, placeholder, error, value } = this.props;
 
-    return this.compile({ type, name, placeholder, error });
+    return this.compile({ type, name, placeholder, error, value });
   }
 }

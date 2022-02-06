@@ -5,6 +5,10 @@ import { Nullable } from '../../types';
 
 type Events = typeof Block.EVENTS[keyof typeof Block.EVENTS];
 
+type BlocksObject = Record<string, Block>;
+
+type Children = Record<string, Block | Block[] | BlocksObject[]>;
+
 export default class Block<P = any> {
   static EVENTS = {
     INIT: 'init',
@@ -13,7 +17,7 @@ export default class Block<P = any> {
     FLOW_RENDER: 'flow:render',
   };
 
-  children: Record<string, Block | Block[]>;
+  children: Children;
 
   eventBus: () => EventBus<Events>;
 
@@ -60,7 +64,13 @@ export default class Block<P = any> {
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
         child.forEach((subChild) => {
-          subChild.dispatchComponentDidMount();
+          if (typeof subChild === 'object') {
+            Object.values(subChild).forEach((el) => {
+              el.dispatchComponentDidMount();
+            });
+          } else {
+            (subChild as Block).dispatchComponentDidMount();
+          }
         });
       } else {
         child.dispatchComponentDidMount();
@@ -160,9 +170,17 @@ export default class Block<P = any> {
 
     Object.entries(this.children).forEach(([key, child]) => {
       if (Array.isArray(child)) {
-        (propsAndStubs as Record<string, any>)[key] = child.map(
-          (subChild) => `<div data-id="${subChild._id}"></div>`,
-        );
+        (propsAndStubs as Record<string, any>)[key] = child.map((subChild) => {
+          if (typeof subChild === 'object') {
+            return Object.keys(subChild).reduce((acc, k) => {
+              acc[k] = `<div data-id="${
+                (subChild as BlocksObject)[k]._id
+              }"></div>`;
+              return acc;
+            }, {} as Record<string, string>);
+          }
+          return `<div data-id="${(subChild as Block)._id}"></div>`;
+        });
       } else {
         (propsAndStubs as Record<string, any>)[
           key
@@ -179,13 +197,27 @@ export default class Block<P = any> {
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
         child.forEach((subChild) => {
-          const stub = element.querySelector(`[data-id="${subChild._id}"]`);
+          if (typeof subChild === 'object') {
+            Object.keys(subChild).forEach((k) => {
+              const block = (subChild as BlocksObject)[k];
+              const stub = element.querySelector(`[data-id="${block._id}"]`);
 
-          if (!stub || !subChild.element) {
-            return;
+              if (!stub || !block.element) {
+                return;
+              }
+
+              stub!.replaceWith(block.element);
+            });
+          } else {
+            const block = subChild as Block;
+            const stub = element.querySelector(`[data-id="${block._id}"]`);
+
+            if (!stub || !block.element) {
+              return;
+            }
+
+            stub!.replaceWith(block.element);
           }
-
-          stub!.replaceWith(subChild.element);
         });
       } else {
         const stub = element.querySelector(`[data-id="${child._id}"]`);
@@ -206,16 +238,17 @@ export default class Block<P = any> {
   }
 
   _getChildren(propsAndChildren: Record<string, any | Block>): {
-    children: Record<string, Block | Block[]>;
+    children: Children;
     props: P;
   } {
-    const children: Record<string, Block | Block[]> = {};
+    const children: Children = {};
     const props: P = {} as unknown as P;
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (
         value instanceof Block ||
-        (Array.isArray(value) && value[0] instanceof Block)
+        (Array.isArray(value) && value[0] instanceof Block) ||
+        (Array.isArray(value) && typeof value[0] === 'object')
       ) {
         children[key] = value;
       } else {

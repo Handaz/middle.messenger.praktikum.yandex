@@ -1,9 +1,12 @@
 import * as classes from './form.module.scss';
 
 export default `
-<form class='${classes.form} {{#if vertical}}${classes.vertical}{{/if}} '>
+<form class='${classes.form}{{#if vertical}} ${classes.vertical}{{/if}}' novalidate>
   {{#each fields}}
-    {{ this }}
+    <div class=${classes.inputWrapper}>
+      {{ this.input }}
+      {{#if this.error}} {{ this.error }} {{/if}}
+    </div>
   {{/each}}
   {{ button }}
 </form>`;

@@ -1,8 +1,3 @@
-.wrapper {
-  position: relative;
-  padding: 10px 0px;
-}
-
 .input {
   font-family: 'Sora', sans-serif;
   color: var(--clr-font);
@@ -17,14 +12,4 @@
 
 .inputError {
   border-bottom-color: var(--danger);
-}
-
-.error {
-  position: absolute;
-  left: 0;
-  color: var(--danger);
-  font-style: normal;
-  font-weight: normal;
-  font-size: 8px;
-  line-height: 10px;
 }

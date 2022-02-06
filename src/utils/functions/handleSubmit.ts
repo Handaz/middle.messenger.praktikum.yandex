@@ -2,13 +2,14 @@ import getFormValues from './getFormValues';
 import validateForm from './validateForm';
 import { ValidationSchema } from '../../types';
 import Input from '../../components/form/input';
+import Error from '../../components/form/error';
 
 export default function handleSubmit({
   fields,
   e,
   validationSchema,
 }: {
-  fields: Input[];
+  fields: { input: Input; error?: Error }[];
   e: SubmitEvent;
   validationSchema?: ValidationSchema;
 }) {
