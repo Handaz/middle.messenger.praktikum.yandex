@@ -1,18 +1,19 @@
 import getFormValues from './getFormValues';
 import validateForm from './validateForm';
 import { ValidationSchema } from '../../types';
-import Input from '../../components/form/input';
-import Error from '../../components/form/error';
+import { IFields } from '../../components/form/types';
+
+interface HandleSubmitProps {
+  fields: IFields[];
+  e: SubmitEvent;
+  validationSchema?: ValidationSchema;
+}
 
 export default function handleSubmit({
   fields,
   e,
   validationSchema,
-}: {
-  fields: { input: Input; error?: Error }[];
-  e: SubmitEvent;
-  validationSchema?: ValidationSchema;
-}) {
+}: HandleSubmitProps) {
   e.preventDefault();
 
   const formValues = getFormValues(e.target);

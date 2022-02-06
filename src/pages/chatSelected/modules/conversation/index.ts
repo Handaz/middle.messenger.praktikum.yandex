@@ -15,6 +15,7 @@ import optionsIcon from '../../../../../static/icons/optionsIcon';
 import userAvatar from '../../../../../static/images/userAvatar.png';
 import { conversationData, validationSchema } from './utils';
 import handleSubmit from '../../../../utils/functions/handleSubmit';
+import handleInputChange from '../../../../utils/functions/handleInputChange';
 
 export class Conversation extends Block {
   constructor(props: IConversation) {
@@ -62,12 +63,22 @@ export function ConversationModule(): Conversation {
   });
 
   const messageField = [
-    new Input({
-      name: 'message',
-      placeholder: 'Write a message...',
-      type: 'text',
-    }),
+    {
+      input: new Input({
+        name: 'message',
+        placeholder: 'Write a message...',
+        type: 'text',
+      }),
+    },
   ];
+
+  messageField[0].input.setProps({
+    events: {
+      blur: (e: FocusEvent) => {
+        handleInputChange(messageField[0].input, e);
+      },
+    },
+  });
 
   const messageButton = new Button({
     type: 'submit',

@@ -64,7 +64,7 @@ export default class Block<P = any> {
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
         child.forEach((subChild) => {
-          if (typeof subChild === 'object') {
+          if (this._isBlocksObject(subChild)) {
             Object.values(subChild).forEach((el) => {
               el.dispatchComponentDidMount();
             });
@@ -171,7 +171,7 @@ export default class Block<P = any> {
     Object.entries(this.children).forEach(([key, child]) => {
       if (Array.isArray(child)) {
         (propsAndStubs as Record<string, any>)[key] = child.map((subChild) => {
-          if (typeof subChild === 'object') {
+          if (this._isBlocksObject(subChild)) {
             return Object.keys(subChild).reduce((acc, k) => {
               acc[k] = `<div data-id="${
                 (subChild as BlocksObject)[k]._id
@@ -197,7 +197,7 @@ export default class Block<P = any> {
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
         child.forEach((subChild) => {
-          if (typeof subChild === 'object') {
+          if (this._isBlocksObject(subChild)) {
             Object.keys(subChild).forEach((k) => {
               const block = (subChild as BlocksObject)[k];
               const stub = element.querySelector(`[data-id="${block._id}"]`);
@@ -237,6 +237,16 @@ export default class Block<P = any> {
     return this.element;
   }
 
+  _isBlocksObject(obj: any): obj is BlocksObject {
+    let isBlocksObject = true;
+    Object.values(obj).forEach((val) => {
+      if (!(val instanceof Block)) {
+        isBlocksObject = false;
+      }
+    });
+    return isBlocksObject;
+  }
+
   _getChildren(propsAndChildren: Record<string, any | Block>): {
     children: Children;
     props: P;
@@ -248,7 +258,7 @@ export default class Block<P = any> {
       if (
         value instanceof Block ||
         (Array.isArray(value) && value[0] instanceof Block) ||
-        (Array.isArray(value) && typeof value[0] === 'object')
+        (Array.isArray(value) && value.every((el) => this._isBlocksObject(el)))
       ) {
         children[key] = value;
       } else {

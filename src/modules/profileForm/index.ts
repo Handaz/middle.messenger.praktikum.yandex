@@ -1,7 +1,6 @@
 import Block from '../block';
 import template from './profileForm.tmpl';
 
-import Input from '../../components/form/input';
 import Button from '../../components/button';
 import Form from '../../components/form';
 import Avatar from '../../components/avatar';
@@ -10,6 +9,7 @@ import { IProfileForm } from './types';
 import { ValidationSchema } from '../../types';
 import profilePicture from '../../../static/images/profilePicture.png';
 import handleSubmit from '../../utils/functions/handleSubmit';
+import { IFields } from '../../components/form/types';
 
 export class ProfileForm extends Block {
   constructor(props: IProfileForm) {
@@ -27,7 +27,7 @@ export class ProfileForm extends Block {
 }
 
 export function ProfileFormModule(
-  fields: Input[],
+  fields: IFields[],
   validationSchema: ValidationSchema,
 ): ProfileForm {
   const button = new Button({

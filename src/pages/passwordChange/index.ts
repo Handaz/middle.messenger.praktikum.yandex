@@ -11,6 +11,9 @@ import { IPasswordChange } from './types';
 import fieldsData from './utils';
 import render from '../../utils/functions/renderDom';
 import validationSchema from '../../utils/data/userValidationSchema';
+import handleInputChange from '../../utils/functions/handleInputChange';
+import validateField from '../../utils/functions/validateField';
+import FormError from '../../components/form/error';
 
 class PasswordChange extends Block {
   constructor(props: IPasswordChange) {
@@ -40,9 +43,21 @@ const sidebar = new Sidebar({
   content: navigation,
 });
 
-const fields = fieldsData.map(
-  ({ name, placeholder, type }) => new Input({ name, placeholder, type }),
-);
+const fields = fieldsData.map(({ name, placeholder, type }) => ({
+  input: new Input({ name, placeholder, type }),
+  error: new FormError({}),
+}));
+
+fields.forEach(({ input, error }) => {
+  input.setProps({
+    events: {
+      blur: (e: FocusEvent) => {
+        handleInputChange(input, e);
+        validateField(input, error, validationSchema, fields);
+      },
+    },
+  });
+});
 
 const passwordForm = ProfileFormModule(fields, validationSchema);
 
