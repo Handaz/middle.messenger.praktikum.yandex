@@ -15,3 +15,5 @@ npm run build - build project
 ### Figma: https://www.figma.com/file/A0uWOBGsw72xu9Q9o7FI0c/messanger-yandex?node-id=15%3A3
 
 ### Deploy: https://clever-morse-af14a7.netlify.app/
+
+## Pull: https://github.com/Handaz/middle.messenger.praktikum.yandex/pull/2
