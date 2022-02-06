@@ -1,3 +1,14 @@
-.button {
-  background-color: blue;
+.btn {
+  outline: none;
+  border: none;
+  padding: 12px;
+  font-family: Sora, sans-serif;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--primary400);
+  }
 }
