@@ -14,7 +14,7 @@ type Options = {
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
-function queryStringify(data) {
+function queryStringify(data: Record<string, any>) {
   const entries = Object.entries(data);
   return `?${entries.reduce((acc, [key, value], index) => {
     acc += `${key}=${value}`;
@@ -29,46 +29,26 @@ export default class Request {
   get = (
     url: string,
     options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.GET },
-      options.timeout,
-    );
-  };
+  ): Promise<XMLHttpRequest> =>
+    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 
   put = (
     url: string,
     options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.PUT },
-      options.timeout,
-    );
-  };
+  ): Promise<XMLHttpRequest> =>
+    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
 
   post = (
     url: string,
     options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.POST },
-      options.timeout,
-    );
-  };
+  ): Promise<XMLHttpRequest> =>
+    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
 
   delete = (
     url: string,
     options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> => {
-    return this.request(
-      url,
-      { ...options, method: METHODS.DELETE },
-      options.timeout,
-    );
-  };
+  ): Promise<XMLHttpRequest> =>
+    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
 
   request = (
     url: string,
@@ -86,7 +66,7 @@ export default class Request {
       const xhr = new XMLHttpRequest();
       xhr.open(method, `${url}${params}`);
 
-      xhr.onload = function () {
+      xhr.onload = () => {
         resolve(xhr);
       };
 
