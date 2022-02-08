@@ -19,7 +19,7 @@ export default class Block<P = any> {
 
   children: Children;
 
-  eventBus: () => EventBus<Events>;
+  eventBus: EventBus<Events>;
 
   protected readonly props: P;
 
@@ -30,7 +30,6 @@ export default class Block<P = any> {
   private _element: Nullable<HTMLElement> = null;
 
   constructor(tmpl: string, propsAndChildren: Record<string, Block | any>) {
-    const eventBus = new EventBus();
     const { children, props } = this._getChildren(propsAndChildren);
 
     this.children = children;
@@ -41,10 +40,10 @@ export default class Block<P = any> {
 
     this.props = this._makePropsProxy(props);
 
-    this.eventBus = () => eventBus;
+    this.eventBus = new EventBus();
 
-    this._registerEvents(eventBus);
-    eventBus.emit(Block.EVENTS.INIT);
+    this._registerEvents(this.eventBus);
+    this.eventBus.emit(Block.EVENTS.INIT);
   }
 
   _registerEvents(eventBus: EventBus<Events>) {
@@ -55,7 +54,7 @@ export default class Block<P = any> {
   }
 
   init() {
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+    this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
   }
 
   _componentDidMount() {
@@ -79,18 +78,18 @@ export default class Block<P = any> {
   }
 
   componentDidMount(oldProps?: P) {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, this.props);
+    this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, this.props);
   }
 
   dispatchComponentDidMount() {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+    this.eventBus.emit(Block.EVENTS.FLOW_CDM);
   }
 
   _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
 
     if (response) {
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+      this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
   }
 
@@ -124,12 +123,8 @@ export default class Block<P = any> {
   _addEvents() {
     const { events = {} } = this.props as unknown as Record<string, any>;
 
-    if (!this._element) {
-      return;
-    }
-
     Object.keys(events).forEach((eventName) => {
-      this._element!.addEventListener(eventName, events[eventName]);
+      this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
@@ -206,7 +201,7 @@ export default class Block<P = any> {
                 return;
               }
 
-              stub!.replaceWith(block.element);
+              stub.replaceWith(block.element);
             });
           } else {
             const block = subChild as Block;
@@ -270,21 +265,19 @@ export default class Block<P = any> {
   }
 
   _makePropsProxy(props: P): P {
-    const self = this;
-
     return new Proxy(props as unknown as object, {
-      get(target: Record<string, unknown>, prop: string) {
+      get: (target: Record<string, unknown>, prop: string) => {
         const value = target[prop];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target: Record<string, unknown>, prop: string, val) {
+      set: (target: Record<string, unknown>, prop: string, val) => {
         const oldProps = { ...target };
         target[prop] = val;
 
-        self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldProps, target);
+        this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         return true;
       },
-      deleteProperty() {
+      deleteProperty: () => {
         throw new Error('Нет прав');
       },
     }) as unknown as P;

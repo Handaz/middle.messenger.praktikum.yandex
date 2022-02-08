@@ -62,7 +62,7 @@ export function ConversationModule(): Conversation {
     content: optionsIcon,
   });
 
-  const messageField = [
+  const messageFields = [
     {
       input: new Input({
         name: 'message',
@@ -72,10 +72,10 @@ export function ConversationModule(): Conversation {
     },
   ];
 
-  messageField[0].input.setProps({
+  messageFields[0].input.setProps({
     events: {
       blur: (e: FocusEvent) => {
-        handleInputChange(messageField[0].input, e);
+        handleInputChange(messageFields[0].input, e);
       },
     },
   });
@@ -86,11 +86,11 @@ export function ConversationModule(): Conversation {
   });
 
   const messageForm = new Form({
-    fields: messageField,
+    fields: messageFields,
     button: messageButton,
     events: {
       submit: (e: SubmitEvent) =>
-        handleSubmit({ e, fields: messageField, validationSchema }),
+        handleSubmit({ e, fields: messageFields, validationSchema }),
     },
   });
 
