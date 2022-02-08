@@ -1,0 +1,6 @@
+@import '../../styles/global';
+
+.navigation {
+  @include flexCenter;
+  height: 100%;
+}
