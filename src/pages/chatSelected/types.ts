@@ -1,8 +1,8 @@
-import { Chats } from '../../modules/chats';
-import { Conversation } from './modules/conversation';
 import { BlockProps } from '../../types';
+import { Conversation } from './modules/conversation';
+import Sidebar from '../../components/sidebar';
 
 export interface IChatSelected extends BlockProps {
-  chats: Chats;
+  chats: Sidebar;
   content: Conversation;
 }

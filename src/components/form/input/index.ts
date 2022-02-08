@@ -2,7 +2,7 @@ import Block from '../../../modules/block';
 import template from './input.tmpl';
 import { IInput } from './types';
 
-export default class Input extends Block {
+export default class Input extends Block<IInput> {
   constructor(props: IInput) {
     super(template, props);
   }

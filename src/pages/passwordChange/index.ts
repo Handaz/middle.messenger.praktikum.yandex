@@ -15,7 +15,7 @@ import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
 import FormError from '../../components/form/error';
 
-class PasswordChange extends Block {
+class PasswordChange extends Block<IPasswordChange> {
   constructor(props: IPasswordChange) {
     super(profile.template, props);
   }

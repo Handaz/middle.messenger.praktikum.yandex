@@ -6,7 +6,7 @@ import error from '../../layouts/error';
 import { IError500 } from './types';
 import render from '../../utils/functions/renderDom';
 
-class Error500 extends Block {
+class Error500 extends Block<IError500> {
   constructor(props: IError500) {
     super(error.template, props);
   }

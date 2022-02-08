@@ -17,7 +17,7 @@ import { conversationData, validationSchema } from './utils';
 import handleSubmit from '../../../../utils/functions/handleSubmit';
 import handleInputChange from '../../../../utils/functions/handleInputChange';
 
-export class Conversation extends Block {
+export class Conversation extends Block<IConversation> {
   constructor(props: IConversation) {
     super(template, props);
   }

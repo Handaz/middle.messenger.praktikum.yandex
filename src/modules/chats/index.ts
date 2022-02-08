@@ -11,7 +11,7 @@ import burgerIcon from '../../../static/icons/burgerIcon';
 import userAvatar from '../../../static/images/userAvatar.png';
 import chatsData from '../../utils/data/chatsData';
 
-export class Chats extends Block {
+export class Chats extends Block<IChats> {
   constructor(props: IChats) {
     super(chatsTmpl, props);
   }

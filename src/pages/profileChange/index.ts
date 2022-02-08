@@ -15,7 +15,7 @@ import render from '../../utils/functions/renderDom';
 import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
 
-class ProfileChange extends Block {
+class ProfileChange extends Block<IProfileChange> {
   constructor(props: IProfileChange) {
     super(profile.template, props);
   }

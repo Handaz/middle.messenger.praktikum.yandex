@@ -16,7 +16,7 @@ import handleSubmit from '../../utils/functions/handleSubmit';
 import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
 
-class Register extends Block {
+class Register extends Block<IRegister> {
   constructor(props: IRegister) {
     super(authorization.template, props);
   }

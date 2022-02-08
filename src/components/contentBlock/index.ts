@@ -2,7 +2,7 @@ import Block from '../../modules/block';
 import template from './contentBlock.tmpl';
 import { IContentBlock } from './types';
 
-export default class ContentBlock extends Block {
+export default class ContentBlock extends Block<IContentBlock> {
   constructor(props: IContentBlock) {
     super(template, props);
   }

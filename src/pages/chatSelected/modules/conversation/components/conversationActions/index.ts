@@ -2,7 +2,7 @@ import Block from '../../../../../../modules/block';
 import template from './conversationActions.tmpl';
 import { IConversationActions } from './types';
 
-export default class ConversationActions extends Block {
+export default class ConversationActions extends Block<IConversationActions> {
   constructor(props: IConversationActions) {
     super(template, props);
   }

@@ -2,7 +2,7 @@ import Block from '../../modules/block';
 import template from './link.tmpl';
 import { ILink } from './types';
 
-export default class Link extends Block {
+export default class Link extends Block<ILink> {
   constructor(props: ILink) {
     super(template, props);
   }

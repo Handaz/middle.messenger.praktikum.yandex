@@ -11,7 +11,7 @@ import profilePicture from '../../../static/images/profilePicture.png';
 import handleSubmit from '../../utils/functions/handleSubmit';
 import { IFields } from '../../components/form/types';
 
-export class ProfileForm extends Block {
+export class ProfileForm extends Block<IProfileForm> {
   constructor(props: IProfileForm) {
     super(template, props);
   }

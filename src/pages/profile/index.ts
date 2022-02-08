@@ -9,7 +9,7 @@ import profile from '../../layouts/profile';
 import { IProfile } from './types';
 import render from '../../utils/functions/renderDom';
 
-class Profile extends Block {
+class Profile extends Block<IProfile> {
   constructor(props: IProfile) {
     super(profile.template, props);
   }

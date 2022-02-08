@@ -2,7 +2,7 @@ import Block from '../../modules/block';
 import template from './form.tmpl';
 import { IForm } from './types';
 
-export default class Form extends Block {
+export default class Form extends Block<IForm> {
   constructor(props: IForm) {
     super(template, props);
   }

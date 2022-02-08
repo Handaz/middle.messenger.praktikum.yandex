@@ -14,7 +14,7 @@ import handleSubmit from '../../utils/functions/handleSubmit';
 import render from '../../utils/functions/renderDom';
 import handleInputChange from '../../utils/functions/handleInputChange';
 
-class Login extends Block {
+class Login extends Block<ILogin> {
   constructor(props: ILogin) {
     super(authorization.template, props);
   }

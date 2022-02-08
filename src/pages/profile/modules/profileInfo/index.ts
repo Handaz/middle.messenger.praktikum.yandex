@@ -8,7 +8,7 @@ import { IProfileInfo } from './types';
 import { profileLinks, fields } from './utils';
 import profilePicture from '../../../../../static/images/profilePicture.png';
 
-export class ProfileInfo extends Block {
+export class ProfileInfo extends Block<IProfileInfo> {
   constructor(props: IProfileInfo) {
     super(template, props);
   }

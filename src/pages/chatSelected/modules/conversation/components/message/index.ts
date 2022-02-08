@@ -2,7 +2,7 @@ import Block from '../../../../../../modules/block';
 import template from './message.tmpl';
 import { IMessage } from './types';
 
-export default class Message extends Block {
+export default class Message extends Block<IMessage> {
   constructor(props: IMessage) {
     super(template, props);
   }

@@ -1,8 +1,8 @@
-import Form from '../../components/form';
-import Link from '../../components/link';
 import { BlockProps } from '../../types';
+import ContentBlock from '../../components/contentBlock';
+import Link from '../../components/link';
 
 export interface IRegister extends BlockProps {
-  form: Form;
+  form: ContentBlock;
   link: Link;
 }

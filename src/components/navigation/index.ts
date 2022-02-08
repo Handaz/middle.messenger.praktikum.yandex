@@ -2,7 +2,7 @@ import Block from '../../modules/block';
 import template from './navigation.tmpl';
 import { INavigation } from './types';
 
-export default class Navigation extends Block {
+export default class Navigation extends Block<INavigation> {
   constructor(props: INavigation) {
     super(template, props);
   }

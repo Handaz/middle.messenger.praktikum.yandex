@@ -2,7 +2,7 @@ import Block from '../../../block';
 import template from './chat.tmpl';
 import { IChat } from './types';
 
-export default class Chat extends Block {
+export default class Chat extends Block<IChat> {
   constructor(props: IChat) {
     super(template, props);
   }

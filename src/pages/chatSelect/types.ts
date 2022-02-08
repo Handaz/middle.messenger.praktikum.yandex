@@ -1,8 +1,8 @@
-import { Chats } from '../../modules/chats';
-import SystemMessage from './components/systemMessage';
 import { BlockProps } from '../../types';
+import SystemMessage from './components/systemMessage';
+import Sidebar from '../../components/sidebar';
 
 export interface IChatSelect extends BlockProps {
-  chats: Chats;
+  chats: Sidebar;
   content: SystemMessage;
 }
