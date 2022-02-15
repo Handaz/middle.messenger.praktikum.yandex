@@ -11,7 +11,6 @@ import authorization from '../../layouts/authorization';
 import { ILogin } from './types';
 import fieldsData from './utils';
 import handleSubmit from '../../utils/functions/handleSubmit';
-import render from '../../utils/functions/renderDom';
 import handleInputChange from '../../utils/functions/handleInputChange';
 
 class Login extends Block<ILogin> {
@@ -62,7 +61,7 @@ const form = new Form({
   },
 });
 
-const link = new Link({ content: 'Sign up', url: './register.html' });
+const link = new Link({ content: 'Sign up', url: 'register' });
 
 const loginForm = new ContentBlock({
   title: 'Sign in',
@@ -70,9 +69,7 @@ const loginForm = new ContentBlock({
   authForm: true,
 });
 
-const content = new Login({
+export default new Login({
   form: loginForm,
   link,
 });
-
-render('#root', content);

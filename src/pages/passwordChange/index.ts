@@ -9,7 +9,6 @@ import Link from '../../components/link';
 import profile from '../../layouts/profile';
 import { IPasswordChange } from './types';
 import fieldsData from './utils';
-import render from '../../utils/functions/renderDom';
 import validationSchema from '../../utils/data/userValidationSchema';
 import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
@@ -32,7 +31,7 @@ class PasswordChange extends Block<IPasswordChange> {
 
 const link = new Link({
   content: 'Back to profile',
-  url: 'profile.html',
+  url: 'profile',
 });
 
 const navigation = new Navigation({
@@ -61,9 +60,7 @@ fields.forEach(({ input, error }) => {
 
 const passwordForm = ProfileFormModule(fields, validationSchema);
 
-const content = new PasswordChange({
+export default new PasswordChange({
   sidebar,
   content: passwordForm,
 });
-
-render('#root', content);

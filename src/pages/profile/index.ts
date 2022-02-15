@@ -7,7 +7,6 @@ import Link from '../../components/link';
 
 import profile from '../../layouts/profile';
 import { IProfile } from './types';
-import render from '../../utils/functions/renderDom';
 
 class Profile extends Block<IProfile> {
   constructor(props: IProfile) {
@@ -26,7 +25,7 @@ class Profile extends Block<IProfile> {
 
 const link = new Link({
   content: 'Back to chats',
-  url: 'chatSelect.html',
+  url: '/',
 });
 
 const navigation = new Navigation({
@@ -39,9 +38,7 @@ const sidebar = new Sidebar({
 
 const profileInfo = ProfileInfoModule();
 
-const content = new Profile({
+export default new Profile({
   sidebar,
   content: profileInfo,
 });
-
-render('#root', content);

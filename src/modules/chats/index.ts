@@ -30,7 +30,7 @@ export class Chats extends Block<IChats> {
 export function ChatsModule(): Chats {
   const link = new Link({
     content: burgerIcon,
-    url: 'profile.html',
+    url: 'profile',
   });
 
   const chatList = chatsData.map(
@@ -39,7 +39,7 @@ export function ChatsModule(): Chats {
         avatar: new Avatar({
           source: userAvatar,
         }),
-        username: new Link({ content: username, url: 'chatSelected.html' }),
+        username: new Link({ content: username, url: 'chat' }),
         sender,
         message,
         time,

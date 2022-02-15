@@ -11,7 +11,6 @@ import profile from '../../layouts/profile';
 import { IProfileChange } from './types';
 import fieldsData from './utils';
 import validationSchema from '../../utils/data/userValidationSchema';
-import render from '../../utils/functions/renderDom';
 import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
 
@@ -32,7 +31,7 @@ class ProfileChange extends Block<IProfileChange> {
 
 const link = new Link({
   content: 'Back to profile',
-  url: 'profile.html',
+  url: 'profile',
 });
 
 const navigation = new Navigation({
@@ -61,9 +60,7 @@ fields.forEach(({ input, error }) => {
 
 const passwordForm = ProfileFormModule(fields, validationSchema);
 
-const content = new ProfileChange({
+export default new ProfileChange({
   sidebar,
   content: passwordForm,
 });
-
-render('#root', content);

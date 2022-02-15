@@ -6,7 +6,7 @@ export default class Router {
 
   history = window.history;
 
-  private __instance: Router | null;
+  private static __instance: Router | null;
 
   private _currentRoute: Route | null;
 
@@ -16,7 +16,7 @@ export default class Router {
     this._rootQuery = rootQuery;
   }
 
-  getInstance(): Router {
+  public static getInstance(): Router {
     if (!this.__instance) {
       this.__instance = new Router('#root');
     }

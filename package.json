@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Messanger project",
   "scripts": {
-    "dev": "npm run checkTsc && parcel static/pages/*.html",
-    "start": "npm run build && node app.js",
-    "build": "npm run checkTsc && npm run linter && npm run slinter && parcel build static/pages/*.html",
+    "dev": "npm run checkTsc && parcel static/*.html --no-cache",
+    "start": "npm run build && node server.js",
+    "build": "npm run checkTsc && npm run linter && npm run slinter && parcel build static/*.html",
     "checkTsc": "npx tsc --noEmit",
     "linter": "npx eslint . --ext .ts --fix",
     "slinter": "npx stylelint \"**/*.scss\" --fix"

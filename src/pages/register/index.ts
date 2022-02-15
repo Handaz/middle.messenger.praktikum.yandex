@@ -11,7 +11,6 @@ import authorization from '../../layouts/authorization';
 import { IRegister } from './types';
 import fieldsData from './utils';
 import validationSchema from '../../utils/data/userValidationSchema';
-import render from '../../utils/functions/renderDom';
 import handleSubmit from '../../utils/functions/handleSubmit';
 import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
@@ -64,7 +63,7 @@ const form = new Form({
   },
 });
 
-const link = new Link({ content: 'Sign in', url: './login.html' });
+const link = new Link({ content: 'Sign in', url: 'login' });
 
 const registerForm = new ContentBlock({
   title: 'Sign up',
@@ -72,9 +71,7 @@ const registerForm = new ContentBlock({
   authForm: true,
 });
 
-const content = new Register({
+export default new Register({
   form: registerForm,
   link,
 });
-
-render('#root', content);

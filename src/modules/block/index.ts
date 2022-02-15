@@ -288,7 +288,7 @@ export default class Block<P = any> {
       return;
     }
 
-    this._element.style.display = 'block';
+    this._element.style.display = '';
   }
 
   hide() {
