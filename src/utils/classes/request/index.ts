@@ -5,14 +5,14 @@ enum METHODS {
   DELETE = 'DELETE',
 }
 
-type Options = {
+interface Options<P> {
   method: METHODS;
-  data?: any;
+  data?: P;
   timeout?: number;
   headers?: Record<string, string>;
-};
+}
 
-type OptionsWithoutMethod = Omit<Options, 'method'>;
+type OptionsWithoutMethod<P> = Omit<Options<P>, 'method'>;
 
 function queryStringify(data: Record<string, any>) {
   const entries = Object.entries(data);
@@ -25,41 +25,53 @@ function queryStringify(data: Record<string, any>) {
   }, '')}`;
 }
 
-export default class Request {
-  get = (
+class Request {
+  get = <P, T>(
     url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> =>
+    options: OptionsWithoutMethod<P> = {},
+  ): Promise<T> =>
     this.request(url, { ...options, method: METHODS.GET }, options.timeout);
 
-  put = (
+  put = <P, T>(
     url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> =>
-    this.request(url, { ...options, method: METHODS.PUT }, options.timeout);
+    options: OptionsWithoutMethod<P> = {},
+  ): Promise<T> =>
+    this.request<P, T>(
+      url,
+      { ...options, method: METHODS.PUT },
+      options.timeout,
+    );
 
-  post = (
+  post = <P, T>(
     url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> =>
-    this.request(url, { ...options, method: METHODS.POST }, options.timeout);
+    options: OptionsWithoutMethod<P> = {},
+  ): Promise<T> =>
+    this.request<P, T>(
+      url,
+      { ...options, method: METHODS.POST },
+      options.timeout,
+    );
 
-  delete = (
+  delete = <P, T>(
     url: string,
-    options: OptionsWithoutMethod = {},
-  ): Promise<XMLHttpRequest> =>
-    this.request(url, { ...options, method: METHODS.DELETE }, options.timeout);
+    options: OptionsWithoutMethod<P> = {},
+  ): Promise<T> =>
+    this.request<P, T>(
+      url,
+      { ...options, method: METHODS.DELETE },
+      options.timeout,
+    );
 
-  request = (
+  request = <P, T>(
     url: string,
-    options: Options = { method: METHODS.GET },
+    options: Options<P> = { method: METHODS.GET },
     timeout: number = 5000,
-  ): Promise<XMLHttpRequest> => {
+  ): Promise<T> => {
     const { method, data, headers = {} } = options;
     let params = '';
 
     if (method === METHODS.GET && data) {
-      params = queryStringify(options.data);
+      params = queryStringify(data);
     }
 
     return new Promise((resolve, reject) => {
@@ -67,7 +79,7 @@ export default class Request {
       xhr.open(method, `${url}${params}`);
 
       xhr.onload = () => {
-        resolve(xhr);
+        resolve(xhr.response);
       };
 
       Object.entries(headers).forEach(([header, val]) => {
@@ -87,3 +99,5 @@ export default class Request {
     });
   };
 }
+
+export default new Request();
