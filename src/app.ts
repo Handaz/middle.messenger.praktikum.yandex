@@ -10,10 +10,7 @@ import ProfileChange from './pages/profileChange';
 
 import Router from './utils/classes/router';
 
-const router = Router.getInstance();
-
-router
-  .use('/404', Error404)
+Router.use('/404', Error404)
   .use('/500', Error500)
   .use('/register', Register)
   .use('/login', Login)

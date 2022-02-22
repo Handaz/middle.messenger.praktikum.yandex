@@ -1,6 +1,7 @@
 import { BlockProps } from '../../types';
 import ContentBlock from '../../components/contentBlock';
 import Link from '../../components/link';
+import { IFields } from '../../components/form/types';
 
 export interface IRegister extends BlockProps {
   form: ContentBlock;
@@ -16,3 +17,12 @@ export type RegisterForm = {
   password: string;
   passwordConfirm?: string;
 };
+
+export interface RegisterProps {
+  fields: IFields[];
+  e: SubmitEvent;
+}
+
+export interface RegisterData {
+  id: string;
+}

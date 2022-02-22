@@ -1,14 +1,16 @@
 import BaseAPI from '../../../utils/classes/baseApi';
 import apiCall from '../../../utils/classes/request';
-import { RegisterForm } from '../types';
+import { RegisterData, RegisterForm } from '../types';
 
-export default class RegisterAPI extends BaseAPI<RegisterForm, Promise<any>> {
-  public async request(user: RegisterForm) {
-    const res = await apiCall.post<RegisterForm, any>('auth/signup', {
+export default class RegisterAPI extends BaseAPI<
+  RegisterForm,
+  Promise<RegisterData>
+> {
+  public async create(user: RegisterForm) {
+    const res = await apiCall.post<RegisterForm, RegisterData>('auth/signup', {
       data: user,
     });
 
-    console.log(res);
     return res;
   }
 }

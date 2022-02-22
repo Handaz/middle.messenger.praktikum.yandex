@@ -1,5 +1,5 @@
 import LoginAPI from '../api';
-import Router from '../../../utils/classes/router';
+// import Router from '../../../utils/classes/router';
 import { ILoginForm } from '../types';
 
 const loginApi = new LoginAPI();
@@ -17,7 +17,7 @@ class LoginController {
 
       const userID = loginApi.request(data);
       console.log(userID);
-      Router.getInstance().go('/chats');
+      // Router.getInstance().go('/chats');
 
       // Останавливаем крутилку
     } catch (error) {

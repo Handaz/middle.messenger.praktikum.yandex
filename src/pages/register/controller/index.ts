@@ -1,15 +1,14 @@
 import RegisterAPI from '../api';
 // import Router from '../../../utils/classes/router';
-import { RegisterForm } from '../types';
+import { RegisterForm, RegisterProps } from '../types';
 
-import { IFields } from '../../../components/form/types';
 import validationSchema from '../../../utils/data/userValidationSchema';
 import handleSubmit from '../../../utils/functions/handleSubmit';
 
 const registerApi = new RegisterAPI();
 
 class RegisterController {
-  public async register({ fields, e }: { fields: IFields[]; e: SubmitEvent }) {
+  public async register({ fields, e }: RegisterProps) {
     try {
       const {
         data: { passwordConfirm, ...data },
@@ -34,7 +33,7 @@ class RegisterController {
       const userID = registerApi.request(data);
       console.log(userID);
 
-      // Router.getInstance().go('/chats');
+      // Router.go('/chats');
 
       // Останавливаем крутилку
     } catch (error) {
