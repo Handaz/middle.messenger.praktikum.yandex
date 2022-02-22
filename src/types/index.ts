@@ -6,7 +6,9 @@ export interface BlockProps {
   };
 }
 
-export type FormValues = Record<string, string>;
+export type FormValues = {
+  [key: string]: string;
+};
 
 export interface ValidationSchema {
   [key: string]: {

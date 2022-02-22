@@ -14,6 +14,8 @@ interface Options<P> {
 
 type OptionsWithoutMethod<P> = Omit<Options<P>, 'method'>;
 
+const baseUrl = 'https://ya-praktikum.tech/api/v2/';
+
 function queryStringify(data: Record<string, any>) {
   const entries = Object.entries(data);
   return `?${entries.reduce((acc, [key, value], index) => {
@@ -67,7 +69,11 @@ class Request {
     options: Options<P> = { method: METHODS.GET },
     timeout: number = 5000,
   ): Promise<T> => {
-    const { method, data, headers = {} } = options;
+    const {
+      method,
+      data,
+      headers = { 'Content-Type': 'application/json;charset=UTF-8' },
+    } = options;
     let params = '';
 
     if (method === METHODS.GET && data) {
@@ -76,7 +82,7 @@ class Request {
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
-      xhr.open(method, `${url}${params}`);
+      xhr.open(method, `${baseUrl}${url}${params}`);
 
       xhr.onload = () => {
         resolve(xhr.response);
@@ -86,8 +92,11 @@ class Request {
         xhr.setRequestHeader(header, val);
       });
 
+      xhr.withCredentials = true;
+
       xhr.onabort = reject;
       xhr.onerror = reject;
+
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
 

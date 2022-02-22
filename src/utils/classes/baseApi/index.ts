@@ -1,17 +1,18 @@
-export default class BaseAPI {
-  create() {
+/* eslint-disable @typescript-eslint/no-unused-vars */
+export default abstract class BaseAPI<P, T> {
+  create(_props?: P): T {
     throw new Error('Not implemented');
   }
 
-  request() {
+  request(_props?: P): T {
     throw new Error('Not implemented');
   }
 
-  update() {
+  update(_props?: P): T {
     throw new Error('Not implemented');
   }
 
-  delete() {
+  delete(_props?: P): T {
     throw new Error('Not implemented');
   }
 }

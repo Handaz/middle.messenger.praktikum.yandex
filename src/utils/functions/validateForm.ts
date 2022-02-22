@@ -7,17 +7,20 @@ export default function validateForm(
   formValues: FormValues,
   validationSchema: ValidationSchema,
 ) {
+  let isValid = true;
+
   Object.entries(formValues).forEach(([name, value]) => {
     if (!validationSchema[name]) {
+      isValid = false;
       return;
     }
 
     const field = getCurField(name, fields);
 
     if (!field) {
+      isValid = false;
       return;
     }
-
     const { rule, error } = validationSchema[name];
 
     if (rule instanceof RegExp) {
@@ -25,6 +28,7 @@ export default function validateForm(
       if (!rule.test(value)) {
         field.input.setProps({ error });
         field.error?.setProps({ error });
+        isValid = false;
       } else {
         field.input.setProps({ error: undefined });
         field.error?.setProps({ error: undefined });
@@ -34,10 +38,13 @@ export default function validateForm(
       if (formValues[matchField] !== value) {
         field.input.setProps({ error });
         field.error?.setProps({ error });
+        isValid = false;
       } else {
         field.input.setProps({ error: undefined });
         field.error?.setProps({ error: undefined });
       }
     }
   });
+
+  return isValid;
 }

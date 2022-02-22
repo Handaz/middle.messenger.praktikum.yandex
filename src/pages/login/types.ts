@@ -6,3 +6,8 @@ export interface ILogin extends BlockProps {
   form: ContentBlock;
   link: Link;
 }
+
+export interface ILoginForm {
+  login: string;
+  password: string;
+}
