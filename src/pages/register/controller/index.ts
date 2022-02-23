@@ -1,14 +1,15 @@
 import RegisterAPI from '../api';
 // import Router from '../../../utils/classes/router';
-import { RegisterForm, RegisterProps } from '../types';
+import { RegisterForm } from '../types';
 
 import validationSchema from '../../../utils/data/userValidationSchema';
 import handleSubmit from '../../../utils/functions/handleSubmit';
+import { FormControllerProps } from '../../../types/controller';
 
 const registerApi = new RegisterAPI();
 
 class RegisterController {
-  public async register({ fields, e }: RegisterProps) {
+  public async register({ fields, e }: FormControllerProps) {
     try {
       const {
         data: { passwordConfirm, ...data },
@@ -20,25 +21,16 @@ class RegisterController {
       });
       // Запускаем крутилку
 
-      // const validateData = userregisterValidator(data);
-
-      // if (!validateData.isCorrect) {
-      //   throw new Error(validateData);
-      // }
-
-      if (!isValid) {
-        throw new Error('Invalid data');
+      if (isValid) {
+        const userID = await registerApi.request(data);
+        console.log(userID);
       }
-      console.log(data);
-      const userID = registerApi.request(data);
-      console.log(userID);
 
       // Router.go('/chats');
 
       // Останавливаем крутилку
     } catch (error) {
       console.log(error);
-      // Логика обработки ошибок
     }
   }
 }

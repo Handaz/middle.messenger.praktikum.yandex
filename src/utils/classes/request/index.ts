@@ -85,7 +85,11 @@ class Request {
       xhr.open(method, `${baseUrl}${url}${params}`);
 
       xhr.onload = () => {
-        resolve(xhr.response);
+        if (xhr.status === 200) {
+          resolve(xhr.response);
+        } else {
+          reject(xhr.response);
+        }
       };
 
       Object.entries(headers).forEach(([header, val]) => {

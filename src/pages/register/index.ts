@@ -60,7 +60,6 @@ const form = new Form({
   fields,
   button,
   events: {
-    // submit: (e: SubmitEvent) => handleSubmit({ fields, e, validationSchema }),
     submit: (e: SubmitEvent) => RegisterController.register({ fields, e }),
   },
 });

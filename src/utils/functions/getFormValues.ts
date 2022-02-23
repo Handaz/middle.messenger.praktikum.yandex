@@ -16,12 +16,4 @@ export default function getFormValues<T extends FormValues>(
   return Object.fromEntries(
     inputFields.map(({ name, value }) => [name, value]),
   ) as T;
-
-  // const formValues = {};
-
-  // inputFields.forEach((input) => {
-  //   formValues[input.name] = input.value;
-  // });
-
-  // return formValues;
 }

@@ -1,28 +1,21 @@
 import LoginAPI from '../api';
-// import Router from '../../../utils/classes/router';
-import { ILoginForm } from '../types';
+import Router from '../../../utils/classes/router';
+import catchDec from '../../../utils/decorators/catchDec';
+import validationDec from '../../../utils/decorators/validationDec';
+import { validationSchema } from '../utils/index';
+import { LoginForm } from '../types';
+import { FormControllerProps } from '../../../types/controller';
 
 const loginApi = new LoginAPI();
 
 class LoginController {
-  public async login(data: ILoginForm) {
-    try {
-      // Запускаем крутилку
+  data: LoginForm;
 
-      // const validateData = userLoginValidator(data);
-
-      // if (!validateData.isCorrect) {
-      //   throw new Error(validateData);
-      // }
-
-      const userID = loginApi.request(data);
-      console.log(userID);
-      // Router.getInstance().go('/chats');
-
-      // Останавливаем крутилку
-    } catch (error) {
-      // Логика обработки ошибок
-    }
+  @validationDec(validationSchema)
+  @catchDec
+  public async login(_params: FormControllerProps) {
+    await loginApi.request(this.data);
+    Router.go('/');
   }
 }
 

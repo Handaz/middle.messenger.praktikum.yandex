@@ -4,7 +4,7 @@ import { ValidationSchema } from '../../types';
 import { IFields } from '../../components/form/types';
 import getCurField from './getCurField';
 
-export default function validateForm(
+export default function validateField(
   input: Input,
   formError: FormError,
   validationSchema: ValidationSchema,

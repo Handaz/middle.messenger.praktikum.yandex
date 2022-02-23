@@ -6,16 +6,16 @@ export interface BlockProps {
   };
 }
 
-export type FormValues = {
-  [key: string]: string;
-};
-
 export interface ValidationSchema {
   [key: string]: {
     rule: RegExp | { equal: string };
     error: string;
   };
 }
+
+export type FormValues = {
+  [key: string]: string;
+};
 
 export type Indexed<T = any> = {
   [key in string]: T;

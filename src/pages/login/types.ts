@@ -7,7 +7,7 @@ export interface ILogin extends BlockProps {
   link: Link;
 }
 
-export interface ILoginForm {
+export type LoginForm = {
   login: string;
   password: string;
-}
+};
