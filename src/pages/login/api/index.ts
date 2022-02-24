@@ -2,7 +2,7 @@ import BaseAPI from '../../../utils/classes/baseApi';
 import apiCall from '../../../utils/classes/request';
 import { LoginForm } from '../types';
 
-export default class LoginAPI extends BaseAPI<LoginForm, Promise<string>> {
+class LoginAPI extends BaseAPI<LoginForm, Promise<string>> {
   public async request(user: LoginForm) {
     const res = await apiCall.post<LoginForm, string>('auth/signin', {
       data: user,
@@ -11,3 +11,5 @@ export default class LoginAPI extends BaseAPI<LoginForm, Promise<string>> {
     return res;
   }
 }
+
+export default new LoginAPI();

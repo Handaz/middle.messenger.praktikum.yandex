@@ -1,20 +1,21 @@
+import { Controller, FormControllerProps } from '../../../modules/controller';
+import Store from '../../../store';
+
 import LoginAPI from '../api';
+import UserAPI from '../../../api/user';
 import Router from '../../../utils/classes/router';
 import catchDec from '../../../utils/decorators/catchDec';
 import validationDec from '../../../utils/decorators/validationDec';
 import { validationSchema } from '../utils/index';
 import { LoginForm } from '../types';
-import { FormControllerProps } from '../../../types/controller';
 
-const loginApi = new LoginAPI();
-
-class LoginController {
-  data: LoginForm;
-
+class LoginController extends Controller<LoginForm> {
   @validationDec(validationSchema)
   @catchDec
   public async login(_params: FormControllerProps) {
-    await loginApi.request(this.data);
+    await LoginAPI.request(this.data);
+    const user = await UserAPI.getCurrentUser();
+    Store.set('user', user);
     Router.go('/');
   }
 }

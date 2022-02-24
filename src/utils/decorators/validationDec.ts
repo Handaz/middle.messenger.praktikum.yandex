@@ -1,5 +1,5 @@
 import handleSubmit from '../functions/handleSubmit';
-import { FormControllerProps } from '../../types/controller';
+import { FormControllerProps } from '../../modules/controller';
 import { FormValues, ValidationSchema } from '../../types';
 
 export default function catchDec(validationSchema: ValidationSchema) {

@@ -103,6 +103,7 @@ class Request {
 
       xhr.timeout = timeout;
       xhr.ontimeout = reject;
+      xhr.responseType = 'json';
 
       if (method === METHODS.GET || !data) {
         xhr.send();

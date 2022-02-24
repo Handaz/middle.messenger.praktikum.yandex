@@ -1,5 +1,5 @@
 import setFormError from '../functions/setFormError';
-import { FormControllerProps } from '../../types/controller';
+import { FormControllerProps } from '../../modules/controller';
 
 export default function catchDec(
   _target: any,
@@ -14,7 +14,9 @@ export default function catchDec(
       if (result && result instanceof Promise) {
         return result.catch((error) => {
           console.log(error);
-          setFormError(args[0].fields, JSON.parse(error).reason);
+          if (typeof error === 'object') {
+            setFormError(args[0].fields, error.reason);
+          }
         });
       }
 

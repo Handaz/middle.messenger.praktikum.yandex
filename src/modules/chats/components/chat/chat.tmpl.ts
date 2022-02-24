@@ -4,7 +4,7 @@ export default `
 <li class=${classes.chat}>
   <div>{{ avatar }}</div>
   <div>
-    <div> {{ username }} </div>
+    <div> {{ title }} </div>
     <div>
       {{#if sender}} <span> {{ sender }} </span> {{/if}}
       <span> {{ message }} </span>

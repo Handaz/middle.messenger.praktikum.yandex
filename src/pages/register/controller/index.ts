@@ -1,37 +1,22 @@
+import { Controller, FormControllerProps } from '../../../modules/controller';
+import Store from '../../../store';
+
 import RegisterAPI from '../api';
-// import Router from '../../../utils/classes/router';
+import UserAPI from '../../../api/user';
+import catchDec from '../../../utils/decorators/catchDec';
+import validationDec from '../../../utils/decorators/validationDec';
+import Router from '../../../utils/classes/router';
+import validationSchema from '../../../utils/data/userValidationSchema';
 import { RegisterForm } from '../types';
 
-import validationSchema from '../../../utils/data/userValidationSchema';
-import handleSubmit from '../../../utils/functions/handleSubmit';
-import { FormControllerProps } from '../../../types/controller';
-
-const registerApi = new RegisterAPI();
-
-class RegisterController {
-  public async register({ fields, e }: FormControllerProps) {
-    try {
-      const {
-        data: { passwordConfirm, ...data },
-        isValid,
-      } = handleSubmit<RegisterForm>({
-        fields,
-        e,
-        validationSchema,
-      });
-      // Запускаем крутилку
-
-      if (isValid) {
-        const userID = await registerApi.request(data);
-        console.log(userID);
-      }
-
-      // Router.go('/chats');
-
-      // Останавливаем крутилку
-    } catch (error) {
-      console.log(error);
-    }
+class RegisterController extends Controller<RegisterForm> {
+  @validationDec(validationSchema)
+  @catchDec
+  public async register(_params: FormControllerProps) {
+    await RegisterAPI.create(this.data);
+    const user = await UserAPI.getCurrentUser();
+    Store.set('user', user);
+    Router.go('/');
   }
 }
 

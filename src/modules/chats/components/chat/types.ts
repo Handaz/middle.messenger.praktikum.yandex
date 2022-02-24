@@ -4,7 +4,7 @@ import { BlockProps } from '../../../../types';
 
 export interface IChat extends BlockProps {
   avatar: Avatar;
-  username: Link;
+  title: Link;
   sender: string;
   message: string;
   time: string;

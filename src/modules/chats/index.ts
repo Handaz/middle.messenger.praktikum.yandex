@@ -39,7 +39,7 @@ export function ChatsModule(): Chats {
         avatar: new Avatar({
           source: userAvatar,
         }),
-        username: new Link({ content: username, url: 'chat' }),
+        title: new Link({ content: username, url: 'chat' }),
         sender,
         message,
         time,
