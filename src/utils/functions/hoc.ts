@@ -1,20 +1,22 @@
 import Block from '../../modules/block';
 import isEqual from './isEqual';
-import store, { StoreEvents } from '../../store';
+import Store, { StoreEvents } from '../../store';
 import { Indexed } from '../../types';
 
-export default function connect(mapStateToProps: (state: Indexed) => Indexed) {
-  return function (Component: typeof Block) {
+export default function connect<P>(
+  mapStateToProps: (state: Indexed) => Partial<P>,
+) {
+  return function (Component: new (args: P) => Block<P>) {
     return class extends Component {
-      constructor({ template, propsAndChildren }: Indexed) {
-        super(template, {
-          ...propsAndChildren,
-          ...mapStateToProps(store.getState()),
+      constructor(props: P) {
+        super({
+          ...props,
+          ...mapStateToProps(Store.getState()),
         });
 
-        store.on(StoreEvents.Updated, () => {
-          if (!isEqual(this.props, mapStateToProps(store.getState()))) {
-            this.setProps({ ...mapStateToProps(store.getState()) });
+        Store.on(StoreEvents.Updated, () => {
+          if (!isEqual(props, mapStateToProps(Store.getState()))) {
+            this.setProps({ ...mapStateToProps(Store.getState()) });
           }
         });
       }
