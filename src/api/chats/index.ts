@@ -4,7 +4,7 @@ import { IChatsInfo } from './types';
 
 class ChatsAPI extends BaseAPI<undefined, Promise<IChatsInfo>> {
   public async getChats() {
-    const res = await apiCall.get<undefined, IChatsInfo>('/chats');
+    const res = await apiCall.get<undefined, IChatsInfo>('chats');
 
     return res;
   }

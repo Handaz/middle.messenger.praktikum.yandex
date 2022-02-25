@@ -5,7 +5,13 @@ import { ILink } from './types';
 
 export default class Link extends Block<ILink> {
   constructor(props: ILink) {
-    super(template, { ...props, events: defaultClick });
+    const { events } = props;
+    super(template, {
+      ...props,
+      events: events
+        ? { ...events, click: events.click ?? defaultClick }
+        : defaultClick,
+    });
   }
 
   render() {

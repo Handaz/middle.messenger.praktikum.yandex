@@ -9,7 +9,16 @@ import PasswordChange from './pages/passwordChange';
 import ProfileChange from './pages/profileChange';
 
 import Router from './utils/classes/router';
+// import Store, { StoreEvents } from './store';
 
+// Router.use('/404', Error404)
+//   .use('/500', Error500)
+//   .use('/register', Register)
+//   .use('/login', Login)
+//   .start();
+
+// Store.on(StoreEvents.Updated, () => {
+//   if (Store.getState().user) {
 Router.use('/404', Error404)
   .use('/500', Error500)
   .use('/register', Register)
@@ -20,3 +29,5 @@ Router.use('/404', Error404)
   .use('/password-change', PasswordChange)
   .use('/profile-change', ProfileChange)
   .start();
+//   }
+// });
