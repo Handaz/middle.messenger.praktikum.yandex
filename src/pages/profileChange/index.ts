@@ -3,16 +3,12 @@ import { ProfileFormModule } from '../../modules/profileForm';
 
 import Navigation from '../../components/navigation';
 import Sidebar from '../../components/sidebar';
-import Input from '../../components/form/input';
 import Link from '../../components/link';
-import FormError from '../../components/form/error';
 
+import connect from '../../utils/functions/hoc';
 import profile from '../../layouts/profile';
 import { IProfileChange } from './types';
-import fieldsData from './utils';
-import validationSchema from '../../utils/data/userValidationSchema';
-import handleInputChange from '../../utils/functions/handleInputChange';
-import validateField from '../../utils/functions/validateField';
+import mapStateToProfileChange from './utils';
 
 class ProfileChange extends Block<IProfileChange> {
   constructor(props: IProfileChange) {
@@ -42,25 +38,13 @@ const sidebar = new Sidebar({
   content: navigation,
 });
 
-const fields = fieldsData.map(({ name, placeholder, type }) => ({
-  input: new Input({ name, placeholder, type }),
-  error: new FormError({}),
-}));
+const profileChange = connect<IProfileChange>(mapStateToProfileChange);
 
-fields.forEach(({ input, error }) => {
-  input.setProps({
-    events: {
-      blur: (e: FocusEvent) => {
-        handleInputChange(input, e);
-        validateField(input, error, validationSchema, fields);
-      },
-    },
-  });
-});
+const ProfileChangeHoc = profileChange(ProfileChange);
 
-const passwordForm = ProfileFormModule(fields, validationSchema);
+const passwordForm = ProfileFormModule([], 'profile');
 
-export default new ProfileChange({
+export default new ProfileChangeHoc({
   sidebar,
   content: passwordForm,
 });

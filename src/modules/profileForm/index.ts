@@ -5,11 +5,10 @@ import Button from '../../components/button';
 import Form from '../../components/form';
 import Avatar from '../../components/avatar';
 
+import ProfileChangeController from './controller';
 import { IProfileForm } from './types';
-import { ValidationSchema } from '../../types';
-import profilePicture from '../../../static/images/profilePicture.png';
-import handleSubmit from '../../utils/functions/handleSubmit';
 import { IFields } from '../../components/form/types';
+import profilePicture from '../../../static/images/profilePicture.png';
 
 export class ProfileForm extends Block<IProfileForm> {
   constructor(props: IProfileForm) {
@@ -28,7 +27,8 @@ export class ProfileForm extends Block<IProfileForm> {
 
 export function ProfileFormModule(
   fields: IFields[],
-  validationSchema: ValidationSchema,
+  // submitAction: (_params?: FormControllerProps) => void,
+  action: 'profile' | 'password',
 ): ProfileForm {
   const button = new Button({
     type: 'submit',
@@ -40,7 +40,11 @@ export function ProfileFormModule(
     button,
     vertical: true,
     events: {
-      submit: (e: SubmitEvent) => handleSubmit({ e, fields, validationSchema }),
+      submit: (e: SubmitEvent) => {
+        if (action === 'profile') {
+          ProfileChangeController.changeProfile({ fields, e });
+        }
+      },
     },
   });
 

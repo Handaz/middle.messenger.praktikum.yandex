@@ -5,6 +5,7 @@ const loginRule = /^(?=.*[a-zA-Z])([a-zA-Z0-9_-]{3,20})$/g;
 const mailRule = /^[-.\/?*()!#&+\w\s]+[@][a-zA-Z]+[.][a-zA-Z]+$/g;
 const passwordRule = /^(?=.*[0-9])(?=.*[A-Z])([a-zA-Z0-9_-]{8,40})$/g;
 const phoneRule = /^[+]?[0-9]{10,15}$/g;
+const noEmptyRule = /([^\s])/g;
 
 const validationSchema: ValidationSchema = {
   first_name: {
@@ -19,6 +20,10 @@ const validationSchema: ValidationSchema = {
     rule: loginRule,
     error:
       'Login must have a length of 3-20 and not have whitespaces and special characters (excluding - and _)',
+  },
+  display_name: {
+    rule: noEmptyRule,
+    error: 'Enter chat name',
   },
   email: {
     rule: mailRule,

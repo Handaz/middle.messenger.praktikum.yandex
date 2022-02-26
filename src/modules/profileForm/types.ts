@@ -6,3 +6,12 @@ export interface IProfileForm extends BlockProps {
   avatar: Avatar;
   form: Form;
 }
+
+export interface ProfileChangeForm {
+  email: string;
+  login: string;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  phone: string;
+}

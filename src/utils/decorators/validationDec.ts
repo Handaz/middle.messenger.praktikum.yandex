@@ -2,7 +2,7 @@ import handleSubmit from '../functions/handleSubmit';
 import { FormControllerProps } from '../../modules/controller';
 import { FormValues, ValidationSchema } from '../../types';
 
-export default function catchDec(validationSchema: ValidationSchema) {
+export default function validationDec(validationSchema: ValidationSchema) {
   return function <T extends FormValues>(
     target: any,
     _propertyKey: string,
@@ -12,6 +12,7 @@ export default function catchDec(validationSchema: ValidationSchema) {
 
     descriptor.value = function (...args: FormControllerProps[]) {
       const { fields, e } = args[0];
+
       const { data, isValid } = handleSubmit<T>({
         fields,
         e,

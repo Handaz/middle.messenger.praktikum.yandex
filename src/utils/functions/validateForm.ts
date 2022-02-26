@@ -12,7 +12,7 @@ export default function validateForm(
   Object.entries(formValues).forEach(([name, value]) => {
     if (!validationSchema[name]) {
       isValid = false;
-      return;
+      throw new Error(`No validation rule for field ${name}`);
     }
 
     const field = getCurField(name, fields);

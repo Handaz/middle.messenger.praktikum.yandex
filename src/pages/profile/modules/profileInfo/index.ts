@@ -23,8 +23,6 @@ export class ProfileInfo extends Block<IProfileInfo> {
       ProfileController.getUser();
     }
 
-    console.log(profileFields);
-
     return this.compile({
       avatar,
       username,
