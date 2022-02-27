@@ -2,7 +2,11 @@ import * as classes from './profileInfo.module.scss';
 
 export default `
 <div>
-  <div>{{ avatar }}</div>
+  <div class=${classes.avatarWrapper}>
+    <div class=${classes.avatarField}>Change avatar</div>
+    <div class=${classes.avatar}>{{ avatar }}</div>
+  </div>
+  {{ modal }}
   <div>{{ username }}</div>
   <div class=${classes.infoFields}>
     {{#each profileFields}}

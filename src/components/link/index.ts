@@ -10,7 +10,7 @@ export default class Link extends Block<ILink> {
       ...props,
       events: events
         ? { ...events, click: events.click ?? defaultClick }
-        : defaultClick,
+        : { click: defaultClick },
     });
   }
 

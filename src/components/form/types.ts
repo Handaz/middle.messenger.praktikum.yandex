@@ -2,9 +2,10 @@ import { BlockProps } from '../../types';
 import Button from '../button';
 import Input from './input';
 import Error from './error';
+import FileInput from './fileInput';
 
 export interface IFields {
-  input: Input;
+  input: Input | FileInput;
   error?: Error;
 }
 

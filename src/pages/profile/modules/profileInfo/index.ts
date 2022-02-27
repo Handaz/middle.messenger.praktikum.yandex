@@ -3,6 +3,7 @@ import template from './profileInfo.tmpl';
 
 import Link from '../../../../components/link';
 import Avatar from '../../../../components/avatar';
+import Modal from '../../../../components/modal';
 
 import Store from '../../../../store';
 import ProfileController from './controller';
@@ -10,6 +11,7 @@ import { IProfileInfo } from './types';
 import { profileLinks, mapStateToProfile } from './utils';
 import connect from '../../../../utils/functions/hoc';
 import profilePicture from '../../../../../static/images/profilePicture.png';
+import ContentBlock from '../../../../components/contentBlock';
 
 export class ProfileInfo extends Block<IProfileInfo> {
   constructor(props: IProfileInfo) {
@@ -17,7 +19,7 @@ export class ProfileInfo extends Block<IProfileInfo> {
   }
 
   render() {
-    const { avatar, username, profileFields, links } = this.props;
+    const { avatar, modal, username, profileFields, links } = this.props;
 
     if (!Store.getState().user) {
       ProfileController.getUser();
@@ -25,6 +27,7 @@ export class ProfileInfo extends Block<IProfileInfo> {
 
     return this.compile({
       avatar,
+      modal,
       username,
       profileFields,
       links,
@@ -51,14 +54,26 @@ export function ProfileInfoModule(): ProfileInfo {
       }),
   );
 
+  const modal = new Modal({
+    content: new ContentBlock({
+      title: 'Upload a file',
+      content: '',
+    }),
+    isModalOpen: false,
+  });
+
   const avatar = new Avatar({
     source: profilePicture,
+    events: {
+      click: () => modal.setProps({ isModalOpen: true }),
+    },
   });
 
   return new ProfileInfoHoc({
     avatar,
+    modal,
     links,
-    username: 'test',
+    username: '',
     profileFields: [{ label: '', value: '' }],
   });
 }

@@ -14,6 +14,11 @@ export default function getFormValues<T extends FormValues>(
   const inputFields = Array.from(nodeList);
 
   return Object.fromEntries(
-    inputFields.map(({ name, value }) => [name, value]),
+    inputFields.map(({ name, value, type, files }) => {
+      if (type === 'file' && files) {
+        return [name, files[0]];
+      }
+      return [name, value];
+    }),
   ) as T;
 }

@@ -14,6 +14,8 @@ interface Options<P> {
 
 type OptionsWithoutMethod<P> = Omit<Options<P>, 'method'>;
 
+export const staticUrl = 'https://ya-praktikum.tech/api/v2/resources';
+
 const baseUrl = 'https://ya-praktikum.tech/api/v2/';
 
 function queryStringify(data: Record<string, any>) {
@@ -69,11 +71,7 @@ class Request {
     options: Options<P> = { method: METHODS.GET },
     timeout: number = 5000,
   ): Promise<T> => {
-    const {
-      method,
-      data,
-      headers = { 'Content-Type': 'application/json;charset=UTF-8' },
-    } = options;
+    const { method, data, headers = {} } = options;
     let params = '';
 
     if (method === METHODS.GET && data) {
@@ -96,6 +94,10 @@ class Request {
         xhr.setRequestHeader(header, val);
       });
 
+      if (!(data instanceof FormData)) {
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      }
+
       xhr.withCredentials = true;
 
       xhr.onabort = reject;
@@ -108,7 +110,7 @@ class Request {
       if (method === METHODS.GET || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        xhr.send(data instanceof FormData ? data : JSON.stringify(data));
       }
     });
   };

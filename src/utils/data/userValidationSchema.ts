@@ -7,6 +7,8 @@ const passwordRule = /^(?=.*[0-9])(?=.*[A-Z])([a-zA-Z0-9_-]{8,40})$/g;
 const phoneRule = /^[+]?[0-9]{10,15}$/g;
 const noEmptyRule = /([^\s])/g;
 
+const isFile = (value: unknown): value is File => value instanceof File;
+
 const validationSchema: ValidationSchema = {
   first_name: {
     rule: nameRule,
@@ -55,6 +57,10 @@ const validationSchema: ValidationSchema = {
   newPasswordConfirm: {
     rule: { equal: 'newPassword' },
     error: "Passwords don't match",
+  },
+  avatar: {
+    rule: isFile,
+    error: 'Provide a file',
   },
 };
 

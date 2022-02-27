@@ -1,11 +1,12 @@
 import Input from '../../components/form/input';
 import FormError from '../../components/form/error';
+import FileInput from '../../components/form/fileInput';
 import { ValidationSchema } from '../../types';
 import { IFields } from '../../components/form/types';
 import getCurField from './getCurField';
 
 export default function validateField(
-  input: Input,
+  input: Input | FileInput,
   formError: FormError,
   validationSchema: ValidationSchema,
   fields?: IFields[],

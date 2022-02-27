@@ -8,7 +8,7 @@ export interface BlockProps {
 
 export interface ValidationSchema {
   [key: string]: {
-    rule: RegExp | { equal: string };
+    rule: RegExp | { equal: string } | ((params?: unknown) => unknown);
     error: string;
   };
 }
