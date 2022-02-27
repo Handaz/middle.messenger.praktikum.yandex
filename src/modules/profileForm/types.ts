@@ -15,3 +15,9 @@ export interface ProfileChangeForm {
   display_name: string;
   phone: string;
 }
+
+export interface PasswordChangeForm {
+  oldPassword: string;
+  newPassword: string;
+  newPasswordConfirm?: string;
+}

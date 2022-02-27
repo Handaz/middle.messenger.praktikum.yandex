@@ -5,9 +5,9 @@ import Navigation from '../../components/navigation';
 import Sidebar from '../../components/sidebar';
 import Link from '../../components/link';
 
-import connect from '../../utils/functions/hoc';
 import profile from '../../layouts/profile';
 import { IProfileChange } from './types';
+import connect from '../../utils/functions/hoc';
 import mapStateToProfileChange from './utils';
 
 class ProfileChange extends Block<IProfileChange> {

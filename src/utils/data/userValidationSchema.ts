@@ -43,6 +43,10 @@ const validationSchema: ValidationSchema = {
     rule: { equal: 'password' },
     error: "Passwords don't match",
   },
+  oldPassword: {
+    rule: noEmptyRule,
+    error: 'Enter old password',
+  },
   newPassword: {
     rule: passwordRule,
     error:

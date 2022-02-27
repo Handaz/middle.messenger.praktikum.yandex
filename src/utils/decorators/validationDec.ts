@@ -2,7 +2,10 @@ import handleSubmit from '../functions/handleSubmit';
 import { FormControllerProps } from '../../modules/controller';
 import { FormValues, ValidationSchema } from '../../types';
 
-export default function validationDec(validationSchema: ValidationSchema) {
+export default function validationDec(
+  validationSchema: ValidationSchema,
+  dataKey?: string,
+) {
   return function <T extends FormValues>(
     target: any,
     _propertyKey: string,
@@ -20,7 +23,11 @@ export default function validationDec(validationSchema: ValidationSchema) {
       });
 
       if (isValid && target) {
-        target.data = data;
+        if (dataKey) {
+          target[dataKey] = data;
+        } else {
+          target.data = data;
+        }
         originalMethod.apply(this, args);
       }
     };

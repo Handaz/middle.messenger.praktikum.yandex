@@ -27,7 +27,6 @@ export class ProfileForm extends Block<IProfileForm> {
 
 export function ProfileFormModule(
   fields: IFields[],
-  // submitAction: (_params?: FormControllerProps) => void,
   action: 'profile' | 'password',
 ): ProfileForm {
   const button = new Button({
@@ -43,6 +42,8 @@ export function ProfileFormModule(
       submit: (e: SubmitEvent) => {
         if (action === 'profile') {
           ProfileChangeController.changeProfile({ fields, e });
+        } else {
+          ProfileChangeController.changePassword({ fields, e });
         }
       },
     },

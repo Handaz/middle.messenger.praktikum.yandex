@@ -4,7 +4,6 @@ import FormError from '../../../components/form/error';
 import Input from '../../../components/form/input';
 import { IInput } from '../../../components/form/input/types';
 
-import ProfileChangeController from '../controller';
 import handleInputChange from '../../../utils/functions/handleInputChange';
 import validateField from '../../../utils/functions/validateField';
 import validationSchema from '../../../utils/data/userValidationSchema';
