@@ -8,7 +8,7 @@ export default class Chat extends Block<IChat> {
   }
 
   render() {
-    const { avatar, title, sender, message, time } = this.props;
+    const { avatar, title, sender, message, unread, time } = this.props;
 
     return this.compile({
       avatar,
@@ -16,6 +16,7 @@ export default class Chat extends Block<IChat> {
       sender,
       message,
       time,
+      unread,
     });
   }
 }

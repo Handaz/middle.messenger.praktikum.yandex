@@ -1,17 +1,7 @@
 import { FormValues, ValidationSchema } from '../../types';
 import { IFields } from '../../components/form/types';
 import getCurField from './getCurField';
-
-const setErrors = (field: IFields, error: string) => {
-  field.input.setProps({ error });
-  field.error?.setProps({ error });
-  return false;
-};
-
-const removeErrors = (field: IFields) => {
-  field.input.setProps({ error: undefined });
-  field.error?.setProps({ error: undefined });
-};
+import { setErrors, removeErrors } from './handleError';
 
 export default function validateForm(
   fields: IFields[],

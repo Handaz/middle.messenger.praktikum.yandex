@@ -15,8 +15,17 @@ export default function connect<P>(
         });
 
         Store.on(StoreEvents.Updated, () => {
-          if (!isEqual(props, mapStateToProps(Store.getState()))) {
-            this.setProps({ ...mapStateToProps(Store.getState()) });
+          const newProps = mapStateToProps(Store.getState());
+          const updatedProps = Object.keys(newProps).reduce<Partial<P>>(
+            (acc, k) => {
+              const key = k as keyof typeof props;
+              acc[key] = props[key];
+              return acc;
+            },
+            {},
+          );
+          if (!isEqual(updatedProps, newProps)) {
+            this.setProps({ ...newProps });
           }
         });
       }

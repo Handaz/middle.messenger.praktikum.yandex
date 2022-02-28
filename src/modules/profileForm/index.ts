@@ -5,10 +5,12 @@ import Button from '../../components/button';
 import Form from '../../components/form';
 import Avatar from '../../components/avatar';
 
+import mapStateToProfileForm from './utils';
 import ProfileChangeController from './controller';
 import { IProfileForm } from './types';
 import { IFields } from '../../components/form/types';
 import profilePicture from '../../../static/images/profilePicture.png';
+import connect from '../../utils/functions/hoc';
 
 export class ProfileForm extends Block<IProfileForm> {
   constructor(props: IProfileForm) {
@@ -24,6 +26,10 @@ export class ProfileForm extends Block<IProfileForm> {
     });
   }
 }
+
+const profileForm = connect<IProfileForm>(mapStateToProfileForm);
+
+const ProfileFormHoc = profileForm(ProfileForm);
 
 export function ProfileFormModule(
   fields: IFields[],
@@ -53,7 +59,7 @@ export function ProfileFormModule(
     source: profilePicture,
   });
 
-  return new ProfileForm({
+  return new ProfileFormHoc({
     avatar,
     form,
   });

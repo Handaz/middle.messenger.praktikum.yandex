@@ -46,7 +46,7 @@ class Router {
     }
 
     this._currentRoute = route;
-    route.render();
+    route.navigate(pathname);
   }
 
   go(pathname: string) {
@@ -62,8 +62,11 @@ class Router {
     this.history.forward();
   }
 
-  getRoute(pathname: string) {
-    return this.routes.find((route) => route.match(pathname));
+  getRoute(pathname: string): Route {
+    return (
+      this.routes.find((route) => route.match(pathname)) ??
+      this.getRoute('/404')
+    );
   }
 }
 
