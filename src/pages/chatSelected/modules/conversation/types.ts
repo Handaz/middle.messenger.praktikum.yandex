@@ -1,5 +1,5 @@
 import { BlockProps } from '../../../../types';
-import ConversationInfo from './components/conversationInfo';
+import ConversationInfo from '../conversationInfo';
 import ConversationActions from './components/conversationActions';
 import Message from './components/message';
 

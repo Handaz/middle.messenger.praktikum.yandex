@@ -32,7 +32,7 @@ class ConversationController extends Controller<MessageForm> {
   }
 
   getConversation(id: number) {
-    const { currChats, messages } = Store.getState();
+    const { currChats, messages, chats } = Store.getState();
 
     if (!currChats) {
       throw new Error('No chats available');
@@ -50,7 +50,12 @@ class ConversationController extends Controller<MessageForm> {
 
     this.currentSocket = chat.socket;
 
-    this.currentSocket.getChatHistory();
+    if (chat.messages.length === 0) {
+      this.currentSocket.getChatHistory();
+    } else {
+      console.log(currChats, chats);
+      Store.set('messages', { chat: chat.id, data: chat.messages });
+    }
 
     Router.go(`/chat`);
   }

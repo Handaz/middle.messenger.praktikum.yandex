@@ -7,4 +7,5 @@ export default `
         {{ username }}
     </div> 
     {{ button }}
+    {{ modal }}
 </div>`;

@@ -14,7 +14,7 @@ export default function catchDec(
       if (result && result instanceof Promise) {
         return result.catch((error) => {
           console.log(error);
-          if (typeof error === 'object' && error !== null) {
+          if (typeof error === 'object' && error !== null && args[0]) {
             setFormError(args[0].fields, error.reason);
           }
         });

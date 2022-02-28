@@ -30,3 +30,7 @@ export interface IChatId {
 export interface IChatToken {
   token: string;
 }
+
+export interface ICreateChat {
+  title: string;
+}

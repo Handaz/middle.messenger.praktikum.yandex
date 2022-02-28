@@ -5,6 +5,8 @@ export default `
   <div class=${classes.header}>
     <div>{{ profile }}</div>
     <div>{{ search }}</div>
+    <div>{{ chatAdd }}</div>
+    <div>{{ modal }}</div>
   </div>
   <div>
     <ul>

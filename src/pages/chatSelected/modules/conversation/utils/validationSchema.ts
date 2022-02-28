@@ -1,10 +1,9 @@
 import { ValidationSchema } from '../../../../../types';
-
-const messageRule = /^(?!\s*$)[a-zA-Z.+\s'-]+$/g;
+import { noEmptyRule } from '../../../../../utils/data/userValidationSchema';
 
 const validationSchema: ValidationSchema = {
   message: {
-    rule: messageRule,
+    rule: noEmptyRule,
     error: '',
   },
 };

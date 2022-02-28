@@ -23,7 +23,7 @@ class Error500 extends Block<IError500> {
 
 const link = new Link({
   url: '/',
-  content: 'Back to chats',
+  content: 'Back to main page',
 });
 
 export default new Error500({

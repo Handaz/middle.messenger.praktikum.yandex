@@ -21,7 +21,9 @@ export class ProfileInfo extends Block<IProfileInfo> {
   render() {
     const { avatar, modal, username, profileFields, links } = this.props;
 
-    if (!Store.getState().user) {
+    const { user } = Store.getState();
+
+    if (!user) {
       ProfileController.getUser();
     }
 

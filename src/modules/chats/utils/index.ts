@@ -5,9 +5,23 @@ import Link from '../../../components/link';
 import ConversationController from '../../../pages/chatSelected/modules/conversation/controller';
 import { staticUrl } from '../../../utils/classes/request';
 import userAvatar from '../../../../static/images/userAvatar.png';
-import { Indexed } from '../../../types';
+import { Indexed, ValidationSchema } from '../../../types';
+import { IInput } from '../../../components/form/input/types';
 import { IChatsInfo, ILastMessageInfo } from '../../../api/chats/types';
 import getTime from '../../../utils/functions/getTime';
+import { noEmptyRule } from '../../../utils/data/userValidationSchema';
+
+export const chatAddFields: IInput[] = [
+  {
+    type: 'text',
+    name: 'title',
+    placeholder: 'Chat title',
+  },
+];
+
+export const validationSchema: ValidationSchema = {
+  title: { rule: noEmptyRule, error: 'Enter chat title' },
+};
 
 const mapStateToChats = (state: Indexed) => {
   if (state.chats) {

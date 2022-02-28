@@ -23,7 +23,10 @@ class ProfileController extends Controller<AvatarForm> {
   public async logout(e: MouseEvent) {
     e.preventDefault();
     await ProfileAPI.logout();
-    Router.go('/login');
+
+    Store.empty();
+
+    Router.go('/');
   }
 
   @validationDec(validationSchema)

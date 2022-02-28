@@ -64,7 +64,7 @@ const form = new Form({
   },
 });
 
-const link = new Link({ content: 'Sign in', url: 'login' });
+const link = new Link({ content: 'Sign in', url: '/' });
 
 const registerForm = new ContentBlock({
   title: 'Sign up',

@@ -22,7 +22,7 @@ export default class WSService {
     this.socket = new WebSocket(`${socketUrl}${userId}/${chatId}/${token}`);
 
     this.socket.addEventListener(OPEN, this.handleOpen);
-    this.socket.addEventListener(MESSAGE, this.handleMessage);
+    this.socket.addEventListener(MESSAGE, this.handleMessage.bind(this));
     this.socket.addEventListener(ERROR, this.handleError);
     this.socket.addEventListener(CLOSE, this.handleClose);
   }
@@ -72,20 +72,18 @@ export default class WSService {
       return;
     }
 
-    Store.set(
-      'currChats',
-      currChats.map((item: Indexed) => {
-        if (item.id === this._id) {
-          if (Array.isArray(data)) {
-            item.messages.concat(data);
-          } else {
-            item.messages.unshift(data);
-          }
+    const chats = currChats.map((item: Indexed) => {
+      if (item.id === this._id) {
+        if (Array.isArray(data)) {
+          item.messages = item.messages.concat(data);
+        } else {
+          item.messages.unshift(data);
         }
+      }
+      return item;
+    });
 
-        return item;
-      }),
-    );
+    Store.set('currChats', chats);
   }
 
   handleError(e: ErrorEvent) {

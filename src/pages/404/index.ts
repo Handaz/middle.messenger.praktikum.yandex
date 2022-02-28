@@ -23,7 +23,7 @@ class Error404 extends Block<IError404> {
 
 const link = new Link({
   url: '/',
-  content: 'Back to chats',
+  content: 'Back to main page',
 });
 
 export default new Error404({

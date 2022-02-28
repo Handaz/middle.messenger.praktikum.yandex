@@ -8,8 +8,8 @@ export default class Button extends Block<IButton> {
   }
 
   render() {
-    const { type, content } = this.props;
+    const { type, content, transparent } = this.props;
 
-    return this.compile({ type, content });
+    return this.compile({ type, content, transparent });
   }
 }
