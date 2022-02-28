@@ -30,6 +30,7 @@ const mapStateToChats = (state: Indexed) => {
         ({ title, last_message, avatar, unread_count, id }: IChatsInfo) => {
           const info: ILastMessageInfo = {
             user: {
+              id: NaN,
               first_name: '',
               second_name: '',
               display_name: '',
@@ -52,7 +53,7 @@ const mapStateToChats = (state: Indexed) => {
             avatar: new Avatar({
               source: avatar ? `${staticUrl}${avatar}` : userAvatar,
             }),
-            title: new Link({ content: title, url: 'chat' }),
+            title,
             sender: user.display_name ?? '',
             message: content,
             time,

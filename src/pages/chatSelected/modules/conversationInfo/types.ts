@@ -5,7 +5,7 @@ import Modal from '../../../../components/modal';
 
 export interface IConversationInfo extends BlockProps {
   avatar: Avatar;
-  username: string;
+  title: string;
   button: Button;
   modal: Modal;
 }

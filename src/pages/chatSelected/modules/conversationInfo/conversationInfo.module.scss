@@ -8,5 +8,10 @@
 
 .user {
   @include flexCenter;
-  flex: 0;
+  gap: 10px;
+}
+
+.avatar {
+  height: 47px;
+  width: 47px;
 }

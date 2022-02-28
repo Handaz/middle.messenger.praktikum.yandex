@@ -3,6 +3,7 @@ import {
   FormControllerProps,
 } from '../../../../../modules/controller';
 
+import ChatsAPI from '../../../../../api/chats';
 import WSService from '../../../../../utils/classes/wsService';
 import Store from '../../../../../store';
 import validationDec from '../../../../../utils/decorators/validationDec';
@@ -10,11 +11,13 @@ import validationSchema from '../utils/validationSchema';
 import { MessageForm } from '../types';
 import { Indexed } from '../../../../../types';
 import Router from '../../../../../utils/classes/router';
+import catchDec from '../../../../../utils/decorators/catchDec';
 
 class ConversationController extends Controller<MessageForm> {
   currentSocket: WSService;
 
-  public open(token: string, id: number) {
+  @catchDec
+  public async open(token: string, id: number) {
     const state = Store.getState();
 
     if (state.user) {
@@ -26,13 +29,15 @@ class ConversationController extends Controller<MessageForm> {
         currChats = Store.getState().currChats;
       }
 
-      currChats.push({ socket, token, id, messages: [] });
+      const members = await ChatsAPI.getChatMembers(id);
+
+      currChats.push({ socket, token, id, messages: [], members });
       Store.set('currChats', currChats);
     }
   }
 
   getConversation(id: number) {
-    const { currChats, messages, chats } = Store.getState();
+    const { currChats, messages } = Store.getState();
 
     if (!currChats) {
       throw new Error('No chats available');
@@ -53,7 +58,6 @@ class ConversationController extends Controller<MessageForm> {
     if (chat.messages.length === 0) {
       this.currentSocket.getChatHistory();
     } else {
-      console.log(currChats, chats);
       Store.set('messages', { chat: chat.id, data: chat.messages });
     }
 

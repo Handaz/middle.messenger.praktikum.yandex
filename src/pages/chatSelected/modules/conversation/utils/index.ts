@@ -5,6 +5,12 @@ import getTime from '../../../../../utils/functions/getTime';
 
 const mapStateToConversation = ({ user, messages }: Indexed) => {
   if (user && messages) {
+    if (messages.data.length === 0) {
+      return {
+        messages: [],
+      };
+    }
+
     const conversationContent = messages.data.map(
       ({ user_id, content, is_read, time }: IMessageData) =>
         new Message({

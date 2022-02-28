@@ -1,15 +1,7 @@
-export interface IUserChatInfo {
-  first_name: string;
-  second_name: string;
-  display_name?: string;
-  avatar: string | null;
-  email: string;
-  login: string;
-  phone: string;
-}
+import { IUserInfo } from '../user/types';
 
 export interface ILastMessageInfo {
-  user: IUserChatInfo;
+  user: IUserInfo;
   time: string;
   content: string;
 }
@@ -33,4 +25,8 @@ export interface IChatToken {
 
 export interface ICreateChat {
   title: string;
+}
+
+export interface IChatMembers extends IUserInfo {
+  role: 'admin';
 }

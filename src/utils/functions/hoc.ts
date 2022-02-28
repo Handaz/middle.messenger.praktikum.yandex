@@ -16,14 +16,19 @@ export default function connect<P>(
 
         Store.on(StoreEvents.Updated, () => {
           const newProps = mapStateToProps(Store.getState());
-          const updatedProps = Object.keys(newProps).reduce<Partial<P>>(
+          const updatedProps = Object.keys(newProps).reduce<Indexed>(
             (acc, k) => {
-              const key = k as keyof typeof props;
-              acc[key] = props[key];
+              if (k in this.children) {
+                acc[k] = this.children[k];
+              } else {
+                const key = k as keyof typeof props;
+                acc[k] = props[key];
+              }
               return acc;
             },
             {},
           );
+
           if (!isEqual(updatedProps, newProps)) {
             this.setProps({ ...newProps });
           }

@@ -9,6 +9,8 @@ import Modal from '../../../../components/modal';
 import { IConversationInfo } from './types';
 import infoIcon from '../../../../../static/icons/infoIcon';
 import userAvatar from '../../../../../static/images/userAvatar.png';
+import mapStateToConversationInfo from './utils';
+import connect from '../../../../utils/functions/hoc';
 
 export default class ConversationInfo extends Block<IConversationInfo> {
   constructor(props: IConversationInfo) {
@@ -16,20 +18,24 @@ export default class ConversationInfo extends Block<IConversationInfo> {
   }
 
   render() {
-    const { avatar, username, button, modal } = this.props;
+    const { avatar, title, button, modal } = this.props;
 
     return this.compile({
       avatar,
-      username,
+      title,
       button,
       modal,
     });
   }
 }
 
+const conversationInfo = connect<IConversationInfo>(mapStateToConversationInfo);
+
+const ConversationInfoHoc = conversationInfo(ConversationInfo);
+
 export function ConversationInfoModule() {
   const content = new ContentBlock({
-    title: 'Manage chat',
+    title: '',
     content: '',
   });
 
@@ -38,7 +44,7 @@ export function ConversationInfoModule() {
     isModalOpen: false,
   });
 
-  const infoButton = new Button({
+  const button = new Button({
     type: 'button',
     content: infoIcon,
     transparent: true,
@@ -47,12 +53,12 @@ export function ConversationInfoModule() {
     },
   });
 
-  return new ConversationInfo({
+  return new ConversationInfoHoc({
     modal,
     avatar: new Avatar({
       source: userAvatar,
     }),
-    username: 'test',
-    button: infoButton,
+    title: '',
+    button,
   });
 }
