@@ -3,6 +3,8 @@
 .message {
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
   max-width: 402px;
   padding: 11px;
   border-radius: 12px;
@@ -18,4 +20,14 @@
   border-bottom-right-radius: 0;
   background: var(--primary);
   align-self: flex-end;
+}
+
+.content {
+  max-width: 75%;
+  overflow-wrap: break-word;
+}
+
+.info {
+  display: flex;
+  gap: 5px;
 }

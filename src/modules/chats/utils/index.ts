@@ -1,6 +1,5 @@
 import Chat from '../components/chat';
 import Avatar from '../../../components/avatar';
-import Link from '../../../components/link';
 
 import ConversationController from '../../../pages/chatSelected/modules/conversation/controller';
 import { staticUrl } from '../../../utils/classes/request';

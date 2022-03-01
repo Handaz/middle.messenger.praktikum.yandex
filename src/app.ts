@@ -10,48 +10,72 @@ import ProfileChange from './pages/profileChange';
 
 import Router from './utils/classes/router';
 import Store, { StoreEvents } from './store';
-import isEqual from './utils/functions/isEqual';
+import Block from './modules/block';
+import UserAPI from './api/user';
+import { IUserInfo } from './api/user/types';
 
-if (Router.routes.length === 0) {
-  Router.use('/404', Error404)
-    .use('/500', Error500)
-    .use('/register', Register)
-    .use('/', Login)
-    .start();
+interface Pages {
+  path: string;
+  block: Block;
 }
 
-let { user: currUser } = Store.getState();
+class App {
+  currUser: IUserInfo | null = null;
 
-Store.on(StoreEvents.Updated, () => {
-  const { user } = Store.getState();
+  defaultPages: Pages[];
 
-  if (currUser && user && isEqual(currUser, user)) {
-    return;
+  loggedPages: Pages[];
+
+  constructor() {
+    Store.on(StoreEvents.Updated, this.handleStoreUpdate.bind(this));
+
+    this.defaultPages = [
+      { path: '/404', block: Error404 },
+      { path: '/500', block: Error500 },
+      { path: '/register', block: Register },
+      { path: '/', block: Login },
+    ];
+
+    this.loggedPages = [
+      { path: '/404', block: Error404 },
+      { path: '/500', block: Error500 },
+      { path: '/', block: ChatSelect },
+      { path: '/chat', block: ChatSelected },
+      { path: '/profile', block: Profile },
+      { path: '/password-change', block: PasswordChange },
+      { path: '/profile-change', block: ProfileChange },
+    ];
+
+    this.initialRender();
   }
 
-  if (!currUser && user) {
-    currUser = user;
+  async initialRender() {
+    try {
+      await UserAPI.getCurrentUser();
+    } catch (err) {
+      this.handleRoutes();
+    }
   }
 
-  if (currUser && user) {
-    Router.routes = [];
-    Router.use('/404', Error404)
-      .use('/500', Error500)
-      .use('/', ChatSelect)
-      .use('/chat', ChatSelected)
-      .use('/profile', Profile)
-      .use('/password-change', PasswordChange)
-      .use('/profile-change', ProfileChange)
-      .start();
+  handleStoreUpdate() {
+    const { user } = Store.getState();
+
+    if ((!this.currUser && user) || (!user && this.currUser)) {
+      this.currUser = user;
+      Router.routes = [];
+    }
+
+    this.handleRoutes();
   }
 
-  if (!user) {
-    currUser = user;
-    Router.routes = [];
-    Router.use('/404', Error404)
-      .use('/500', Error500)
-      .use('/register', Register)
-      .use('/', Login)
-      .start();
+  handleRoutes() {
+    if (!this.currUser) {
+      this.defaultPages.forEach(({ path, block }) => Router.use(path, block));
+    } else {
+      this.loggedPages.forEach(({ path, block }) => Router.use(path, block));
+    }
+    Router.start();
   }
-});
+}
+
+export default new App();

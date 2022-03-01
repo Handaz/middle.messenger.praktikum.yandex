@@ -94,7 +94,7 @@ export function ChatsModule(): Chats {
 
   const chatAdd = new Button({
     type: 'button',
-    content: '+',
+    content: 'Add chat',
     transparent: true,
     events: {
       click: () => modal.setProps({ isModalOpen: true }),

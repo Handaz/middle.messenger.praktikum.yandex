@@ -15,6 +15,8 @@ import { AvatarForm } from '../types';
 class ProfileController extends Controller<AvatarForm> {
   @catchDec
   public async getUser() {
+    Store.set('user', null);
+
     const user = await UserAPI.getCurrentUser();
     Store.set('user', user);
   }

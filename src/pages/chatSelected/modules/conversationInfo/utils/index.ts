@@ -27,9 +27,9 @@ const mapStateToConversationInfo = ({
     );
     if (chat.members.length > 0) {
       const members = chat.members.map(
-        ({ display_name, first_name, id, role }: IChatMembers) =>
+        ({ display_name, login, id, role }: IChatMembers) =>
           new ChatMember({
-            username: display_name ?? first_name,
+            username: display_name ?? login,
             button:
               role === 'admin'
                 ? 'admin'

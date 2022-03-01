@@ -6,7 +6,7 @@ import { staticUrl } from '../../../utils/classes/request';
 
 const mapStateToProfileForm = ({ user }: Indexed) => {
   const avatar = new Avatar({
-    source: user ? `${staticUrl}${user.avatar}` : profilePicture,
+    source: user && user.avatar ? `${staticUrl}${user.avatar}` : profilePicture,
   });
 
   return {
