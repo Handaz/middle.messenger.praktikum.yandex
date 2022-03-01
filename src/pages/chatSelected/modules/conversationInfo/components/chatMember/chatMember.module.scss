@@ -1,0 +1,7 @@
+@import '../../../../../../styles/global.scss';
+
+.member {
+  @include flexBetween;
+
+  min-width: 200px;
+}

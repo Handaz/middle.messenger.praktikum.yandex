@@ -8,3 +8,7 @@ export interface IUserInfo {
   email: string;
   phone: string;
 }
+
+export interface IUserSearch {
+  login: string;
+}

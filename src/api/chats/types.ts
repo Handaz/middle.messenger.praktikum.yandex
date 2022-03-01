@@ -28,5 +28,10 @@ export interface ICreateChat {
 }
 
 export interface IChatMembers extends IUserInfo {
-  role: 'admin';
+  role: string;
+}
+
+export interface IChatMemberAction {
+  users: number[];
+  chatId: number;
 }

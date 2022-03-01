@@ -1,7 +1,13 @@
 import BaseAPI from '../../utils/classes/baseApi';
 import apiCall from '../../utils/classes/request';
 import { IUserInfo } from '../user/types';
-import { IChatId, IChatsInfo, IChatToken, ICreateChat } from './types';
+import {
+  IChatId,
+  IChatMemberAction,
+  IChatsInfo,
+  IChatToken,
+  ICreateChat,
+} from './types';
 
 class ChatsAPI extends BaseAPI<
   undefined,
@@ -29,6 +35,22 @@ class ChatsAPI extends BaseAPI<
 
   public async getChatMembers(id: number) {
     const res = await apiCall.get<number, IUserInfo[]>(`chats/${id}/users`);
+
+    return res;
+  }
+
+  public async addChatMember(data: IChatMemberAction) {
+    const res = await apiCall.put<IChatMemberAction, string>(`chats/users`, {
+      data,
+    });
+
+    return res;
+  }
+
+  public async removeChatMember(data: IChatMemberAction) {
+    const res = await apiCall.delete<IChatMemberAction, string>(`chats/users`, {
+      data,
+    });
 
     return res;
   }

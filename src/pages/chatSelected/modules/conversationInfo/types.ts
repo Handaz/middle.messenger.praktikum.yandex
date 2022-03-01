@@ -9,3 +9,7 @@ export interface IConversationInfo extends BlockProps {
   button: Button;
   modal: Modal;
 }
+
+export interface IAddMember {
+  login: string;
+}
