@@ -12,7 +12,7 @@
   --primary900: #282c35;
   --clr-font: #dbdcde;
   --white: #fff;
-  --darkShadow: rgba(0, 0, 0, 0.459);
+  --darkShadow: rgb(0 0 0 / 45.9%);
 }
 
 body {
@@ -23,7 +23,12 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family:
+    source-code-pro,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Courier New',
     monospace;
 }
 

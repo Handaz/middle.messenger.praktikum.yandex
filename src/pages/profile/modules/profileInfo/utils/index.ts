@@ -16,7 +16,7 @@ import { staticUrl } from '../../../../../utils/classes/request';
 export const profileLinks: ILink[] = [
   { url: 'profile-change', content: 'Change profile' },
   { url: 'password-change', content: 'Change password' },
-  { url: 'login', content: 'Sign out' },
+  { url: '', content: 'Sign out' },
 ];
 
 const fields = [

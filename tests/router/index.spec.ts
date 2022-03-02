@@ -17,6 +17,7 @@ const window = {
 
 class Router {
   routes: string[] = [];
+
   history = window.history;
 
   use(pathname: string) {

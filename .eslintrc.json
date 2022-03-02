@@ -14,7 +14,9 @@
     "no-continue": "off",
     "func-names": "off",
     "no-restricted-syntax": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "no-plusplus": "off",
+    "max-classes-per-file": "off"
   },
   "parserOptions": {
     "project": "./tsconfig.json"

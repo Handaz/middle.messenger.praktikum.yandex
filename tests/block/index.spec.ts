@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Indexed } from '../../types';
-import isEqual from '../../utils/functions/isEqual';
+import { Indexed } from '../../src/types';
+import isEqual from '../../src/utils/functions/isEqual';
 
 class Block {
   props: Indexed;
