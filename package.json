@@ -6,7 +6,7 @@
     "dev": "npm run checkTsc && parcel static/*.html --no-cache",
     "start": "npm run build && node server.js",
     "build": "npm run checkTsc && npm run linter && npm run slinter && parcel build static/*.html",
-    "checkTsc": "npx tsc --noEmit",
+    "checkTsc": "npx tsc",
     "linter": "npx eslint . --ext .ts --fix",
     "slinter": "npx stylelint \"**/*.scss\" --fix",
     "test": "npx mocha --require ts-node/register "
