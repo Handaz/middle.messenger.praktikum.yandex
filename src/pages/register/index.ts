@@ -9,10 +9,10 @@ import FormError from '../../components/form/error';
 
 import authorization from '../../layouts/authorization';
 import { IRegister } from './types';
+import RegisterController from './controller';
 import fieldsData from './utils';
 import validationSchema from '../../utils/data/userValidationSchema';
-import render from '../../utils/functions/renderDom';
-import handleSubmit from '../../utils/functions/handleSubmit';
+// import handleSubmit from '../../utils/functions/handleSubmit';
 import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
 
@@ -60,11 +60,11 @@ const form = new Form({
   fields,
   button,
   events: {
-    submit: (e: SubmitEvent) => handleSubmit({ fields, e, validationSchema }),
+    submit: (e: SubmitEvent) => RegisterController.register({ fields, e }),
   },
 });
 
-const link = new Link({ content: 'Sign in', url: './login.html' });
+const link = new Link({ content: 'Sign in', url: '/' });
 
 const registerForm = new ContentBlock({
   title: 'Sign up',
@@ -72,9 +72,7 @@ const registerForm = new ContentBlock({
   authForm: true,
 });
 
-const content = new Register({
+export default new Register({
   form: registerForm,
   link,
 });
-
-render('#root', content);

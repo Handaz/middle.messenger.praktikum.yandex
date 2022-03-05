@@ -1,8 +1,8 @@
 import { FormValues } from '../../types';
 
-export default function getFormValues(
+export default function getFormValues<T extends FormValues>(
   eventTarget: EventTarget | null,
-): FormValues {
+): T {
   const form = eventTarget as HTMLElement;
 
   const nodeList = form.querySelectorAll('input');
@@ -13,11 +13,12 @@ export default function getFormValues(
 
   const inputFields = Array.from(nodeList);
 
-  const formValues: FormValues = {};
-
-  inputFields.forEach((input) => {
-    formValues[input.name] = input.value;
-  });
-
-  return formValues;
+  return Object.fromEntries(
+    inputFields.map(({ name, value, type, files }) => {
+      if (type === 'file' && files) {
+        return [name, files[0]];
+      }
+      return [name, value];
+    }),
+  ) as T;
 }

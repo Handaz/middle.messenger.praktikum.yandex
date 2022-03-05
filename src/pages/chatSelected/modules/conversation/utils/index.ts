@@ -1,33 +1,29 @@
-import cameraPhoto from '../../../../../../static/images/cameraPhoto.png';
-import { ValidationSchema } from '../../../../../types';
+import Message from '../components/message';
+import { Indexed } from '../../../../../types';
+import { IMessageData } from '../types';
+import getTime from '../../../../../utils/functions/getTime';
 
-export const conversationData = [
-  {
-    own: false,
-    content:
-      'Hey! Look, an interesting piece of lunar space history surfaced here - NASA at some point asked Hasselblad to adapt the SWC model for flights to the moon. Now we all know that astronauts flew with the 500 EL model - and by the way, all the carcasses of these cameras are still on the surface of the Moon, since the astronauts took with them only cassettes with film. Hasselblad eventually adapted SWC for space, but something went wrong and they never hit the rocket. A total of 25 of them were produced, one of which was recently sold at an auction for 45,000 euros.',
-    status: null,
-    time: '16:20',
-  },
-  {
-    own: false,
-    content: `<img src='${cameraPhoto}'>`,
-    status: null,
-    time: '16:20',
-  },
-  {
-    own: true,
-    content: 'Cool!',
-    status: 'status: read',
-    time: '16:20',
-  },
-];
+const mapStateToConversation = ({ user, messages }: Indexed) => {
+  if (user && messages) {
+    if (messages.data.length === 0) {
+      return {
+        messages: [],
+      };
+    }
 
-const messageRule = /^(?!\s*$)[a-zA-Z.+\s'-]+$/g;
+    const conversationContent = messages.data.map(
+      ({ user_id, content, is_read, time }: IMessageData) =>
+        new Message({
+          own: user.id === user_id,
+          content,
+          status: is_read ? 'read' : 'unread',
+          time: getTime(time),
+        }),
+    );
 
-export const validationSchema: ValidationSchema = {
-  message: {
-    rule: messageRule,
-    error: '',
-  },
+    return { messages: conversationContent };
+  }
+  return {};
 };
+
+export default mapStateToConversation;

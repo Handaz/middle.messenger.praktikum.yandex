@@ -1,8 +1,19 @@
 import { IInput } from '../../../components/form/input/types';
 
-const fieldsData: IInput[] = [
+export const fieldsData: IInput[] = [
   { name: 'login', placeholder: 'Login', type: 'text' },
   { name: 'password', placeholder: 'Password', type: 'password' },
 ];
 
-export default fieldsData;
+const noEmptyString = /([^\s])/g;
+
+export const validationSchema = {
+  login: {
+    rule: noEmptyString,
+    error: 'Enter login',
+  },
+  password: {
+    rule: noEmptyString,
+    error: 'Enter password',
+  },
+};

@@ -1,21 +1,18 @@
 import Block from '../../../../modules/block';
+import { ConversationInfoModule } from '../conversationInfo';
 import template from './conversation.tmpl';
 
-import ConversationInfo from './components/conversationInfo';
-import Avatar from '../../../../components/avatar';
 import Button from '../../../../components/button';
 import Input from '../../../../components/form/input';
 import Form from '../../../../components/form';
-import Message from './components/message';
 import ConversationActions from './components/conversationActions';
 
+import ConversationController from './controller';
 import { IConversation } from './types';
-import infoIcon from '../../../../../static/icons/infoIcon';
 import optionsIcon from '../../../../../static/icons/optionsIcon';
-import userAvatar from '../../../../../static/images/userAvatar.png';
-import { conversationData, validationSchema } from './utils';
-import handleSubmit from '../../../../utils/functions/handleSubmit';
 import handleInputChange from '../../../../utils/functions/handleInputChange';
+import connect from '../../../../utils/functions/hoc';
+import mapStateToConversation from './utils';
 
 export class Conversation extends Block<IConversation> {
   constructor(props: IConversation) {
@@ -33,33 +30,15 @@ export class Conversation extends Block<IConversation> {
   }
 }
 
+const conversation = connect<IConversation>(mapStateToConversation);
+
+const ConversationHoc = conversation(Conversation);
+
 export function ConversationModule(): Conversation {
-  const infoButton = new Button({
-    type: 'button',
-    content: infoIcon,
-  });
-
-  const topBar = new ConversationInfo({
-    avatar: new Avatar({
-      source: userAvatar,
-    }),
-    username: 'test',
-    button: infoButton,
-  });
-
-  const messages = conversationData.map(
-    ({ own, content, status, time }) =>
-      new Message({
-        own,
-        content,
-        status,
-        time,
-      }),
-  );
-
   const optionsButton = new Button({
     type: 'button',
     content: optionsIcon,
+    transparent: true,
   });
 
   const messageFields = [
@@ -90,7 +69,7 @@ export function ConversationModule(): Conversation {
     button: messageButton,
     events: {
       submit: (e: SubmitEvent) =>
-        handleSubmit({ e, fields: messageFields, validationSchema }),
+        ConversationController.send({ e, fields: messageFields }),
     },
   });
 
@@ -99,9 +78,9 @@ export function ConversationModule(): Conversation {
     messageForm,
   });
 
-  return new Conversation({
-    topBar,
-    messages,
+  return new ConversationHoc({
+    topBar: ConversationInfoModule(),
+    messages: [],
     bottomBar,
   });
 }

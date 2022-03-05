@@ -1,11 +1,14 @@
 import Input from '../../components/form/input';
 import FormError from '../../components/form/error';
+import FileInput from '../../components/form/fileInput';
+
 import { ValidationSchema } from '../../types';
 import { IFields } from '../../components/form/types';
+import { setErrors, removeErrors } from './handleError';
 import getCurField from './getCurField';
 
-export default function validateForm(
-  input: Input,
+export default function validateField(
+  input: Input | FileInput,
   formError: FormError,
   validationSchema: ValidationSchema,
   fields?: IFields[],
@@ -21,11 +24,15 @@ export default function validateForm(
   if (rule instanceof RegExp) {
     rule.lastIndex = 0;
     if (!rule.test(value)) {
-      input.setProps({ error });
-      formError.setProps({ error });
+      setErrors({ input, error: formError }, error);
     } else {
-      input.setProps({ error: undefined });
-      formError.setProps({ error: undefined });
+      removeErrors({ input, error: formError });
+    }
+  } else if (typeof rule === 'function') {
+    if (!rule(value)) {
+      setErrors({ input, error: formError }, error);
+    } else {
+      removeErrors({ input, error: formError });
     }
   } else {
     if (!fields) {
@@ -41,11 +48,9 @@ export default function validateForm(
     const requiredVal = (field.input.element as HTMLInputElement).value;
 
     if (requiredVal !== value) {
-      input.setProps({ error });
-      formError.setProps({ error });
+      setErrors({ input, error: formError }, error);
     } else {
-      input.setProps({ error: undefined });
-      formError.setProps({ error: undefined });
+      removeErrors({ input, error: formError });
     }
   }
 }

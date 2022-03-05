@@ -2,6 +2,8 @@ import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import EventBus from '../eventBus';
 import { Nullable } from '../../types';
+import merge from '../../utils/functions/merge';
+import isEqual from '../../utils/functions/isEqual';
 
 type Events = typeof Block.EVENTS[keyof typeof Block.EVENTS];
 
@@ -87,7 +89,6 @@ export default class Block<P = any> {
 
   _componentDidUpdate(oldProps: P, newProps: P) {
     const response = this.componentDidUpdate(oldProps, newProps);
-
     if (response) {
       this.eventBus.emit(Block.EVENTS.FLOW_RENDER);
     }
@@ -98,14 +99,7 @@ export default class Block<P = any> {
       return true;
     }
 
-    const updatedProp = Object.keys(newProps).find(
-      (prop) =>
-        (oldProps as Record<string, any>)[prop] === undefined ||
-        (oldProps as Record<string, any>)[prop] !==
-          (newProps as Record<string, any>)[prop],
-    );
-
-    return !!updatedProp;
+    return !isEqual(oldProps, newProps);
   }
 
   setProps = (nextProps: Partial<P>) => {
@@ -113,7 +107,7 @@ export default class Block<P = any> {
       return;
     }
 
-    Object.assign(this.props, nextProps);
+    merge(this.props, nextProps);
   };
 
   get element() {
@@ -250,11 +244,7 @@ export default class Block<P = any> {
     const props: P = {} as unknown as P;
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
-      if (
-        value instanceof Block ||
-        (Array.isArray(value) && value[0] instanceof Block) ||
-        (Array.isArray(value) && value.every((el) => this._isBlocksObject(el)))
-      ) {
+      if (this._isChild(value)) {
         children[key] = value;
       } else {
         (props as Record<string, any>)[key] = value;
@@ -264,6 +254,14 @@ export default class Block<P = any> {
     return { children, props };
   }
 
+  _isChild(value: unknown) {
+    return (
+      value instanceof Block ||
+      (Array.isArray(value) && value[0] instanceof Block) ||
+      (Array.isArray(value) && value.every((el) => this._isBlocksObject(el)))
+    );
+  }
+
   _makePropsProxy(props: P): P {
     return new Proxy(props as unknown as object, {
       get: (target: Record<string, unknown>, prop: string) => {
@@ -271,10 +269,16 @@ export default class Block<P = any> {
         return typeof value === 'function' ? value.bind(target) : value;
       },
       set: (target: Record<string, unknown>, prop: string, val) => {
-        const oldProps = { ...target };
-        target[prop] = val;
+        if (this._isChild(val)) {
+          const oldChildren = { ...this.children };
+          this.children[prop] = val;
+          this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldChildren, this.children);
+        } else {
+          const oldProps = { ...target };
+          target[prop] = val;
+          this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
+        }
 
-        this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldProps, target);
         return true;
       },
       deleteProperty: () => {
@@ -288,7 +292,7 @@ export default class Block<P = any> {
       return;
     }
 
-    this._element.style.display = 'block';
+    this._element.style.display = '';
   }
 
   hide() {

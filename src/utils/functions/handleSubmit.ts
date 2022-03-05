@@ -1,6 +1,6 @@
 import getFormValues from './getFormValues';
 import validateForm from './validateForm';
-import { ValidationSchema } from '../../types';
+import { FormValues, ValidationSchema } from '../../types';
 import { IFields } from '../../components/form/types';
 
 interface HandleSubmitProps {
@@ -9,18 +9,19 @@ interface HandleSubmitProps {
   validationSchema?: ValidationSchema;
 }
 
-export default function handleSubmit({
+export default function handleSubmit<T extends FormValues>({
   fields,
   e,
   validationSchema,
 }: HandleSubmitProps) {
   e.preventDefault();
 
-  const formValues = getFormValues(e.target);
+  const data = getFormValues<T>(e.target);
 
-  if (validationSchema) {
-    validateForm(fields, formValues, validationSchema);
-  }
-
-  console.log(formValues);
+  return {
+    data,
+    isValid: validationSchema
+      ? validateForm(fields, data, validationSchema)
+      : true,
+  };
 }

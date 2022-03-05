@@ -6,7 +6,6 @@ import Sidebar from '../../components/sidebar';
 
 import main from '../../layouts/main';
 import { IChatSelected } from './types';
-import render from '../../utils/functions/renderDom';
 
 class ChatSelected extends Block {
   constructor(props: IChatSelected) {
@@ -29,9 +28,7 @@ const sidebar = new Sidebar({
 
 const conversation = ConversationModule();
 
-const content = new ChatSelected({
+export default new ChatSelected({
   chats: sidebar,
   content: conversation,
 });
-
-render('#root', content);

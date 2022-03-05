@@ -3,12 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: var(--primary800);
+  background: var(--primary900);
   padding: 30px;
   border-radius: 12px;
 }
 
 .authForm {
+  background: var(--primary800);
   border: 2px solid var(--primary700);
 }
 

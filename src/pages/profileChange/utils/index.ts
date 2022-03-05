@@ -1,4 +1,13 @@
+import { ProfileFormModule } from '../../../modules/profileForm';
+
+import FormError from '../../../components/form/error';
+import Input from '../../../components/form/input';
 import { IInput } from '../../../components/form/input/types';
+
+import handleInputChange from '../../../utils/functions/handleInputChange';
+import validateField from '../../../utils/functions/validateField';
+import validationSchema from '../../../utils/data/userValidationSchema';
+import { Indexed } from '../../../types';
 
 const fieldsData: IInput[] = [
   { name: 'email', placeholder: 'Email', type: 'email' },
@@ -9,4 +18,30 @@ const fieldsData: IInput[] = [
   { name: 'phone', placeholder: 'Phone', type: 'text' },
 ];
 
-export default fieldsData;
+const mapStateToProfileChange = ({ user }: Indexed) => {
+  const fields = fieldsData.map(({ name, placeholder, type }) => ({
+    input: new Input({
+      name,
+      placeholder,
+      type,
+      value: user ? user[name] : '',
+    }),
+    error: new FormError({}),
+  }));
+
+  fields.forEach(({ input, error }) => {
+    input.setProps({
+      events: {
+        blur: (e: FocusEvent) => {
+          handleInputChange(input, e);
+          validateField(input, error, validationSchema, fields);
+        },
+      },
+    });
+  });
+  return {
+    content: ProfileFormModule(fields, 'profile'),
+  };
+};
+
+export default mapStateToProfileChange;

@@ -12,3 +12,11 @@
     background: var(--primary400);
   }
 }
+
+.transparent {
+  background: transparent;
+
+  &:hover {
+    background: transparent;
+  }
+}

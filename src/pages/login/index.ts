@@ -9,10 +9,10 @@ import FormError from '../../components/form/error';
 
 import authorization from '../../layouts/authorization';
 import { ILogin } from './types';
-import fieldsData from './utils';
-import handleSubmit from '../../utils/functions/handleSubmit';
-import render from '../../utils/functions/renderDom';
+import { fieldsData, validationSchema } from './utils';
 import handleInputChange from '../../utils/functions/handleInputChange';
+import validateField from '../../utils/functions/validateField';
+import LoginController from './controller';
 
 class Login extends Block<ILogin> {
   constructor(props: ILogin) {
@@ -43,11 +43,12 @@ const fields = fieldsData.map(({ name, placeholder, type }) => ({
   error: new FormError({ error: '' }),
 }));
 
-fields.forEach(({ input }) => {
+fields.forEach(({ input, error }) => {
   input.setProps({
     events: {
       blur: (e: FocusEvent) => {
         handleInputChange(input, e);
+        validateField(input, error, validationSchema, fields);
       },
     },
   });
@@ -58,11 +59,11 @@ const form = new Form({
   fields,
   button,
   events: {
-    submit: (e: SubmitEvent) => handleSubmit({ fields, e }),
+    submit: (e: SubmitEvent) => LoginController.login({ fields, e }),
   },
 });
 
-const link = new Link({ content: 'Sign up', url: './register.html' });
+const link = new Link({ content: 'Sign up', url: 'register' });
 
 const loginForm = new ContentBlock({
   title: 'Sign in',
@@ -70,9 +71,7 @@ const loginForm = new ContentBlock({
   authForm: true,
 });
 
-const content = new Login({
+export default new Login({
   form: loginForm,
   link,
 });
-
-render('#root', content);
