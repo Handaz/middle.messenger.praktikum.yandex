@@ -13,7 +13,7 @@ class RegisterController extends Controller<RegisterForm> {
   @validationDec(validationSchema)
   @catchDec
   public async register(_params: FormControllerProps) {
-    await RegisterAPI.create(this.data);
+    await RegisterAPI.register(this.data);
     const user = await UserAPI.getCurrentUser();
     Store.set('user', user);
     Router.go('/');

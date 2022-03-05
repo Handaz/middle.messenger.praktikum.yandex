@@ -13,7 +13,7 @@ class LoginController extends Controller<LoginForm> {
   @validationDec(validationSchema)
   @catchDec
   public async login(_params: FormControllerProps) {
-    await LoginAPI.request(this.data);
+    await LoginAPI.login(this.data);
     const user = await UserAPI.getCurrentUser();
     Store.set('user', user);
     Router.go('/');

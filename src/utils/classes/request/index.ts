@@ -1,4 +1,4 @@
-enum METHODS {
+enum Methods {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
@@ -6,7 +6,7 @@ enum METHODS {
 }
 
 interface Options<P> {
-  method: METHODS;
+  method: Methods;
   data?: P;
   timeout?: number;
   headers?: Record<string, string>;
@@ -34,7 +34,7 @@ class Request {
     url: string,
     options: OptionsWithoutMethod<P> = {},
   ): Promise<T> =>
-    this.request(url, { ...options, method: METHODS.GET }, options.timeout);
+    this.request(url, { ...options, method: Methods.GET }, options.timeout);
 
   put = <P, T>(
     url: string,
@@ -42,7 +42,7 @@ class Request {
   ): Promise<T> =>
     this.request<P, T>(
       url,
-      { ...options, method: METHODS.PUT },
+      { ...options, method: Methods.PUT },
       options.timeout,
     );
 
@@ -52,7 +52,7 @@ class Request {
   ): Promise<T> =>
     this.request<P, T>(
       url,
-      { ...options, method: METHODS.POST },
+      { ...options, method: Methods.POST },
       options.timeout,
     );
 
@@ -62,19 +62,19 @@ class Request {
   ): Promise<T> =>
     this.request<P, T>(
       url,
-      { ...options, method: METHODS.DELETE },
+      { ...options, method: Methods.DELETE },
       options.timeout,
     );
 
   request = <P, T>(
     url: string,
-    options: Options<P> = { method: METHODS.GET },
+    options: Options<P> = { method: Methods.GET },
     timeout: number = 5000,
   ): Promise<T> => {
     const { method, data, headers = {} } = options;
     let params = '';
 
-    if (method === METHODS.GET && data) {
+    if (method === Methods.GET && data) {
       params = queryStringify(data);
     }
 
@@ -107,7 +107,7 @@ class Request {
       xhr.ontimeout = reject;
       xhr.responseType = 'json';
 
-      if (method === METHODS.GET || !data) {
+      if (method === Methods.GET || !data) {
         xhr.send();
       } else {
         xhr.send(data instanceof FormData ? data : JSON.stringify(data));
