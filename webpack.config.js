@@ -8,8 +8,8 @@ module.exports = {
   mode: 'development',
   entry: './src/app.ts',
   output: {
-    path: path.resolve(__dirname, 'dist'),
     filename: 'messanger-[hash].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
     extensions: ['.ts', '.js', '.json'],
@@ -23,44 +23,40 @@ module.exports = {
     },
     compress: true,
     port: 3000,
-    https: true,
     hot: true,
     open: process.env.WEBPACK_SERVER_BROWSER,
+    historyApiFallback: true,
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          configFile: path.resolve(__dirname, 'tsconfig.json'),
-        },
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: path.resolve(__dirname, 'tsconfig.json'),
+            },
+          },
+        ],
         exclude: /(node_modules)/,
       },
       {
-        test: /\.module\.(sa|sc|c)ss$/,
+        test: /\.(sa|sc|c)ss$$/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 1,
-              modules: true,
-              sourceMap: isDevelopment,
+              importLoaders: 2,
+              modules: {
+                localIdentName: '[local]_[hash:base64:5]',
+              },
             },
           },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: isDevelopment,
-            },
-          },
+          'postcss-loader',
+          'sass-loader',
         ],
-      },
-      {
-        test: /\.(sa|sc|c)ss$/,
-        exclude: /\.module\.(sa|sc|c)ss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpg|gif)$/i,
@@ -78,8 +74,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: 'index.html',
-      filename: 'index.html',
+      template: './static/index.html',
       minify: {
         collapseWhitespace: true,
         removeComments: true,
@@ -88,7 +83,8 @@ module.exports = {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: 'style-[hash].css',
+      filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+      chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css',
     }),
   ],
 };

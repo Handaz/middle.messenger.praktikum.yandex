@@ -11,6 +11,7 @@ import infoIcon from '../../../../../static/icons/infoIcon';
 import userAvatar from '../../../../../static/images/userAvatar.png';
 import mapStateToConversationInfo from './utils';
 import connect from '../../../../utils/functions/hoc';
+import classes from './conversationInfo.module.scss';
 
 export default class ConversationInfo extends Block<IConversationInfo> {
   constructor(props: IConversationInfo) {
@@ -20,11 +21,18 @@ export default class ConversationInfo extends Block<IConversationInfo> {
   render() {
     const { avatar, title, button, modal } = this.props;
 
+    const blockClasses = {
+      info: classes.info,
+      user: classes.user,
+      avatar: classes.avatar,
+    };
+
     return this.compile({
       avatar,
       title,
       button,
       modal,
+      blockClasses,
     });
   }
 }

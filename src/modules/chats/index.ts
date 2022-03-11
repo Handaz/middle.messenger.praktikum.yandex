@@ -15,6 +15,7 @@ import { IChats } from './types';
 import burgerIcon from '../../../static/icons/burgerIcon';
 import connect from '../../utils/functions/hoc';
 import mapStateToChats, { chatAddFields } from './utils';
+import classes from './chats.module.scss';
 
 export class Chats extends Block<IChats> {
   constructor(props: IChats) {
@@ -29,12 +30,18 @@ export class Chats extends Block<IChats> {
       ChatsController.getChats();
     }
 
+    const blockClasses = {
+      chats: classes.chats,
+      header: classes.header,
+    };
+
     return this.compile({
       profile,
       search,
       chatAdd,
       modal,
       chatList,
+      blockClasses,
     });
   }
 }

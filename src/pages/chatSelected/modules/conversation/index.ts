@@ -13,6 +13,7 @@ import optionsIcon from '../../../../../static/icons/optionsIcon';
 import handleInputChange from '../../../../utils/functions/handleInputChange';
 import connect from '../../../../utils/functions/hoc';
 import mapStateToConversation from './utils';
+import classes from './conversation.module.scss';
 
 export class Conversation extends Block<IConversation> {
   constructor(props: IConversation) {
@@ -22,10 +23,15 @@ export class Conversation extends Block<IConversation> {
   render() {
     const { topBar, messages, bottomBar } = this.props;
 
+    const blockClasses = {
+      messages: classes.messages,
+    };
+
     return this.compile({
       topBar,
       messages,
       bottomBar,
+      blockClasses,
     });
   }
 }

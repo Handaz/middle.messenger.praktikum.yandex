@@ -1,24 +1,16 @@
 import Block from '../../modules/block';
 import template from './modal.tmpl';
 import { IModal } from './types';
+import handleShadowClick from './utils';
+import classNames from '../../utils/functions/classnames';
+import classes from './modal.module.scss';
 
 export default class Modal extends Block<IModal> {
   constructor(props: IModal) {
     super(template, props);
     this.setProps({
       events: {
-        click: (e: MouseEvent) => {
-          const target = e.target as HTMLElement;
-
-          const classes = Array.from(target.classList);
-          const isShadow = classes.filter((item) =>
-            item.includes('modalShadow'),
-          )[0];
-
-          if (isShadow) {
-            this.setProps({ isModalOpen: false });
-          }
-        },
+        click: (e: MouseEvent) => handleShadowClick.call(this, e),
       },
     });
   }
@@ -26,9 +18,22 @@ export default class Modal extends Block<IModal> {
   render() {
     const { isModalOpen, content } = this.props;
 
+    const shadow = classNames(classes.modalShadow, {
+      [classes.modalShadowOpen]: isModalOpen,
+    });
+    const modal = classNames(classes.modal, {
+      [classes.modalOpen]: isModalOpen,
+    });
+
+    const blockClasses = {
+      shadow,
+      modal,
+    };
+
     return this.compile({
       isModalOpen,
       content,
+      blockClasses,
     });
   }
 }

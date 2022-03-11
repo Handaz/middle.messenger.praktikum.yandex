@@ -1,6 +1,7 @@
 import Block from '../../../block';
 import template from './chat.tmpl';
 import { IChat } from './types';
+import classes from './chat.module.scss';
 
 export default class Chat extends Block<IChat> {
   constructor(props: IChat) {
@@ -10,6 +11,15 @@ export default class Chat extends Block<IChat> {
   render() {
     const { avatar, title, sender, message, unread, time } = this.props;
 
+    const blockClasses = {
+      chat: classes.chat,
+      avatar: classes.avatar,
+      chatInfo: classes.chatInfo,
+      messageInfo: classes.messageInfo,
+      sender: classes.sender,
+      message: classes.message,
+    };
+
     return this.compile({
       avatar,
       title,
@@ -17,6 +27,7 @@ export default class Chat extends Block<IChat> {
       message,
       time,
       unread,
+      blockClasses,
     });
   }
 }

@@ -1,13 +1,11 @@
-import * as classes from './chat.module.scss';
-
 export default `
-<li class=${classes.chat}>
-  <div class=${classes.avatar}>{{ avatar }}</div>
-  <div class=${classes.chatInfo}>
+<li class='{{ blockClasses.chat }}'>
+  <div class='{{ blockClasses.avatar}}'>{{ avatar }}</div>
+  <div class='{{ blockClasses.chatInfo }}'>
     <div> {{ title }} </div>
-    <div class=${classes.messageInfo}>
-      {{#if sender}} <span class=${classes.sender}>{{ sender }}:</span> {{/if}}
-      <span class=${classes.message}>{{ message }}</span>
+    <div class='{{ blockClasses.messageInfo }}'>
+      {{#if sender}} <span class='{{ blockClasses.sender }}'>{{ sender }}:</span> {{/if}}
+      <span class='{{ blockClasses.message }}'>{{ message }}</span>
     </div>
   </div>
   <div>

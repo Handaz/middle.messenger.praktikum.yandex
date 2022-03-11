@@ -1,4 +1,4 @@
-import * as classes from './authorization.module.scss';
+import classes from './authorization.module.scss';
 
 export default `
 <main>

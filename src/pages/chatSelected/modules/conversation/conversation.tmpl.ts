@@ -1,9 +1,7 @@
-import * as classes from './conversation.module.scss';
-
 export default `
 <div>
   <div>{{ topBar }}</div>
-  <div class=${classes.messages}>
+  <div class='{{ blockClasses.messages }}'>
     {{#each messages}}
       {{ this }}
     {{/each}}

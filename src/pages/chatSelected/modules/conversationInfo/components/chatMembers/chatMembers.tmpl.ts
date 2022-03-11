@@ -1,8 +1,6 @@
-import * as classes from './chatMembers.module.scss';
-
 export default `
 <div
-    class=${classes.members}
+    class='{{ blockClasses.members }}'
 >
     {{ form }}
     {{#each members}}

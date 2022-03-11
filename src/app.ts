@@ -13,6 +13,7 @@ import Store, { StoreEvents } from './store';
 import Block from './modules/block';
 import UserAPI from './api/user';
 import { IUserInfo } from './api/user/types';
+import './styles/index.scss';
 
 interface Pages {
   path: string;

@@ -1,8 +1,6 @@
-import * as classes from './chats.module.scss';
-
 export default `
-<div class=${classes.chats}>
-  <div class=${classes.header}>
+<div class='{{ blockClasses.chats }}'>
+  <div class='{{ blockClasses.header }}'>
     <div>{{ profile }}</div>
     <div>{{ search }}</div>
     <div>{{ chatAdd }}</div>

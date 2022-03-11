@@ -1,4 +1,4 @@
-import * as classes from './error.module.scss';
+import classes from './error.module.scss';
 
 export default `
 <main class=${classes.main}>

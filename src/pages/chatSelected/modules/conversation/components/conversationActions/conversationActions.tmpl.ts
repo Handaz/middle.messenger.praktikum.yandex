@@ -1,7 +1,5 @@
-import * as classes from './conversationActions.module.scss';
-
 export default `
-<div class=${classes.actions}>
+<div class='{{ blockClasses.actions }}'>
   <div>{{ attachments }}</div>
-  <div class=${classes.form}>{{ messageForm }}</div>
+  <div class='{{ blockClasses.form }}'>{{ messageForm }}</div>
 </div>`;

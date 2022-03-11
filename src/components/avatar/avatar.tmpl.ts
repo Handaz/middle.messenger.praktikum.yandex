@@ -1,3 +1,1 @@
-import * as classes from './avatar.module.scss';
-
-export default `<img class=${classes.img} src="{{ source }}" >`;
+export default `<img class='{{ blockClasses }}' src="{{ source }}" >`;

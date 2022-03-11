@@ -1,6 +1,7 @@
 import Block from '../../../../../../modules/block';
 import template from './chatMember.tmpl';
 import { IChatMember } from './types';
+import classes from './chatMember.module.scss';
 
 export default class ChatMember extends Block<IChatMember> {
   constructor(props: IChatMember) {
@@ -10,6 +11,10 @@ export default class ChatMember extends Block<IChatMember> {
   render() {
     const { username, button } = this.props;
 
-    return this.compile({ username, button });
+    const blockClasses = {
+      member: classes.member,
+    };
+
+    return this.compile({ username, button, blockClasses });
   }
 }

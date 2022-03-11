@@ -4,6 +4,7 @@ export interface BlockProps {
   events?: {
     [key: string]: any;
   };
+  blockClasses?: string | Indexed<string>;
 }
 
 export interface ValidationSchema {
