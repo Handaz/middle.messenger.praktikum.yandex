@@ -1,6 +1,6 @@
-# Yandex praktikum messanger project
+# Yandex praktikum messenger project
 
-This is a messanger project done by Ilya Zabolotny in terms of Yandex.Praktikum Middle Frontend Developer course.
+This is a messenger project done by Ilya Zabolotny in terms of Yandex.Praktikum Middle Frontend Developer course.
 
 Primarly inspired by [Telegram](https://web.telegram.org/) and its features.
 
@@ -15,6 +15,6 @@ npm run build - build project
 npm run test - run mocha tests
 ```
 
-### Figma: https://www.figma.com/file/A0uWOBGsw72xu9Q9o7FI0c/messanger-yandex?node-id=15%3A3
+### Figma: https://www.figma.com/file/A0uWOBGsw72xu9Q9o7FI0c/messenger-yandex?node-id=15%3A3
 
 ### Deploy: https://clever-morse-af14a7.netlify.app/
