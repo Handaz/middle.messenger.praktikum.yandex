@@ -5,6 +5,7 @@ export interface BlockProps {
     [key: string]: any;
   };
   blockClasses?: string | Indexed<string>;
+  styles?: Partial<CSSStyleDeclaration>;
 }
 
 export interface ValidationSchema {

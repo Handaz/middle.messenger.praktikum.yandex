@@ -4,6 +4,5 @@ export default `
 <main>
     <div class=${classes.authorization}>
         <div> {{ form }} </div> 
-        {{link}}
     </div>
 </main>`;

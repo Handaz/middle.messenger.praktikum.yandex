@@ -1,10 +1,8 @@
 import ContentBlock from '../../components/contentBlock';
-import Link from '../../components/link';
 import { BlockProps } from '../../types';
 
 export interface IRegister extends BlockProps {
   form: ContentBlock;
-  link: Link;
 }
 
 export type RegisterForm = {

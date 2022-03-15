@@ -10,7 +10,7 @@ export default class Form extends Block<IForm> {
   }
 
   render() {
-    const { vertical, fields, button } = this.props;
+    const { vertical, fields, button, styles } = this.props;
 
     const formClasses = classNames(classes.form, {
       [classes.vertical]: vertical,
@@ -21,6 +21,6 @@ export default class Form extends Block<IForm> {
       inputWrapper: classes.inputWrapper,
     };
 
-    return this.compile({ vertical, fields, button, blockClasses });
+    return this.compile({ vertical, fields, button, blockClasses, styles });
   }
 }

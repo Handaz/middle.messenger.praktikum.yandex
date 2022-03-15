@@ -20,11 +20,10 @@ class Login extends Block<ILogin> {
   }
 
   render() {
-    const { form, link } = this.props;
+    const { form } = this.props;
 
     return this.compile({
       form,
-      link,
     });
   }
 }
@@ -68,10 +67,10 @@ const link = new Link({ content: 'Sign up', url: 'register' });
 const loginForm = new ContentBlock({
   title: 'Sign in',
   content: form,
+  link,
   authForm: true,
 });
 
 export default new Login({
   form: loginForm,
-  link,
 });

@@ -4,18 +4,29 @@
   justify-content: center;
   align-items: center;
   background: var(--primary900);
-  padding: 30px;
+  padding: 40px 30px;
   border-radius: 12px;
+  width: 320px;
+
+  .title {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+  }
+
+  .content {
+    display: flex;
+    width: 100%;
+
+    * {
+      width: 100%;
+    }
+  }
 }
 
 .authForm {
   background: var(--primary800);
   border: 2px solid var(--primary700);
-}
-
-.title {
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 20px;
+  padding: 30px 50px;
 }

@@ -1,5 +1,5 @@
 export default `
-<form class='{{ blockClasses.form }}' novalidate>
+<form class='{{ blockClasses.form }}' style='{{ styles }}' novalidate>
   {{#each fields}}
     <div class='{{ ../blockClasses.inputWrapper }}'>
       {{ this.input }}

@@ -22,11 +22,10 @@ class Register extends Block<IRegister> {
   }
 
   render() {
-    const { form, link } = this.props;
+    const { form } = this.props;
 
     return this.compile({
       form,
-      link,
     });
   }
 }
@@ -62,6 +61,9 @@ const form = new Form({
   events: {
     submit: (e: SubmitEvent) => RegisterController.register({ fields, e }),
   },
+  styles: {
+    gap: '16px',
+  },
 });
 
 const link = new Link({ content: 'Sign in', url: '/' });
@@ -69,10 +71,10 @@ const link = new Link({ content: 'Sign in', url: '/' });
 const registerForm = new ContentBlock({
   title: 'Sign up',
   content: form,
+  link,
   authForm: true,
 });
 
 export default new Register({
   form: registerForm,
-  link,
 });

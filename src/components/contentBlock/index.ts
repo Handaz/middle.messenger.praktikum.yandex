@@ -10,7 +10,7 @@ export default class ContentBlock extends Block<IContentBlock> {
   }
 
   render() {
-    const { title, content, authForm } = this.props;
+    const { title, content, authForm, link } = this.props;
 
     const contentBlockClasses = classNames(classes.contentBlock, {
       [classes.authForm]: authForm,
@@ -19,8 +19,9 @@ export default class ContentBlock extends Block<IContentBlock> {
     const blockClasses = {
       contentBlockClasses,
       titleClass: classes.title,
+      content: classes.content,
     };
 
-    return this.compile({ title, content, authForm, blockClasses });
+    return this.compile({ title, content, authForm, blockClasses, link });
   }
 }
