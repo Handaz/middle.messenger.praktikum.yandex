@@ -12,7 +12,8 @@
     "test": "npx mocha --require ts-node/register ",
     "dockerBuild": "npm run build && docker build -t messenger .",
     "dockerRun": "docker run -p 3000:3000 -d messenger",
-    "dockerStop": "docker stop -t 0"
+    "dockerStop": "docker stop -t 0",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
     "mini-css-extract-plugin": "^2.6.0",
     "mocha": "^9.2.1",
     "node-sass": "^7.0.1",
