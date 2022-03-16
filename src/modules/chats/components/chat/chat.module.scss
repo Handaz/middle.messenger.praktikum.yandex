@@ -1,7 +1,10 @@
+@import '../../../../styles/global';
+
 .chat {
-  display: flex;
+  @include flexBetween;
+  align-items: flex-start;
   max-width: 100%;
-  gap: 10px;
+  padding: 7px 15px;
   cursor: pointer;
 
   &:hover {
@@ -12,15 +15,29 @@
 .avatar {
   width: 47px;
   height: 47px;
+  flex-shrink: 0;
 }
 
 .chatInfo {
+  display: flex;
+  gap: 10px;
   width: 60%;
 }
 
 .messageInfo {
+  @include flexCol;
+  gap: 4px;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 14px;
+}
+
+.messageContent {
   display: flex;
   gap: 5px;
+  font-size: 12px;
 }
 
 .sender {
@@ -28,6 +45,17 @@
 }
 
 .message {
+  color: var(--primary200);
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.metaInfo {
+  @include flexCol;
+}
+
+.time {
+  color: var(--primary200);
+  font-size: 11px;
 }

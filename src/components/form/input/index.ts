@@ -10,10 +10,12 @@ export default class Input extends Block<IInput> {
   }
 
   render() {
-    const { type, name, placeholder, error, value } = this.props;
+    const { type, name, placeholder, error, value, opaque, round } = this.props;
 
     const blockClasses = classNames(classes.input, {
       [classes.inputError]: error,
+      [classes.inputOpaque]: opaque,
+      [classes.inputRound]: round,
     });
 
     return this.compile({

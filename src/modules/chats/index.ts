@@ -59,12 +59,14 @@ export function ChatsModule(): Chats {
   const search = new Input({
     type: 'text',
     name: 'chatSearch',
+    placeholder: 'Search',
     events: {
       keyup: (e: InputEvent) => {
         const input = e.target as HTMLInputElement;
         console.log(input.value);
       },
     },
+    opaque: true,
   });
 
   const fields = chatAddFields.map(({ name, placeholder, type }) => ({

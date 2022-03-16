@@ -15,9 +15,13 @@ export default class Chat extends Block<IChat> {
       chat: classes.chat,
       avatar: classes.avatar,
       chatInfo: classes.chatInfo,
-      messageInfo: classes.messageInfo,
       sender: classes.sender,
       message: classes.message,
+      time: classes.time,
+      messageContent: classes.messageContent,
+      messageInfo: classes.messageInfo,
+      metaInfo: classes.metaInfo,
+      title: classes.title,
     };
 
     return this.compile({

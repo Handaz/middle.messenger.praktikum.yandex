@@ -22,6 +22,7 @@ export const validationSchema: ValidationSchema = {
   title: { rule: noEmptyRule, error: 'Enter chat title' },
 };
 
+// TODO: unread count isn't correct
 const mapStateToChats = (state: Indexed) => {
   if (state.chats) {
     return {

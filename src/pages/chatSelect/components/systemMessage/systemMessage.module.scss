@@ -2,4 +2,5 @@
 
 .message {
   @include flexCenter;
+  color: var(--primary200);
 }

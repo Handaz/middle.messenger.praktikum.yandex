@@ -1,3 +1,8 @@
+@mixin flexCol {
+  display: flex;
+  flex-direction: column;
+}
+
 @mixin flexBetween {
   display: flex;
   justify-content: space-between;

@@ -6,6 +6,8 @@ export interface IInput extends BlockProps {
   placeholder?: string;
   error?: string;
   value?: string;
+  opaque?: boolean;
+  round?: boolean;
 }
 
 export type InputType =

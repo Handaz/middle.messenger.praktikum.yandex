@@ -18,6 +18,22 @@
   }
 }
 
+.inputOpaque {
+  background: var(--primary700);
+  border-radius: 5px;
+  border: none;
+  padding: 9px 15px;
+
+  &::placeholder {
+    color: var(--primary200);
+    opacity: 1;
+  }
+}
+
+.inputRound {
+  border-radius: 30px;
+}
+
 .inputError {
   border-bottom-color: var(--danger);
 }
