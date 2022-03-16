@@ -1,0 +1,19 @@
+.label {
+  position: absolute;
+  pointer-events: none;
+  left: -1px;
+  bottom: 5px;
+  color: var(--primary200);
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  width: auto !important;
+}
+
+input:focus ~ .label,
+input:not(:placeholder-shown) ~ .label,
+input:-webkit-autofill ~ .label,
+input:not([value='']):valid ~ .label,
+input[value='']:focus ~ .label {
+  bottom: 29px;
+  font-size: 11px;
+}

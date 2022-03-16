@@ -22,8 +22,20 @@ body {
   font-family: Sora, sans-serif;
 }
 
+html,
+body,
+body > div,
+main {
+  height: 100%;
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family:
+    source-code-pro,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Courier New',
     monospace;
 }
 

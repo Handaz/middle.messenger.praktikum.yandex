@@ -4,7 +4,7 @@ import EventBus from '../eventBus';
 import { Indexed, Nullable } from '../../types';
 import merge from '../../utils/functions/merge';
 import isEqual from '../../utils/functions/isEqual';
-import objToString from '../../utils/functions/objToString';
+// import objToString from '../../utils/functions/objToString';
 
 type Events = typeof Block.EVENTS[keyof typeof Block.EVENTS];
 
@@ -23,6 +23,8 @@ export default class Block<P = any> {
   children: Children;
 
   eventBus: EventBus<Events>;
+
+  styles: Partial<CSSStyleDeclaration> | undefined;
 
   protected readonly props: P;
 
@@ -155,7 +157,7 @@ export default class Block<P = any> {
     return new HTMLElement();
   }
 
-  compile(props: P): HTMLElement {
+  getPropsAndStubs(props: P): Indexed {
     const propsAndStubs: Indexed = { ...props };
 
     Object.entries(this.children).forEach(([key, child]) => {
@@ -177,12 +179,10 @@ export default class Block<P = any> {
       }
     });
 
-    const fragment = document.createElement('template');
-    const render = Handlebars.compile(this._template, { noEscape: true });
-    fragment.insertAdjacentHTML('afterbegin', render(propsAndStubs));
+    return propsAndStubs;
+  }
 
-    const element = fragment.firstElementChild as HTMLElement;
-
+  substituteStubs(element: HTMLElement) {
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
         child.forEach((subChild) => {
@@ -217,6 +217,30 @@ export default class Block<P = any> {
         stub!.replaceWith(child.element);
       }
     });
+  }
+
+  setStyles(element: HTMLElement) {
+    if (this.styles) {
+      Object.entries(this.styles).forEach(
+        ([k, val]: [k: string, val: string]) => {
+          element.style.setProperty(k, val);
+        },
+      );
+    }
+  }
+
+  compile(props: P): HTMLElement {
+    const propsAndStubs: Indexed = this.getPropsAndStubs(props);
+
+    const fragment = document.createElement('template');
+    const render = Handlebars.compile(this._template, { noEscape: true });
+    fragment.insertAdjacentHTML('afterbegin', render(propsAndStubs));
+
+    const element = fragment.firstElementChild as HTMLElement;
+
+    this.setStyles(element);
+
+    this.substituteStubs(element);
 
     return element;
   }
@@ -240,7 +264,7 @@ export default class Block<P = any> {
       if (this._isChild(value)) {
         children[key] = value;
       } else if (key === 'styles') {
-        (props as Indexed)[key] = objToString(value);
+        this.styles = value;
       } else {
         (props as Indexed)[key] = value;
       }

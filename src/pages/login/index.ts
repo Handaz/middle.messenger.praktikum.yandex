@@ -6,6 +6,7 @@ import Input from '../../components/form/input';
 import Form from '../../components/form';
 import Link from '../../components/link';
 import FormError from '../../components/form/error';
+import Label from '../../components/form/label';
 
 import authorization from '../../layouts/authorization';
 import { ILogin } from './types';
@@ -40,6 +41,7 @@ const fields = fieldsData.map(({ name, placeholder, type }) => ({
     type,
   }),
   error: new FormError({ error: '' }),
+  label: new Label({ label: placeholder }),
 }));
 
 fields.forEach(({ input, error }) => {
@@ -59,6 +61,9 @@ const form = new Form({
   button,
   events: {
     submit: (e: SubmitEvent) => LoginController.login({ fields, e }),
+  },
+  styles: {
+    gap: '41px',
   },
 });
 

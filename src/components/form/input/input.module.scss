@@ -4,10 +4,17 @@
   background: transparent;
   outline: none;
   border: none;
+  font-size: 14px;
+  padding: 5px 0;
   border-bottom: 1px solid var(--primary300);
 
   &::placeholder {
-    color: var(--primary200);
+    opacity: 0;
+  }
+
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 1000px var(--primary800) inset !important;
+    -webkit-text-fill-color: var(--clr-font) !important;
   }
 }
 

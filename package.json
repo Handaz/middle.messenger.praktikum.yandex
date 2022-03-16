@@ -1,7 +1,7 @@
 {
   "name": "middle.messenger.praktikum.yandex",
   "version": "1.0.0",
-  "description": "Messanger project",
+  "description": "Messenger project",
   "scripts": {
     "dev": "npm run checkTsc && webpack serve --mode=development --progress",
     "start": "npm run build && node server.js",

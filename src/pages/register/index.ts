@@ -6,13 +6,13 @@ import Input from '../../components/form/input';
 import Form from '../../components/form';
 import Link from '../../components/link';
 import FormError from '../../components/form/error';
+import Label from '../../components/form/label';
 
 import authorization from '../../layouts/authorization';
 import { IRegister } from './types';
 import RegisterController from './controller';
 import fieldsData from './utils';
 import validationSchema from '../../utils/data/userValidationSchema';
-// import handleSubmit from '../../utils/functions/handleSubmit';
 import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
 
@@ -41,6 +41,7 @@ const fields = fieldsData.map(({ name, placeholder, type }) => ({
     type,
   }),
   error: new FormError({ error: '' }),
+  label: new Label({ label: placeholder }),
 }));
 
 fields.forEach(({ input, error }) => {
@@ -62,7 +63,7 @@ const form = new Form({
     submit: (e: SubmitEvent) => RegisterController.register({ fields, e }),
   },
   styles: {
-    gap: '16px',
+    gap: '31px',
   },
 });
 

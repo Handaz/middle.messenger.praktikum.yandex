@@ -4,6 +4,6 @@ export default `
     type='{{ type }}'
     name='{{ name }}' 
     placeholder='{{ placeholder }}'
-    value='{{ value }}' 
+    value='{{ value }}'
 />
 `;
