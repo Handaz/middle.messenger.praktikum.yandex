@@ -10,9 +10,11 @@ export default class Sidebar extends Block<ISidebar> {
   }
 
   render() {
-    const { content } = this.props;
+    const { content, chats } = this.props;
 
-    const blockClasses = classNames(classes.sidebar);
+    const blockClasses = classNames(classes.sidebar, {
+      [classes.sidebarChats]: chats,
+    });
 
     return this.compile({ content, blockClasses });
   }

@@ -1,8 +1,8 @@
 export default `
 <div class='{{ blockClasses.message }}'>
-  <div class='{{ blockClasses.content }}'>{{ content }}</div>
+  {{ content }}
   <div class='{{ blockClasses.info }}'>
-    {{#if status}}<div>{{ status }}</div>{{/if}}
+    {{#if status}}<div class='{{ blockClasses.status }}'>{{ status }}</div>{{/if}}
     <div>{{ time }}</div>
   </div>
 </div>`;

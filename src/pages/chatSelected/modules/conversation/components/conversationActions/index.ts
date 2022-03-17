@@ -14,6 +14,7 @@ export default class ConversationActions extends Block<IConversationActions> {
     const blockClasses = {
       actions: classes.actions,
       form: classes.form,
+      attachment: classes.attachment,
     };
 
     return this.compile({

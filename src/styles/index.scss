@@ -24,18 +24,14 @@ body {
 
 html,
 body,
-body > div,
+#root,
 main {
   height: 100%;
+  overflow: hidden;
 }
 
 code {
-  font-family:
-    source-code-pro,
-    Menlo,
-    Monaco,
-    Consolas,
-    'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 

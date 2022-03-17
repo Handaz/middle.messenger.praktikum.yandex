@@ -19,8 +19,8 @@ export default class Message extends Block<IMessage> {
 
     const blockClasses = {
       message,
-      content: classes.content,
       info: classes.info,
+      status: classes.status,
     };
 
     return this.compile({

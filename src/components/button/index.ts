@@ -10,10 +10,11 @@ export default class Button extends Block<IButton> {
   }
 
   render() {
-    const { type, content, transparent } = this.props;
+    const { type, content, transparent, round } = this.props;
 
     const blockClasses = classNames(classes.btn, {
       [classes.transparent]: transparent,
+      [classes.round]: round,
     });
 
     return this.compile({ type, content, transparent, blockClasses });

@@ -13,6 +13,7 @@ import optionsIcon from '../../../../../static/icons/optionsIcon';
 import handleInputChange from '../../../../utils/functions/handleInputChange';
 import connect from '../../../../utils/functions/hoc';
 import mapStateToConversation from './utils';
+import arrow from '../../../../../static/icons/arrow';
 import classes from './conversation.module.scss';
 
 export class Conversation extends Block<IConversation> {
@@ -52,6 +53,8 @@ export function ConversationModule(): Conversation {
       input: new Input({
         name: 'message',
         placeholder: 'Write a message...',
+        opaque: true,
+        round: true,
         type: 'text',
       }),
     },
@@ -67,7 +70,8 @@ export function ConversationModule(): Conversation {
 
   const messageButton = new Button({
     type: 'submit',
-    content: 'send message',
+    content: arrow,
+    round: true,
   });
 
   const messageForm = new Form({
@@ -76,6 +80,9 @@ export function ConversationModule(): Conversation {
     events: {
       submit: (e: SubmitEvent) =>
         ConversationController.send({ e, fields: messageFields }),
+    },
+    styles: {
+      gap: '10px',
     },
   });
 

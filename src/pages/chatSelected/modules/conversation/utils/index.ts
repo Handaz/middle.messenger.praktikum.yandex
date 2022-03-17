@@ -2,6 +2,8 @@ import Message from '../components/message';
 import { Indexed } from '../../../../../types';
 import { IMessageData } from '../types';
 import getTime from '../../../../../utils/functions/getTime';
+import readIcon from '../../../../../../static/icons/readIcon';
+import unreadIcon from '../../../../../../static/icons/unreadIcon';
 
 const mapStateToConversation = ({ user, messages }: Indexed) => {
   if (user && messages) {
@@ -16,7 +18,7 @@ const mapStateToConversation = ({ user, messages }: Indexed) => {
         new Message({
           own: user.id === user_id,
           content,
-          status: is_read ? 'read' : 'unread',
+          status: is_read ? readIcon : unreadIcon,
           time: getTime(time),
         }),
     );
