@@ -7,6 +7,7 @@ import Input from '../../components/form/input';
 import Link from '../../components/link';
 import FormError from '../../components/form/error';
 import Button from '../../components/button';
+import Label from '../../components/form/label';
 
 import profile from '../../layouts/profile';
 import { IPasswordChange } from './types';
@@ -49,8 +50,15 @@ const sidebar = new Sidebar({
 });
 
 const fields = fieldsData.map(({ name, placeholder, type }) => ({
-  input: new Input({ name, placeholder, type }),
-  error: new FormError({}),
+  input: new Input({
+    name,
+    placeholder,
+    type,
+    noautocomplete: true,
+    profile: true,
+  }),
+  error: new FormError({ profile: true }),
+  label: new Label({ label: placeholder, regular: true }),
 }));
 
 fields.forEach(({ input, error }) => {

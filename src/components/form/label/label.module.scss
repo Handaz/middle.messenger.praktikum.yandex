@@ -1,4 +1,4 @@
-.label {
+.floating {
   position: absolute;
   pointer-events: none;
   left: -1px;
@@ -9,11 +9,17 @@
   width: auto !important;
 }
 
-input:focus ~ .label,
-input:not(:placeholder-shown) ~ .label,
-input:-webkit-autofill ~ .label,
-input:not([value='']):valid ~ .label,
-input[value='']:focus ~ .label {
+input:focus ~ .floating,
+input:not(:placeholder-shown) ~ .floating,
+input:-webkit-autofill ~ .floating,
+input:not([value='']):valid ~ .floating,
+input[value='']:focus ~ .floating {
   bottom: 29px;
   font-size: 11px;
+}
+
+.regular {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 13px;
 }

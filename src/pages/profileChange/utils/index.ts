@@ -3,6 +3,7 @@ import { ProfileFormModule } from '../../../modules/profileForm';
 import FormError from '../../../components/form/error';
 import Input from '../../../components/form/input';
 import { IInput } from '../../../components/form/input/types';
+import Label from '../../../components/form/label';
 
 import handleInputChange from '../../../utils/functions/handleInputChange';
 import validateField from '../../../utils/functions/validateField';
@@ -26,8 +27,10 @@ const mapStateToProfileChange = ({ user }: Indexed) => {
       type,
       value: user ? user[name] : '',
       noautocomplete: true,
+      profile: true,
     }),
-    error: new FormError({}),
+    error: new FormError({ profile: true }),
+    label: new Label({ label: placeholder, regular: true }),
   }));
 
   fields.forEach(({ input, error }) => {
@@ -40,6 +43,7 @@ const mapStateToProfileChange = ({ user }: Indexed) => {
       },
     });
   });
+
   return {
     content: ProfileFormModule(fields, 'profile'),
   };

@@ -10,10 +10,11 @@ export default class FormError extends Block<IFormError> {
   }
 
   render() {
-    const { error } = this.props;
+    const { error, profile } = this.props;
 
     const blockClasses = classNames(classes.error, {
       [classes.errorShow]: error,
+      [classes.errorProfile]: profile,
     });
 
     return this.compile({ error, blockClasses });

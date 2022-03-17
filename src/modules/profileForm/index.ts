@@ -22,7 +22,9 @@ export class ProfileForm extends Block<IProfileForm> {
     const { avatar, form } = this.props;
 
     const blockClasses = {
+      profileForm: classes.profileForm,
       avatar: classes.avatar,
+      formWrapper: classes.formWrapper,
     };
 
     return this.compile({
@@ -59,6 +61,7 @@ export function ProfileFormModule(
         }
       },
     },
+    profile: true,
   });
 
   const avatar = new Avatar({

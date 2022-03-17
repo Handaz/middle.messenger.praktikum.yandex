@@ -3,12 +3,13 @@ import { BlockProps } from '../../../types';
 export interface IInput extends BlockProps {
   type: InputType;
   name: string;
-  placeholder?: string;
+  placeholder: string;
   error?: string;
   value?: string;
   opaque?: boolean;
   round?: boolean;
   noautocomplete?: boolean;
+  profile?: boolean;
 }
 
 export type InputType =

@@ -12,16 +12,13 @@
 
     .infoField {
       @include flexBetween;
+      @include innerBorder;
       padding: 10px 0;
       font-size: 13px;
       font-weight: 600;
 
       .fieldValue {
         color: var(--primary200);
-      }
-
-      &:not(:last-child) {
-        border-bottom: 1px solid var(--primary700);
       }
     }
   }
@@ -32,15 +29,12 @@
     width: 100%;
 
     .link {
+      @include innerBorder;
       padding: 10px 0px;
       width: 100%;
 
       a {
         font-weight: 600;
-      }
-
-      &:not(:last-child) {
-        border-bottom: 1px solid var(--primary700);
       }
 
       &:last-child {

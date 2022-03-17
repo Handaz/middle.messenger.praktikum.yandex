@@ -19,12 +19,14 @@ export default class Input extends Block<IInput> {
       opaque,
       round,
       noautocomplete,
+      profile,
     } = this.props;
 
     const blockClasses = classNames(classes.input, {
-      [classes.inputError]: error,
+      [classes.inputError]: error && !profile,
       [classes.inputOpaque]: opaque,
       [classes.inputRound]: round,
+      [classes.profile]: profile,
     });
 
     return this.compile({

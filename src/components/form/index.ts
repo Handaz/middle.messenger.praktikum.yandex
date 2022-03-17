@@ -10,15 +10,20 @@ export default class Form extends Block<IForm> {
   }
 
   render() {
-    const { vertical, fields, button } = this.props;
+    const { vertical, fields, button, profile } = this.props;
 
     const formClasses = classNames(classes.form, {
       [classes.vertical]: vertical,
+      [classes.profileForm]: profile,
+    });
+
+    const inputWrapper = classNames(classes.inputWrapper, {
+      [classes.profileInput]: profile,
     });
 
     const blockClasses = {
       form: formClasses,
-      inputWrapper: classes.inputWrapper,
+      inputWrapper,
     };
 
     return this.compile({ vertical, fields, button, blockClasses });

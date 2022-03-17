@@ -15,4 +15,5 @@ export interface IForm extends BlockProps {
   vertical?: boolean;
   fields: IFields[];
   button: Button;
+  profile?: boolean;
 }

@@ -1,6 +1,7 @@
 import Block from '../../../modules/block';
 import template from './label.tmpl';
 import { ILabel } from './types';
+import classNames from '../../../utils/functions/classnames';
 import classes from './label.module.scss';
 
 export default class Label extends Block<ILabel> {
@@ -9,9 +10,12 @@ export default class Label extends Block<ILabel> {
   }
 
   render() {
-    const { label } = this.props;
+    const { label, regular } = this.props;
 
-    const blockClasses = classes.label;
+    const blockClasses = classNames({
+      [classes.regular]: regular,
+      [classes.floating]: !regular,
+    });
 
     return this.compile({
       label,

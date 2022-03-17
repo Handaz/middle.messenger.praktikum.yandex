@@ -1,7 +1,7 @@
 export default `
-<div>
+<div class='{{ blockClasses.profileForm }}'>
   <div class='{{ blockClasses.avatar }}'>{{ avatar }}</div>
-  <div>
+  <div class='{{ blockClasses.formWrapper }}'>
     {{ form }}
   </<div>
 </div>`;
