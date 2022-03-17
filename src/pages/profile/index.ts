@@ -4,9 +4,11 @@ import { ProfileInfoModule } from './modules/profileInfo';
 import Navigation from '../../components/navigation';
 import Sidebar from '../../components/sidebar';
 import Link from '../../components/link';
+import Button from '../../components/button';
 
 import profile from '../../layouts/profile';
 import { IProfile } from './types';
+import arrow from '../../../static/icons/arrow';
 
 class Profile extends Block<IProfile> {
   constructor(props: IProfile) {
@@ -24,7 +26,11 @@ class Profile extends Block<IProfile> {
 }
 
 const link = new Link({
-  content: 'Back to chats',
+  content: new Button({
+    type: 'button',
+    content: arrow,
+    round: true,
+  }),
   url: '/',
 });
 

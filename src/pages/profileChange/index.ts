@@ -4,11 +4,13 @@ import { ProfileFormModule } from '../../modules/profileForm';
 import Navigation from '../../components/navigation';
 import Sidebar from '../../components/sidebar';
 import Link from '../../components/link';
+import Button from '../../components/button';
 
 import profile from '../../layouts/profile';
 import { IProfileChange } from './types';
 import connect from '../../utils/functions/hoc';
 import mapStateToProfileChange from './utils';
+import arrow from '../../../static/icons/arrow';
 
 class ProfileChange extends Block<IProfileChange> {
   constructor(props: IProfileChange) {
@@ -26,7 +28,11 @@ class ProfileChange extends Block<IProfileChange> {
 }
 
 const link = new Link({
-  content: 'Back to profile',
+  content: new Button({
+    type: 'button',
+    content: arrow,
+    round: true,
+  }),
   url: 'profile',
 });
 

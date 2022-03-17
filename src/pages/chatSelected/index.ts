@@ -24,7 +24,6 @@ class ChatSelected extends Block {
 
 const sidebar = new Sidebar({
   content: ChatsModule(),
-  chats: true,
 });
 
 const conversation = ConversationModule();

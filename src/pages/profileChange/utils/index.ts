@@ -25,6 +25,7 @@ const mapStateToProfileChange = ({ user }: Indexed) => {
       placeholder,
       type,
       value: user ? user[name] : '',
+      noautocomplete: true,
     }),
     error: new FormError({}),
   }));

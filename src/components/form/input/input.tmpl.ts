@@ -5,5 +5,6 @@ export default `
     name='{{ name }}' 
     placeholder='{{ placeholder }}'
     value='{{ value }}'
+    {{#if noautocomplete}}autocomplete="off"{{/if}}
 />
 `;

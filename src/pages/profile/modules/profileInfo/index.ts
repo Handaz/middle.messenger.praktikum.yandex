@@ -29,12 +29,16 @@ export class ProfileInfo extends Block<IProfileInfo> {
     }
 
     const blockClasses = {
+      profileInfo: classes.profileInfo,
       avatarWrapper: classes.avatarWrapper,
       avatarField: classes.avatarField,
+      username: classes.username,
       avatar: classes.avatar,
       infoFields: classes.infoFields,
       infoField: classes.infoField,
+      fieldValue: classes.fieldValue,
       links: classes.links,
+      link: classes.link,
     };
 
     return this.compile({

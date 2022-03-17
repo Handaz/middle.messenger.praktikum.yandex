@@ -3,4 +3,5 @@
 .navigation {
   @include flexCenter;
   height: 100%;
+  transform: rotate(180deg);
 }

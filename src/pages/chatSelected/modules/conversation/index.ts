@@ -55,6 +55,7 @@ export function ConversationModule(): Conversation {
         placeholder: 'Write a message...',
         opaque: true,
         round: true,
+        noautocomplete: true,
         type: 'text',
       }),
     },

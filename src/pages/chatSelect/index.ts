@@ -26,7 +26,6 @@ const chats = ChatsModule();
 
 const sidebar = new Sidebar({
   content: chats,
-  chats: true,
 });
 
 export default new ChatSelect({

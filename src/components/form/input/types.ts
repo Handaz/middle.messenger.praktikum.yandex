@@ -8,6 +8,7 @@ export interface IInput extends BlockProps {
   value?: string;
   opaque?: boolean;
   round?: boolean;
+  noautocomplete?: boolean;
 }
 
 export type InputType =
