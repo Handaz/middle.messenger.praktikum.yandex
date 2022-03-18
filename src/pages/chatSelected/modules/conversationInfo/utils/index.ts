@@ -11,22 +11,21 @@ import ChatMember from '../components/chatMember';
 import ConversationInfoController from '../controller';
 import userAvatar from '../../../../../../static/images/userAvatar.png';
 import infoIcon from '../../../../../../static/icons/infoIcon';
-import { Indexed } from '../../../../../types';
 import { staticUrl } from '../../../../../utils/classes/request';
 import { IChatMembers } from '../../../../../api/chats/types';
+import { IStoreState } from '../../../../../store/types';
 
 const mapStateToConversationInfo = ({
-  currChats,
-  messages,
+  chatsInfo,
+  chat,
   chats,
-}: Indexed) => {
-  if (currChats && chats && messages) {
-    const chat = currChats.find((item: Indexed) => item.id === messages.chat);
-    const { title, avatar } = chats.find(
-      (item: Indexed) => item.id === messages.chat,
-    );
-    if (chat.members.length > 0) {
-      const members = chat.members.map(
+}: IStoreState) => {
+  if (chatsInfo && chats && chat) {
+    const curChat = chatsInfo.find((item) => item.id === chat.id);
+    const curChatInfo = chats.find((item) => item.id === chat.id);
+
+    if (curChat?.members && curChatInfo) {
+      const members = curChat.members.map(
         ({ display_name, login, id, role }: IChatMembers) =>
           new ChatMember({
             username: display_name ?? login,
@@ -87,6 +86,8 @@ const mapStateToConversationInfo = ({
           click: () => modal.setProps({ isModalOpen: true }),
         },
       });
+
+      const { title, avatar } = curChatInfo;
 
       return {
         title: title ?? '',

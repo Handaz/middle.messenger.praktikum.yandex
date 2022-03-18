@@ -4,7 +4,6 @@ import EventBus from '../eventBus';
 import { Indexed, Nullable } from '../../types';
 import merge from '../../utils/functions/merge';
 import isEqual from '../../utils/functions/isEqual';
-// import objToString from '../../utils/functions/objToString';
 
 type Events = typeof Block.EVENTS[keyof typeof Block.EVENTS];
 
@@ -304,21 +303,5 @@ export default class Block<P = any> {
         throw new Error('Нет прав');
       },
     }) as unknown as P;
-  }
-
-  show() {
-    if (!this._element) {
-      return;
-    }
-
-    this._element.style.display = '';
-  }
-
-  hide() {
-    if (!this._element) {
-      return;
-    }
-
-    this._element.style.display = 'none';
   }
 }

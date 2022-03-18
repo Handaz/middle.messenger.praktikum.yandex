@@ -21,7 +21,7 @@ interface Pages {
 }
 
 class App {
-  currUser: IUserInfo | null = null;
+  currUser: IUserInfo | undefined;
 
   defaultPages: Pages[];
 

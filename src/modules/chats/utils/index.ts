@@ -48,7 +48,9 @@ const mapStateToChats = (state: Indexed) => {
             info.time = getTime(last_message.time);
             info.content = last_message.content;
           }
+
           const { user, content, time } = info;
+
           return new Chat({
             avatar: new Avatar({
               source: avatar ? `${staticUrl}${avatar}` : userAvatar,

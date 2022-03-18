@@ -10,8 +10,8 @@ import ContentBlock from '../../../../../components/contentBlock';
 import ProfileController from '../controller';
 import profilePicture from '../../../../../../static/images/profilePicture.png';
 import { IProfileInfo, ProfileFields } from '../types';
-import { Indexed } from '../../../../../types';
 import { staticUrl } from '../../../../../utils/classes/request';
+import { IStoreState } from '../../../../../store/types';
 
 export const profileLinks: ILink[] = [
   { url: 'profile-change', content: 'Change profile' },
@@ -53,11 +53,12 @@ const content = new ContentBlock({
 
 modal.setProps({ content });
 
-export const mapStateToProfile = ({ user }: Indexed) => {
+export const mapStateToProfile = ({ user }: IStoreState) => {
   if (!user) {
     return {};
   }
-  return Object.keys(user).reduce((acc, k) => {
+
+  const profileInfo = Object.keys(user).reduce((acc, k: keyof typeof user) => {
     if (k in ProfileFields) {
       const key = k as keyof typeof ProfileFields;
       if (!acc.profileFields) {
@@ -65,7 +66,7 @@ export const mapStateToProfile = ({ user }: Indexed) => {
       }
       acc.profileFields.push({
         label: ProfileFields[key],
-        value: user[k] ?? '',
+        value: user[key] ?? '',
       });
     } else if (k === 'avatar') {
       const avatar = new Avatar({
@@ -77,9 +78,11 @@ export const mapStateToProfile = ({ user }: Indexed) => {
 
       acc.avatar = avatar;
       acc.modal = modal;
-    } else {
-      acc.username = user[k];
     }
     return acc;
   }, {} as IProfileInfo);
+
+  profileInfo.username = user.display_name ?? user.login;
+
+  return profileInfo;
 };

@@ -1,10 +1,10 @@
 export default `
 <div class='{{ blockClasses.info }}'>
-    <div class='{{ blockClasses.user }}'>
+    <div class='{{ blockClasses.chat }}'>
         <div class='{{ blockClasses.avatar }}'>
             {{ avatar }} 
         </div>
-        <div>
+        <div class='{{ blockClasses.title }}'>
             {{ title }}
         </div>
     </div>

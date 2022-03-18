@@ -14,6 +14,7 @@ import handleInputChange from '../../../../utils/functions/handleInputChange';
 import connect from '../../../../utils/functions/hoc';
 import mapStateToConversation from './utils';
 import arrow from '../../../../../static/icons/arrow';
+import classNames from '../../../../utils/functions/classnames';
 import classes from './conversation.module.scss';
 
 export class Conversation extends Block<IConversation> {
@@ -22,15 +23,17 @@ export class Conversation extends Block<IConversation> {
   }
 
   render() {
-    const { topBar, messages, bottomBar } = this.props;
+    const { topBar, messages, loader, bottomBar } = this.props;
 
     const blockClasses = {
       messages: classes.messages,
+      loader: classNames({ [classes.loader]: loader }),
     };
 
     return this.compile({
       topBar,
       messages,
+      loader,
       bottomBar,
       blockClasses,
     });

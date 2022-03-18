@@ -23,9 +23,10 @@ export default class ConversationInfo extends Block<IConversationInfo> {
 
     const blockClasses = {
       info: classes.info,
-      user: classes.user,
+      chat: classes.chat,
       avatar: classes.avatar,
       button: classes.button,
+      title: classes.title,
     };
 
     return this.compile({

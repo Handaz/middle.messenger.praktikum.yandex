@@ -10,52 +10,53 @@
   &:hover {
     background: var(--primary300);
   }
-}
 
-.avatar {
-  width: 47px;
-  height: 47px;
-  flex-shrink: 0;
-}
+  .chatInfo {
+    display: flex;
+    gap: 10px;
+    width: 60%;
 
-.chatInfo {
-  display: flex;
-  gap: 10px;
-  width: 60%;
-}
+    .avatar {
+      width: 47px;
+      height: 47px;
+      flex-shrink: 0;
+    }
 
-.messageInfo {
-  @include flexCol;
-  gap: 4px;
-  overflow: hidden;
-}
+    .messageInfo {
+      @include flexCol;
+      gap: 4px;
+      overflow: hidden;
+      font-weight: 600;
 
-.title {
-  font-size: 14px;
-}
+      .title {
+        font-size: 14px;
+      }
 
-.messageContent {
-  display: flex;
-  gap: 5px;
-  font-size: 12px;
-}
+      .messageContent {
+        display: flex;
+        gap: 5px;
+        font-size: 12px;
 
-.sender {
-  white-space: nowrap;
-}
+        .sender {
+          white-space: nowrap;
+        }
 
-.message {
-  color: var(--primary200);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+        .message {
+          color: var(--primary200);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
 
-.metaInfo {
-  @include flexCol;
-}
+  .metaInfo {
+    @include flexCol;
 
-.time {
-  color: var(--primary200);
-  font-size: 11px;
+    .time {
+      color: var(--primary200);
+      font-size: 11px;
+    }
+  }
 }

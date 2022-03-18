@@ -18,47 +18,65 @@ class ConversationController extends Controller<MessageForm> {
 
   @catchDec
   public async open(token: string, id: number) {
-    const state = Store.getState();
+    const { user, ...state } = Store.getState();
 
-    if (state.user) {
-      let { currChats } = state;
-      const socket = new WSService(state.user.id, id, token);
+    if (user) {
+      let { chatsInfo } = state;
+      const socket = new WSService(user.id, id, token);
 
-      if (!currChats) {
-        Store.set('currChats', []);
-        currChats = Store.getState().currChats;
+      if (!chatsInfo) {
+        chatsInfo = [];
       }
 
-      const members = await ChatsAPI.getChatMembers(id);
-
-      currChats.push({ socket, token, id, messages: [], members });
-      Store.set('currChats', currChats);
+      chatsInfo.push({ socket, token, id, messages: [] });
+      Store.set('chatsInfo', chatsInfo);
     }
   }
 
-  getConversation(id: number) {
-    const { currChats, messages } = Store.getState();
+  @catchDec
+  public async getConversation(id: number) {
+    const { chatsInfo, chat } = Store.getState();
 
-    if (!currChats) {
+    if (chat?.id === id) {
+      return;
+    }
+
+    Store.set('chat', { id, messages: [], members: [] });
+
+    if (!chatsInfo) {
       throw new Error('No chats available');
     }
 
-    if (!messages) {
-      Store.set('messages', { chat: id, data: [] });
-    }
+    const curChat = chatsInfo.find((item: Indexed) => item.id === id);
 
-    const chat = currChats.find((item: Indexed) => item.id === id);
-
-    if (!chat) {
+    if (!curChat) {
       throw new Error(`No chat found with id: ${id}`);
     }
 
-    this.currentSocket = chat.socket;
+    if (!curChat.members) {
+      const members = await ChatsAPI.getChatMembers(id);
+      curChat.members = members;
+      Store.set(
+        'chatsInfo',
+        chatsInfo.map((item) => (item.id === id ? { ...item, members } : item)),
+      );
+    }
 
-    if (chat.messages.length === 0) {
+    this.currentSocket = curChat.socket;
+
+    if (curChat.messages) {
+      Store.set('chat', {
+        id,
+        members: curChat.members,
+        messages: [],
+      });
       this.currentSocket.getChatHistory();
     } else {
-      Store.set('messages', { chat: chat.id, data: chat.messages });
+      Store.set('chat', {
+        id,
+        members: curChat.members,
+        messages: curChat.messages,
+      });
     }
 
     Router.go(`/chat`);

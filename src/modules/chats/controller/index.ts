@@ -12,9 +12,9 @@ import { validationSchema } from '../utils';
 class ChatsController extends Controller<ICreateChat> {
   @catchDec
   public async getChats() {
-    const newChats = await ChatsAPI.getChats();
-    Store.set('chats', newChats);
-    this.connectToChats(newChats);
+    const chats = await ChatsAPI.getChats();
+    Store.set('chats', chats);
+    this.connectToChats(chats);
   }
 
   @catchDec

@@ -1,19 +1,20 @@
 import Message from '../components/message';
-import { Indexed } from '../../../../../types';
-import { IMessageData } from '../types';
+import { IMessageData } from '../components/message/types';
 import getTime from '../../../../../utils/functions/getTime';
 import readIcon from '../../../../../../static/icons/readIcon';
 import unreadIcon from '../../../../../../static/icons/unreadIcon';
+import { IStoreState } from '../../../../../store/types';
 
-const mapStateToConversation = ({ user, messages }: Indexed) => {
-  if (user && messages) {
-    if (messages.data.length === 0) {
+const mapStateToConversation = ({ user, chat }: IStoreState) => {
+  if (user && chat) {
+    if (chat.messages.length === 0) {
       return {
         messages: [],
+        loader: true,
       };
     }
 
-    const conversationContent = messages.data.map(
+    const conversationContent = chat.messages.map(
       ({ user_id, content, is_read, time }: IMessageData) =>
         new Message({
           own: user.id === user_id,
@@ -23,7 +24,7 @@ const mapStateToConversation = ({ user, messages }: Indexed) => {
         }),
     );
 
-    return { messages: conversationContent };
+    return { messages: conversationContent, loader: false };
   }
   return {};
 };
