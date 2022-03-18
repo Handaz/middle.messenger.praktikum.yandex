@@ -25,6 +25,7 @@ export default class ConversationInfo extends Block<IConversationInfo> {
       info: classes.info,
       user: classes.user,
       avatar: classes.avatar,
+      button: classes.button,
     };
 
     return this.compile({

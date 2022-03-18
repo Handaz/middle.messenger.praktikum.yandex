@@ -33,6 +33,9 @@ export class Chats extends Block<IChats> {
     const blockClasses = {
       chats: classes.chats,
       header: classes.header,
+      chatAdd: classes.chatAdd,
+      modalWrapper: classes.modalWrapper,
+      searchWrapper: classes.searchWrapper,
     };
 
     return this.compile({
@@ -103,7 +106,7 @@ export function ChatsModule(): Chats {
 
   const chatAdd = new Button({
     type: 'button',
-    content: 'Add chat',
+    content: '+',
     transparent: true,
     events: {
       click: () => modal.setProps({ isModalOpen: true }),

@@ -7,7 +7,9 @@ export default `
         <div>
             {{ title }}
         </div>
-    </div> 
+    </div>
+    <div class='{{ blockClasses.button }}'> 
     {{ button }}
+    </div>
     {{ modal }}
 </div>`;

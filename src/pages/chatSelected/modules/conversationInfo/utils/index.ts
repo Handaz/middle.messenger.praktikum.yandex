@@ -67,7 +67,7 @@ const mapStateToConversationInfo = ({
       });
 
       const content = new ContentBlock({
-        title: 'Manage content',
+        title: 'Manage chat',
         content: new ChatMembers({
           form,
           members,
