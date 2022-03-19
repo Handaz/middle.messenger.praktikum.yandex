@@ -17,7 +17,7 @@
 
 .transparent {
   background: transparent;
-  padding: 0px;
+  padding: 0;
 
   &:hover {
     background: transparent;
@@ -26,6 +26,5 @@
 
 .round {
   @include flexCenter;
-
   border-radius: 50%;
 }

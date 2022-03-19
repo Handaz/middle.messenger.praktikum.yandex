@@ -4,7 +4,6 @@ import Store from '../../../store';
 import ConversationController from '../../../pages/chatSelected/modules/conversation/controller';
 import ChatsAPI from '../../../api/chats';
 import catchDec from '../../../utils/decorators/catchDec';
-import { Indexed } from '../../../types';
 import { IChatsInfo, ICreateChat } from '../../../api/chats/types';
 import validationDec from '../../../utils/decorators/validationDec';
 import { validationSchema } from '../utils';
@@ -19,14 +18,15 @@ class ChatsController extends Controller<ICreateChat> {
 
   @catchDec
   public async connectToChats(chats: IChatsInfo[]) {
-    chats.forEach(({ id }: Indexed) => this.connectToChat(id));
+    chats.forEach((chat) => this.connectToChat(chat));
   }
 
   @catchDec
-  public async connectToChat(id: number) {
+  public async connectToChat(chat: IChatsInfo) {
+    const { id, avatar, title } = chat;
     const res = await ChatsAPI.getChat(id);
 
-    ConversationController.open(res.token, id);
+    ConversationController.open(res.token, id, avatar, title);
   }
 
   @validationDec(validationSchema)

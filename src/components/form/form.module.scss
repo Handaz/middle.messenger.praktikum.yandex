@@ -16,13 +16,13 @@
   * {
     width: 100%;
   }
+
   .profileInput {
     @include flexBetween;
     @include innerBorder;
-
     flex-direction: row-reverse;
     align-items: baseline;
-    padding: 10px 0px;
+    padding: 10px 0;
 
     &:nth-last-child(2) {
       border: none;

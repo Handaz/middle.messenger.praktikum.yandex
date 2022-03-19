@@ -1,0 +1,32 @@
+@import '../../../../../../styles/global';
+
+.management {
+  @include flexCol;
+  gap: 40px;
+
+  .main {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .avatar {
+      width: 115px;
+      height: 75px;
+      border-radius: 50%;
+    }
+
+    .info {
+      @include flexCol;
+      gap: 10;
+
+      .title {
+        font-weight: 600;
+      }
+
+      .membersCount {
+        font-size: 12px;
+        color: var(--primary200);
+      }
+    }
+  }
+}

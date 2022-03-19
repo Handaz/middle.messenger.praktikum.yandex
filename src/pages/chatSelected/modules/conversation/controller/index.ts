@@ -17,7 +17,12 @@ class ConversationController extends Controller<MessageForm> {
   currentSocket: WSService;
 
   @catchDec
-  public async open(token: string, id: number) {
+  public async open(
+    token: string,
+    id: number,
+    avatar: string | null,
+    title: string,
+  ) {
     const { user, ...state } = Store.getState();
 
     if (user) {
@@ -28,7 +33,15 @@ class ConversationController extends Controller<MessageForm> {
         chatsInfo = [];
       }
 
-      chatsInfo.push({ socket, token, id, messages: [] });
+      chatsInfo.push({
+        socket,
+        token,
+        messages: null,
+        members: null,
+        id,
+        avatar,
+        title,
+      });
       Store.set('chatsInfo', chatsInfo);
     }
   }
@@ -41,7 +54,7 @@ class ConversationController extends Controller<MessageForm> {
       return;
     }
 
-    Store.set('chat', { id, messages: [], members: [] });
+    Store.set('chat', { id, messages: null, members: [] });
 
     if (!chatsInfo) {
       throw new Error('No chats available');
@@ -62,21 +75,20 @@ class ConversationController extends Controller<MessageForm> {
       );
     }
 
-    this.currentSocket = curChat.socket;
+    const { socket, avatar, title, members, messages } = curChat;
 
-    if (curChat.messages) {
-      Store.set('chat', {
-        id,
-        members: curChat.members,
-        messages: [],
-      });
+    this.currentSocket = socket;
+
+    Store.set('chat', {
+      id,
+      members,
+      messages,
+      avatar,
+      title,
+    });
+
+    if (!messages) {
       this.currentSocket.getChatHistory();
-    } else {
-      Store.set('chat', {
-        id,
-        members: curChat.members,
-        messages: curChat.messages,
-      });
     }
 
     Router.go(`/chat`);

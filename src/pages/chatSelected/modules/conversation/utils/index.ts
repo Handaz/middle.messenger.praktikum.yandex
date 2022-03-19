@@ -7,10 +7,17 @@ import { IStoreState } from '../../../../../store/types';
 
 const mapStateToConversation = ({ user, chat }: IStoreState) => {
   if (user && chat) {
-    if (chat.messages.length === 0) {
+    if (!chat.messages) {
       return {
         messages: [],
         loader: true,
+      };
+    }
+
+    if (chat.messages.length === 0) {
+      return {
+        messages: [],
+        loader: false,
       };
     }
 

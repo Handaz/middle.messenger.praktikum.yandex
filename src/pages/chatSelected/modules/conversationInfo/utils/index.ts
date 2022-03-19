@@ -7,6 +7,7 @@ import Form from '../../../../../components/form';
 import Input from '../../../../../components/form/input';
 import FormError from '../../../../../components/form/error';
 import ChatMember from '../components/chatMember';
+import ChatManagement from '../components/chatManagement';
 
 import ConversationInfoController from '../controller';
 import userAvatar from '../../../../../../static/images/userAvatar.png';
@@ -66,10 +67,16 @@ const mapStateToConversationInfo = ({
       });
 
       const content = new ContentBlock({
-        title: 'Manage chat',
-        content: new ChatMembers({
-          form,
-          members,
+        content: new ChatManagement({
+          avatar: new Avatar({
+            source: chat.avatar ? `${staticUrl}${chat.avatar}` : userAvatar,
+          }),
+          title: chat.title,
+          membersCount: chat.members?.length || 1,
+          members: new ChatMembers({
+            form,
+            members,
+          }),
         }),
       });
 

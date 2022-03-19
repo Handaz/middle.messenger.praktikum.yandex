@@ -7,11 +7,16 @@ export interface IChat {
   socket: WSService;
   token: string;
   id: number;
-  messages: IMessageData[];
-  members?: IUserInfo[];
+  messages: IMessageData[] | null;
+  members: IUserInfo[] | null;
+  avatar: string | null;
+  title: string;
 }
 
-export type IChatInfo = Omit<IChat, 'socket' | 'token'>;
+export interface IChatInfo
+  extends Omit<IChat, 'socket' | 'token' | 'messages'> {
+  messages?: IMessageData[];
+}
 
 export interface IStoreState {
   chat?: IChatInfo;

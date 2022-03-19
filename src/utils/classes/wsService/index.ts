@@ -70,13 +70,14 @@ export default class WSService {
     const { chatsInfo, chat } = Store.getState();
 
     if (Array.isArray(data)) {
-      Store.set('chat', { id: this._id, messages: data });
+      Store.set('chat.messages', data);
     } else if (data.type !== 'message') {
       return;
-    } else if (chat && chat.id === this._id) {
+    } else if (chat && chat.messages && chat.id === this._id) {
       chat.messages.unshift(data);
       Store.set('chat', chat);
     }
+    console.log(Store.getState());
 
     if (!chatsInfo) {
       return;
@@ -84,10 +85,14 @@ export default class WSService {
 
     const currChats = chatsInfo.map((item: Indexed) => {
       if (item.id === this._id) {
-        if (Array.isArray(data)) {
-          item.messages = item.messages.concat(data);
+        if (item.messages) {
+          if (Array.isArray(data)) {
+            item.messages = item.messages.concat(data);
+          } else {
+            item.messages.unshift(data);
+          }
         } else {
-          item.messages.unshift(data);
+          item.messages = data;
         }
       }
       return item;
