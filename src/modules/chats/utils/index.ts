@@ -4,9 +4,10 @@ import Avatar from '../../../components/avatar';
 import ConversationController from '../../../pages/chatSelected/modules/conversation/controller';
 import { staticUrl } from '../../../utils/classes/request';
 import userAvatar from '../../../../static/images/userAvatar.png';
-import { Indexed, ValidationSchema } from '../../../types';
+import { ValidationSchema } from '../../../types';
 import { IInput } from '../../../components/form/input/types';
 import { IChatsInfo, ILastMessageInfo } from '../../../api/chats/types';
+import { IStoreState } from '../../../store/types';
 import getTime from '../../../utils/functions/getTime';
 import { noEmptyRule } from '../../../utils/data/userValidationSchema';
 
@@ -23,9 +24,10 @@ export const validationSchema: ValidationSchema = {
 };
 
 // TODO: unread count isn't correct
-const mapStateToChats = (state: Indexed) => {
-  if (state.chats) {
+const mapStateToChats = (state: IStoreState) => {
+  if (state.chats && state.areSocketsReady) {
     return {
+      loader: false,
       chatList: state.chats.map(
         ({ title, last_message, avatar, unread_count, id }: IChatsInfo) => {
           const info: ILastMessageInfo = {
@@ -68,6 +70,7 @@ const mapStateToChats = (state: Indexed) => {
       ),
     };
   }
+
   return { chatList: [] };
 };
 

@@ -17,36 +17,6 @@ class ConversationController extends Controller<MessageForm> {
   currentSocket: WSService;
 
   @catchDec
-  public async open(
-    token: string,
-    id: number,
-    avatar: string | null,
-    title: string,
-  ) {
-    const { user, ...state } = Store.getState();
-
-    if (user) {
-      let { chatsInfo } = state;
-      const socket = new WSService(user.id, id, token);
-
-      if (!chatsInfo) {
-        chatsInfo = [];
-      }
-
-      chatsInfo.push({
-        socket,
-        token,
-        messages: null,
-        members: null,
-        id,
-        avatar,
-        title,
-      });
-      Store.set('chatsInfo', chatsInfo);
-    }
-  }
-
-  @catchDec
   public async getConversation(id: number) {
     const { chatsInfo, chat } = Store.getState();
 

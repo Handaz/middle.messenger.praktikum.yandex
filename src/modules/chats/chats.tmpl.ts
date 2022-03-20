@@ -7,10 +7,14 @@ export default `
     <div>{{ modal }}</div>
   </div>
   <div>
-    <ul>
-      {{#each chatList}}
-      {{ this }}
-      {{/each}}
-    </ul>
+    {{#if loader}}
+      {{ loaderComponent }}
+    {{ else }}
+      <ul>
+        {{#each chatList}}
+          {{ this }}
+        {{/each}}
+      </ul>
+    {{/if}}
   </div>
 </div>`;

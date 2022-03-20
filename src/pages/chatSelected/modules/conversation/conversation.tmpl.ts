@@ -3,11 +3,12 @@ export default `
   <div>{{ topBar }}</div>
   <div class='{{ blockClasses.messages }}'>
     {{#if loader}}
-      <div class='{{ blockClasses.loader }}'></div>
+      {{ loaderComponent }}
+    {{ else }}
+      {{#each messages}}
+        {{ this }}
+      {{/each}}
     {{/if}}
-    {{#each messages}}
-      {{ this }}
-    {{/each}}
   </div>
   <div>{{ bottomBar }}</div>
 </div>`;

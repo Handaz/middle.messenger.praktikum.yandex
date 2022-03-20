@@ -1,3 +1,5 @@
+import type Loader from '../components/loader';
+
 export type Nullable<T> = null | T;
 
 export interface BlockProps {
@@ -6,6 +8,8 @@ export interface BlockProps {
   };
   blockClasses?: string | Indexed<string>;
   styles?: Partial<CSSStyleDeclaration>;
+  loader?: boolean;
+  loaderComponent?: typeof Loader;
 }
 
 export interface ValidationSchema {

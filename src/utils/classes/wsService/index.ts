@@ -29,6 +29,7 @@ export default class WSService {
   }
 
   openSocket() {
+    // Store.set('areSocketsReady', false);
     this.socket = new WebSocket(
       `${socketUrl}${this._userId}/${this._id}/${this._token}`,
     );
@@ -36,7 +37,7 @@ export default class WSService {
     this.socket.addEventListener(OPEN, this.handleOpen);
     this.socket.addEventListener(MESSAGE, this.handleMessage.bind(this));
     this.socket.addEventListener(ERROR, this.handleError);
-    this.socket.addEventListener(CLOSE, this.handleClose);
+    this.socket.addEventListener(CLOSE, this.handleClose.bind(this));
   }
 
   getChatHistory() {
@@ -63,6 +64,13 @@ export default class WSService {
 
   handleOpen(e: Event) {
     console.log('Соединение установлено', e);
+    const { chatsInfo } = Store.getState();
+
+    const areSocketsReady = chatsInfo?.every(
+      ({ socket }) => socket.socket.readyState === 1,
+    );
+
+    Store.set('areSocketsReady', areSocketsReady);
   }
 
   handleMessage(e: MessageEvent) {
@@ -77,7 +85,6 @@ export default class WSService {
       chat.messages.unshift(data);
       Store.set('chat', chat);
     }
-    console.log(Store.getState());
 
     if (!chatsInfo) {
       return;
@@ -110,9 +117,9 @@ export default class WSService {
       console.log('Соединение закрыто чисто');
     } else {
       console.log('Обрыв соединения');
-      this.openSocket();
     }
 
     console.log(`Код: ${e.code} | Причина: ${e.reason}`);
+    this.openSocket();
   }
 }

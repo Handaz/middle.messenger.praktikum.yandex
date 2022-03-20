@@ -8,6 +8,7 @@ import ContentBlock from '../../components/contentBlock';
 import Form from '../../components/form';
 import Modal from '../../components/modal';
 import FormError from '../../components/form/error';
+import Loader from '../../components/loader';
 
 import ChatsController from './controller';
 import Store from '../../store';
@@ -23,7 +24,15 @@ export class Chats extends Block<IChats> {
   }
 
   render() {
-    const { profile, search, chatList, chatAdd, modal } = this.props;
+    const {
+      profile,
+      search,
+      chatList,
+      chatAdd,
+      modal,
+      loader,
+      loaderComponent,
+    } = this.props;
     const { chats, user } = Store.getState();
 
     if (!chats && user) {
@@ -33,6 +42,7 @@ export class Chats extends Block<IChats> {
     const blockClasses = {
       chats: classes.chats,
       header: classes.header,
+      loader: classes.loader,
       chatAdd: classes.chatAdd,
       modalWrapper: classes.modalWrapper,
       searchWrapper: classes.searchWrapper,
@@ -44,6 +54,8 @@ export class Chats extends Block<IChats> {
       chatAdd,
       modal,
       chatList,
+      loader,
+      loaderComponent,
       blockClasses,
     });
   }
@@ -118,6 +130,8 @@ export function ChatsModule(): Chats {
     search,
     chatAdd,
     modal,
+    loader: true,
+    loaderComponent: Loader,
     chatList: [],
   });
 }
