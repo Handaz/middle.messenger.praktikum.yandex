@@ -3,6 +3,7 @@
 .management {
   @include flexCol;
   gap: 40px;
+  width: 100%;
 
   .main {
     display: flex;
@@ -10,8 +11,8 @@
     gap: 20px;
 
     .avatar {
-      width: 115px;
-      height: 75px;
+      width: 85px;
+      height: 85px;
       border-radius: 50%;
     }
 

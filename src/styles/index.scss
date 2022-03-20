@@ -3,6 +3,7 @@
 
 :root {
   --danger: #f65d53;
+  --success: #38af65;
   --primary200: #9baacf;
   --primary300: #5d81d4;
   --primary400: #5f8efa;
@@ -31,12 +32,7 @@ main {
 }
 
 code {
-  font-family:
-    source-code-pro,
-    Menlo,
-    Monaco,
-    Consolas,
-    'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 

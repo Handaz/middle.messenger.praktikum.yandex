@@ -1,0 +1,28 @@
+@import '../../../../../../styles/global';
+
+.addMember {
+  @include flexCol;
+  gap: 40px;
+  width: 100%;
+
+  .head {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    button {
+      transform: rotate(180deg);
+      height: 20px;
+
+      svg {
+        height: 18px;
+        width: 18px;
+      }
+    }
+
+    .title {
+      font-weight: 600;
+      font-size: 20px;
+    }
+  }
+}

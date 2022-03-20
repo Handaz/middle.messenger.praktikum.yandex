@@ -9,12 +9,15 @@ export default class ChatMembers extends Block<IChatMembers> {
   }
 
   render() {
-    const { members, form } = this.props;
+    const { members, button } = this.props;
 
     const blockClasses = {
+      head: classes.head,
+      title: classes.title,
+      membersWrapper: classes.membersWrapper,
       members: classes.members,
     };
 
-    return this.compile({ members, form, blockClasses });
+    return this.compile({ members, button, blockClasses });
   }
 }

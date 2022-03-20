@@ -64,13 +64,16 @@ export default class WSService {
 
   handleOpen(e: Event) {
     console.log('Соединение установлено', e);
-    const { chatsInfo } = Store.getState();
 
-    const areSocketsReady = chatsInfo?.every(
-      ({ socket }) => socket.socket.readyState === 1,
-    );
+    if (!Store.getState().areSocketsReady) {
+      const { chatsInfo } = Store.getState();
 
-    Store.set('areSocketsReady', areSocketsReady);
+      const areSocketsReady = chatsInfo?.every(
+        ({ socket }) => socket.socket.readyState === 1,
+      );
+
+      Store.set('areSocketsReady', areSocketsReady);
+    }
   }
 
   handleMessage(e: MessageEvent) {

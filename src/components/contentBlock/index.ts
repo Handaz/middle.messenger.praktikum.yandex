@@ -20,6 +20,7 @@ export default class ContentBlock extends Block<IContentBlock> {
       contentBlockClasses,
       titleClass: classes.title,
       content: classes.content,
+      link: classes.link,
     };
 
     return this.compile({ title, content, authForm, blockClasses, link });

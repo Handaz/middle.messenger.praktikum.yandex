@@ -7,7 +7,8 @@ export interface IConversationInfo extends BlockProps {
   avatar: Avatar;
   title: string;
   button: Button;
-  modal: Modal;
+  manageModal: Modal;
+  usersModal: Modal;
 }
 
 export interface IAddMember {

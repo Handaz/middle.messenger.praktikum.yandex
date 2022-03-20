@@ -24,4 +24,5 @@ export interface IStoreState {
   chats?: IChatsInfo[];
   chatsInfo?: IChat[];
   user?: IUserInfo;
+  foundUsers?: IUserInfo[];
 }

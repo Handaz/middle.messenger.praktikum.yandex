@@ -19,7 +19,7 @@ export default class ConversationInfo extends Block<IConversationInfo> {
   }
 
   render() {
-    const { avatar, title, button, modal } = this.props;
+    const { avatar, title, button, manageModal, usersModal } = this.props;
 
     const blockClasses = {
       info: classes.info,
@@ -33,7 +33,8 @@ export default class ConversationInfo extends Block<IConversationInfo> {
       avatar,
       title,
       button,
-      modal,
+      manageModal,
+      usersModal,
       blockClasses,
     });
   }
@@ -64,7 +65,8 @@ export function ConversationInfoModule() {
   });
 
   return new ConversationInfoHoc({
-    modal,
+    manageModal: modal,
+    usersModal: modal,
     avatar: new Avatar({
       source: userAvatar,
     }),

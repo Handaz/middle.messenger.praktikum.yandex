@@ -33,7 +33,7 @@ class ConversationController extends Controller<IAddMember> {
 
   @validationDec(validationSchema)
   @catchDec
-  public async addMember(_props: FormControllerProps) {
+  public async findUser(_props: FormControllerProps) {
     const { chat } = Store.getState();
 
     if (!chat) {
@@ -42,9 +42,19 @@ class ConversationController extends Controller<IAddMember> {
 
     const users = await UserAPI.findUser(this.data);
 
-    // TODO: make a dropdown menu with list of users from last api call
+    Store.set('foundUsers', users);
+  }
+
+  @catchDec
+  public async addMember(userId: number) {
+    const { chat } = Store.getState();
+
+    if (!chat) {
+      throw new Error('No chat was selected');
+    }
+
     const data = {
-      users: [users[0].id],
+      users: [userId],
       chatId: chat.id,
     };
 
@@ -69,7 +79,8 @@ class ConversationController extends Controller<IAddMember> {
       return item;
     });
 
-    Store.set('chats', currChats);
+    Store.set('chat.members', members);
+    Store.set('chatsInfo', currChats);
   }
 }
 

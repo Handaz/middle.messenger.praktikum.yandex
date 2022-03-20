@@ -11,5 +11,6 @@ export default `
     <div class='{{ blockClasses.button }}'> 
     {{ button }}
     </div>
-    {{ modal }}
+    {{ manageModal }}
+    {{ usersModal }}
 </div>`;

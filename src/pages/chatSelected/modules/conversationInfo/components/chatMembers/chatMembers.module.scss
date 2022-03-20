@@ -1,4 +1,25 @@
-.members {
-  display: flex;
-  flex-direction: column;
+@import '../../../../../../styles/global';
+
+.membersWrapper {
+  @include flexCol;
+  gap: 20px;
+
+  .head {
+    @include flexBetween;
+    border-bottom: 1px solid var(--primary700);
+
+    .title {
+      font-weight: 600;
+    }
+
+    button {
+      font-size: 30px;
+      color: var(--clr-font);
+    }
+  }
+
+  .members {
+    @include flexCol;
+    gap: 10px;
+  }
 }
