@@ -1,5 +1,9 @@
 import Message from '../components/message';
 import { IMessageData } from '../components/message/types';
+import Messages from '../components/messages';
+import Loader from '../../../../../components/loader';
+
+import ConversationController from '../controller';
 import getTime from '../../../../../utils/functions/getTime';
 import readIcon from '../../../../../../static/icons/readIcon';
 import unreadIcon from '../../../../../../static/icons/unreadIcon';
@@ -9,15 +13,20 @@ const mapStateToConversation = ({ user, chat }: IStoreState) => {
   if (user && chat) {
     if (!chat.messages) {
       return {
-        messages: [],
-        loader: true,
+        messages: new Messages({
+          messages: [],
+          loader: true,
+          loaderComponent: Loader,
+        }),
       };
     }
 
     if (chat.messages.length === 0) {
       return {
-        messages: [],
-        loader: false,
+        messages: new Messages({
+          messages: [],
+          loader: false,
+        }),
       };
     }
 
@@ -31,7 +40,28 @@ const mapStateToConversation = ({ user, chat }: IStoreState) => {
         }),
     );
 
-    return { messages: conversationContent, loader: false };
+    const messages = new Messages({
+      messages: conversationContent,
+      loader: false,
+      events: {
+        scroll: (e: WheelEvent) => {
+          const el = e.target as HTMLElement;
+
+          if (el) {
+            const scrolledToTop =
+              Math.round(el.scrollHeight + el.scrollTop) === el.clientHeight;
+
+            if (scrolledToTop) {
+              ConversationController.getMessages();
+            }
+          }
+        },
+      },
+    });
+
+    return {
+      messages,
+    };
   }
   return {};
 };

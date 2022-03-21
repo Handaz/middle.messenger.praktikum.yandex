@@ -1,11 +1,11 @@
 import ConversationInfo from '../conversationInfo';
 import ConversationActions from './components/conversationActions';
-import Message from './components/message';
+import Messages from './components/messages';
 import { BlockProps } from '../../../../types';
 
 export interface IConversation extends BlockProps {
   topBar: ConversationInfo;
-  messages: Message[];
+  messages: Messages;
   bottomBar: ConversationActions;
 }
 

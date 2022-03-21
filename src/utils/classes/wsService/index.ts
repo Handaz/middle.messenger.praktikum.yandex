@@ -54,10 +54,10 @@ export default class WSService {
     this.socket.addEventListener(CLOSE, this.handleClose.bind(this));
   }
 
-  getChatHistory() {
+  getChatHistory(messageCount?: number) {
     this.socket.send(
       JSON.stringify({
-        content: '0',
+        content: messageCount ?? '0',
         type: 'get old',
       }),
     );
@@ -102,7 +102,11 @@ export default class WSService {
     const { chat, chatsInfo } = Store.getState();
 
     if (Array.isArray(data)) {
-      Store.set('chat.messages', data);
+      if (chat?.messages) {
+        Store.set('chat.messages', chat.messages.concat(data));
+      } else {
+        Store.set('chat.messages', data);
+      }
     } else if (data.type !== 'message') {
       return;
     }
@@ -127,24 +131,22 @@ export default class WSService {
     });
 
     Store.set('chatsInfo', currChats);
-
-    if (chat?.id !== this._id) {
-      this.updateChats(data);
-    }
+    this.updateChats(data);
   }
 
   @catchDec
   async updateChats(data: IMessageData) {
-    const { chats } = Store.getState();
+    const { chats, chat } = Store.getState();
 
     const user = await UserApi.getUser(data.user_id);
 
     Store.set(
       'chats',
       chats?.map((item) => {
-        console.log(data);
         if (item.id === this._id) {
-          item.unread_count++;
+          if (chat?.id !== this._id) {
+            item.unread_count++;
+          }
           item.last_message = {
             time: data.time,
             content: data.content,

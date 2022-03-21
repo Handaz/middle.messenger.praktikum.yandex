@@ -73,6 +73,7 @@ class ConversationController extends Controller<MessageForm> {
       this.currentSocket.getChatHistory();
     }
 
+    // TODO: ВЛОЖЕННЫЙ, ВРОДЕ #${id}
     Router.go(`/chat`);
   }
 
@@ -87,6 +88,12 @@ class ConversationController extends Controller<MessageForm> {
     if (this.currentSocket) {
       this.currentSocket.close();
     }
+  }
+
+  public getMessages() {
+    const { chat } = Store.getState();
+
+    this.currentSocket.getChatHistory(chat?.messages?.length);
   }
 }
 

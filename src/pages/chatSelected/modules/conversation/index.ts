@@ -6,16 +6,15 @@ import Button from '../../../../components/button';
 import Input from '../../../../components/form/input';
 import Form from '../../../../components/form';
 import ConversationActions from './components/conversationActions';
-import Loader from '../../../../components/loader';
+import Messages from './components/messages';
 
 import ConversationController from './controller';
 import { IConversation } from './types';
 import optionsIcon from '../../../../../static/icons/optionsIcon';
+import arrow from '../../../../../static/icons/arrow';
 import handleInputChange from '../../../../utils/functions/handleInputChange';
 import connect from '../../../../utils/functions/hoc';
 import mapStateToConversation from './utils';
-import arrow from '../../../../../static/icons/arrow';
-import classes from './conversation.module.scss';
 
 export class Conversation extends Block<IConversation> {
   constructor(props: IConversation) {
@@ -23,19 +22,12 @@ export class Conversation extends Block<IConversation> {
   }
 
   render() {
-    const { topBar, messages, loader, loaderComponent, bottomBar } = this.props;
-
-    const blockClasses = {
-      messages: classes.messages,
-    };
+    const { topBar, messages, bottomBar } = this.props;
 
     return this.compile({
       topBar,
       messages,
-      loader,
-      loaderComponent,
       bottomBar,
-      blockClasses,
     });
   }
 }
@@ -97,8 +89,9 @@ export function ConversationModule(): Conversation {
 
   return new ConversationHoc({
     topBar: ConversationInfoModule(),
-    messages: [],
-    loaderComponent: Loader,
+    messages: new Messages({
+      messages: [],
+    }),
     bottomBar,
   });
 }

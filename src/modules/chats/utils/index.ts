@@ -10,6 +10,8 @@ import { IChatsInfo, ILastMessageInfo } from '../../../api/chats/types';
 import { IStoreState } from '../../../store/types';
 import getTime from '../../../utils/functions/getTime';
 import { noEmptyRule } from '../../../utils/data/userValidationSchema';
+import isToday from '../../../utils/functions/isToday';
+import getDayMonth from '../../../utils/functions/getDayMonth';
 
 export const chatAddFields: IInput[] = [
   {
@@ -64,8 +66,12 @@ const mapStateToChats = ({
             };
 
             if (last_message) {
+              const date = new Date(last_message.time);
+
               info.user = last_message.user;
-              info.time = getTime(last_message.time);
+              info.time = isToday(date)
+                ? getTime(last_message.time)
+                : getDayMonth(date);
               info.content = last_message.content;
             }
 
