@@ -7,14 +7,15 @@ import {
   IChatsInfo,
   IChatToken,
   ICreateChat,
+  IGetChats,
 } from './types';
 
 class ChatsAPI extends BaseAPI<
   undefined,
-  Promise<IChatsInfo[] | IChatToken | IUserInfo[] | string>
+  Promise<IGetChats | IChatsInfo[] | IChatToken | IUserInfo[] | string>
 > {
-  public async getChats() {
-    const res = await apiCall.get<undefined, IChatsInfo[]>('chats');
+  public async getChats(data?: IGetChats) {
+    const res = await apiCall.get<IGetChats, IChatsInfo[]>('chats', { data });
 
     return res;
   }

@@ -6,15 +6,14 @@ export default `
     <div class='{{ blockClasses.chatAdd }}'>{{ chatAdd }}</div>
     <div>{{ modal }}</div>
   </div>
-  <div>
     {{#if loader}}
       {{ loaderComponent }}
     {{ else }}
-      <ul>
+      <ul class='{{ blockClasses.chatList }}'>
         {{#each chatList}}
           {{ this }}
         {{/each}}
+        <div class='{{ blockClasses.loadChats }}'>{{ loadChats }}</div>
       </ul>
     {{/if}}
-  </div>
 </div>`;

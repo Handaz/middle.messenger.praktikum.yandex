@@ -56,10 +56,25 @@
 
   .metaInfo {
     @include flexCol;
+    align-items: flex-end;
+    gap: 4px;
 
     .time {
       color: var(--primary200);
       font-size: 11px;
     }
+
+    .unread {
+      @include flexCenter;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-size: 10px;
+      background: var(--primary);
+    }
   }
+}
+
+.selectedChat {
+  background: var(--primary300);
 }

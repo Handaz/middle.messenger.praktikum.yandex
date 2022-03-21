@@ -9,6 +9,7 @@ import Form from '../../components/form';
 import Modal from '../../components/modal';
 import FormError from '../../components/form/error';
 import Loader from '../../components/loader';
+import Label from '../../components/form/label';
 
 import ChatsController from './controller';
 import Store from '../../store';
@@ -32,11 +33,12 @@ export class Chats extends Block<IChats> {
       modal,
       loader,
       loaderComponent,
+      loadChats,
     } = this.props;
     const { chats, user } = Store.getState();
 
     if (!chats && user) {
-      ChatsController.getChats();
+      ChatsController.getChats({ limit: 10 });
     }
 
     const blockClasses = {
@@ -46,6 +48,8 @@ export class Chats extends Block<IChats> {
       chatAdd: classes.chatAdd,
       modalWrapper: classes.modalWrapper,
       searchWrapper: classes.searchWrapper,
+      chatList: classes.chatList,
+      loadChats: classes.loadChats,
     };
 
     return this.compile({
@@ -57,6 +61,7 @@ export class Chats extends Block<IChats> {
       loader,
       loaderComponent,
       blockClasses,
+      loadChats,
     });
   }
 }
@@ -87,6 +92,7 @@ export function ChatsModule(): Chats {
   const fields = chatAddFields.map(({ name, placeholder, type }) => ({
     input: new Input({ type, name, placeholder }),
     error: new FormError({}),
+    label: new Label({ label: 'Chat title' }),
   }));
 
   const modal = new Modal({
@@ -102,7 +108,9 @@ export function ChatsModule(): Chats {
       type: 'submit',
       content: 'Create',
     }),
-    vertical: true,
+    styles: {
+      gap: '20px',
+    },
     events: {
       submit: (e: SubmitEvent) =>
         ChatsController.createChat({ e, fields }, callback),
@@ -125,12 +133,24 @@ export function ChatsModule(): Chats {
     },
   });
 
+  const loadChats = new Button({
+    type: 'button',
+    content: 'Load more...',
+    transparent: true,
+    events: {
+      click: () => {
+        ChatsController.getChats();
+      },
+    },
+  });
+
   return new ChatsHoc({
     profile: link,
     search,
     chatAdd,
     modal,
     loader: true,
+    loadChats,
     loaderComponent: Loader,
     chatList: [],
   });

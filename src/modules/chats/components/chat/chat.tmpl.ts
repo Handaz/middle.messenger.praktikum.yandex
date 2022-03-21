@@ -12,6 +12,6 @@ export default `
   </div>
   <div class='{{ blockClasses.metaInfo }}'>
     <div class='{{ blockClasses.time }}'> {{ time }} </div>
-    {{#if unread}} <div> {{ unread }} </div> {{/if}}
+    {{#if unread}} <div class='{{ blockClasses.unread }}'> {{ unread }} </div> {{/if}}
   </div>
 </li>`;

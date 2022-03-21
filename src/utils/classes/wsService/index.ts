@@ -1,6 +1,16 @@
 import Store from '../../../store';
+import UserApi from '../../../api/user';
+import catchDec from '../../decorators/catchDec';
 
 const socketUrl = 'wss://ya-praktikum.tech/ws/chats/';
+
+export interface IMessageData {
+  content: string;
+  id: number;
+  time: string;
+  type: WSServiceMessageTypes;
+  user_id: number;
+}
 
 export enum WSServiceEvents {
   OPEN = 'open',
@@ -89,7 +99,7 @@ export default class WSService {
 
   handleMessage(e: MessageEvent) {
     const data = JSON.parse(e.data);
-    const { chatsInfo } = Store.getState();
+    const { chat, chatsInfo } = Store.getState();
 
     if (Array.isArray(data)) {
       Store.set('chat.messages', data);
@@ -110,13 +120,40 @@ export default class WSService {
             item.messages.unshift(data);
           }
         } else {
-          item.messages = data;
+          item.messages = Array.isArray(data) ? data : [data];
         }
       }
       return item;
     });
 
     Store.set('chatsInfo', currChats);
+
+    if (chat?.id !== this._id) {
+      this.updateChats(data);
+    }
+  }
+
+  @catchDec
+  async updateChats(data: IMessageData) {
+    const { chats } = Store.getState();
+
+    const user = await UserApi.getUser(data.user_id);
+
+    Store.set(
+      'chats',
+      chats?.map((item) => {
+        console.log(data);
+        if (item.id === this._id) {
+          item.unread_count++;
+          item.last_message = {
+            time: data.time,
+            content: data.content,
+            user,
+          };
+        }
+        return item;
+      }),
+    );
   }
 
   handleError(e: ErrorEvent) {

@@ -23,51 +23,71 @@ export const validationSchema: ValidationSchema = {
   title: { rule: noEmptyRule, error: 'Enter chat title' },
 };
 
-// TODO: unread count isn't correct
-const mapStateToChats = (state: IStoreState) => {
-  if (state.chats && state.areSocketsReady) {
+const mapStateToChats = ({
+  chats,
+  areSocketsReady,
+  user,
+  chat,
+}: IStoreState) => {
+  if (chats && areSocketsReady && user) {
+    const curUser = user.display_name ?? user.login;
+
     return {
       loader: false,
-      chatList: state.chats.map(
-        ({ title, last_message, avatar, unread_count, id }: IChatsInfo) => {
-          const info: ILastMessageInfo = {
-            user: {
-              id: NaN,
-              first_name: '',
-              second_name: '',
-              display_name: '',
-              avatar: '',
-              email: '',
-              login: '',
-              phone: '',
-            },
-            content: '',
-            time: '',
-          };
-
-          if (last_message) {
-            info.user = last_message.user;
-            info.time = getTime(last_message.time);
-            info.content = last_message.content;
+      chatList: chats
+        .sort((a, b) => {
+          if (!a.last_message || !b.last_message) {
+            return -1;
           }
 
-          const { user, content, time } = info;
+          return (
+            new Date(a.last_message.time).getTime() -
+            new Date(b.last_message.time).getTime()
+          );
+        })
+        .reverse()
+        .map(
+          ({ title, last_message, avatar, unread_count, id }: IChatsInfo) => {
+            const info: ILastMessageInfo = {
+              user: {
+                id: NaN,
+                first_name: '',
+                second_name: '',
+                display_name: '',
+                avatar: '',
+                email: '',
+                login: '',
+                phone: '',
+              },
+              content: '',
+              time: '',
+            };
 
-          return new Chat({
-            avatar: new Avatar({
-              source: avatar ? `${staticUrl}${avatar}` : userAvatar,
-            }),
-            title,
-            sender: user.display_name ?? '',
-            message: content,
-            time,
-            unread: unread_count,
-            events: {
-              click: () => ConversationController.getConversation(id),
-            },
-          });
-        },
-      ),
+            if (last_message) {
+              info.user = last_message.user;
+              info.time = getTime(last_message.time);
+              info.content = last_message.content;
+            }
+
+            const { content, time } = info;
+            const sender = info.user.display_name ?? info.user.login;
+
+            return new Chat({
+              avatar: new Avatar({
+                source: avatar ? `${staticUrl}${avatar}` : userAvatar,
+              }),
+              title,
+              sender: curUser === sender ? '' : sender ?? '',
+              message: content,
+              time,
+              unread: unread_count > 99 ? '99+' : unread_count,
+              selected: chat ? chat.id === id : false,
+              events: {
+                click: () => ConversationController.getConversation(id),
+              },
+            });
+          },
+        ),
     };
   }
 

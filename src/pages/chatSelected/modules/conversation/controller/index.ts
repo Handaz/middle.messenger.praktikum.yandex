@@ -20,7 +20,7 @@ class ConversationController extends Controller<MessageForm> {
 
   @catchDec
   public async getConversation(id: number) {
-    const { chatsInfo, chat } = Store.getState();
+    const { chatsInfo, chats, chat } = Store.getState();
 
     if (chat?.id === id) {
       return;
@@ -58,6 +58,16 @@ class ConversationController extends Controller<MessageForm> {
       avatar,
       title,
     });
+
+    Store.set(
+      'chats',
+      chats?.map((item) => {
+        if (item.id === id) {
+          item.unread_count = 0;
+        }
+        return item;
+      }),
+    );
 
     if (!messages) {
       this.currentSocket.getChatHistory();

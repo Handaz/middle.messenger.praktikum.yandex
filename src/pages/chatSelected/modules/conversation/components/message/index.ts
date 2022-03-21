@@ -26,7 +26,7 @@ export default class Message extends Block<IMessage> {
     return this.compile({
       own,
       content,
-      status,
+      status: own ? status : '',
       time,
       blockClasses,
     });

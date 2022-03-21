@@ -7,5 +7,6 @@ export interface IChat extends BlockProps {
   sender: string;
   message: string;
   time: string;
-  unread: number;
+  unread: string | number;
+  selected?: boolean;
 }

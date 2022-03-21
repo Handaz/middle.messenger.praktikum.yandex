@@ -11,4 +11,5 @@ export interface IChats extends BlockProps {
   chatAdd: Button;
   modal: Modal;
   chatList?: Chat[];
+  loadChats: Button;
 }
