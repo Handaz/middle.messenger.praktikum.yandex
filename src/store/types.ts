@@ -21,6 +21,7 @@ export interface IChatInfo
 export interface IStoreState {
   areSocketsReady?: boolean;
   chat?: IChatInfo;
+  unfilteredChats?: IChatInfo[];
   chats?: IChatsInfo[];
   chatsInfo?: IChat[];
   user?: IUserInfo;

@@ -18,6 +18,7 @@ import burgerIcon from '../../../static/icons/burgerIcon';
 import connect from '../../utils/functions/hoc';
 import mapStateToChats, { chatAddFields } from './utils';
 import classes from './chats.module.scss';
+import handleInputChange from '../../utils/functions/handleInputChange';
 
 export class Chats extends Block<IChats> {
   constructor(props: IChats) {
@@ -80,13 +81,26 @@ export function ChatsModule(): Chats {
     type: 'text',
     name: 'chatSearch',
     placeholder: 'Search',
+    opaque: true,
+  });
+
+  search.setProps({
     events: {
-      keyup: (e: InputEvent) => {
+      change: (e: FocusEvent) => {
+        handleInputChange(search, e);
+        const { unfilteredChats } = Store.getState();
         const input = e.target as HTMLInputElement;
-        console.log(input.value);
+
+        if (input.value === '') {
+          Store.set('chats', unfilteredChats);
+        } else {
+          Store.set(
+            'chats',
+            unfilteredChats?.filter(({ title }) => title.includes(input.value)),
+          );
+        }
       },
     },
-    opaque: true,
   });
 
   const fields = chatAddFields.map(({ name, placeholder, type }) => ({

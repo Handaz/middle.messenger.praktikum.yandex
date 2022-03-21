@@ -24,6 +24,7 @@ class ChatsController extends Controller<ICreateChat> {
 
     const newChats = chats ? chats.concat(incomingChats) : incomingChats;
     Store.set('chats', newChats);
+    Store.set('unfilteredChats', newChats);
     this.connectToChats(newChats);
   }
 
