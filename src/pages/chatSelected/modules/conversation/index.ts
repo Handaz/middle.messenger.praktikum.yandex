@@ -8,6 +8,7 @@ import Form from '../../../../components/form';
 import ConversationActions from './components/conversationActions';
 import Messages from './components/messages';
 import FileInput from '../../../../components/form/fileInput';
+import Label from '../../../../components/form/label';
 
 import ConversationController from './controller';
 import { IConversation } from './types';
@@ -77,16 +78,42 @@ export function ConversationModule(): Conversation {
     },
   });
 
-  const bottomBar = new ConversationActions({
-    attachments: new FileInput({
-      name: 'file',
-      label: optionsIcon,
-      events: {
-        change: (e: InputEvent) => {
-          console.log(e);
+  const attachmentsButton = new Button({
+    type: 'submit',
+    content: '',
+    styles: {
+      display: 'none',
+    },
+  });
+
+  const attachmentsFields = [
+    {
+      input: new FileInput({
+        name: 'file',
+        events: {
+          change: () => {
+            if (attachmentsButton) {
+              const btn = attachmentsButton.element as HTMLButtonElement;
+              btn.click();
+            }
+          },
         },
-      },
-    }),
+      }),
+      label: new Label({ name: 'file', label: optionsIcon, file: true }),
+    },
+  ];
+
+  const attachments = new Form({
+    fields: attachmentsFields,
+    button: attachmentsButton,
+    events: {
+      submit: (e: SubmitEvent) =>
+        ConversationController.send({ e, fields: attachmentsFields }),
+    },
+  });
+
+  const bottomBar = new ConversationActions({
+    attachments,
     messageForm,
   });
 

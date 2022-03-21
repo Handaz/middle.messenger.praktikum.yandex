@@ -3,6 +3,7 @@ import {
   FormControllerProps,
 } from '../../../../../modules/controller';
 
+import ConversationAPI from '../../../api';
 import ChatsAPI from '../../../../../api/chats';
 import WSService, {
   WSServiceMessageTypes,
@@ -77,11 +78,25 @@ class ConversationController extends Controller<MessageForm> {
     Router.go(`/chat`);
   }
 
+  @catchDec
   @validationDec(validationSchema)
-  public send(_params: FormControllerProps) {
-    const { message } = this.data;
-    console.log(message);
-    this.currentSocket.send(message, WSServiceMessageTypes.MESSAGE);
+  public async send(_params: FormControllerProps) {
+    const { message, file } = this.data;
+
+    let content = message ?? '';
+
+    if (file) {
+      const body = new FormData();
+      body.append('resource', file);
+
+      const res = await ConversationAPI.uploadFile(body);
+      content = res.id.toString();
+    }
+
+    this.currentSocket.send(
+      file ? WSServiceMessageTypes.FILE : WSServiceMessageTypes.MESSAGE,
+      content,
+    );
   }
 
   public close() {

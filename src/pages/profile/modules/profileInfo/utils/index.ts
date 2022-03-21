@@ -12,6 +12,7 @@ import profilePicture from '../../../../../../static/images/profilePicture.png';
 import { IProfileInfo, ProfileFields } from '../types';
 import { staticUrl } from '../../../../../utils/classes/request';
 import { IStoreState } from '../../../../../store/types';
+import Label from '../../../../../components/form/label';
 
 export const profileLinks: ILink[] = [
   { url: 'profile-change', content: 'Change profile' },
@@ -23,7 +24,11 @@ const fields = [
   {
     input: new FileInput({
       name: 'avatar',
+    }),
+    label: new Label({
+      name: 'avatar',
       label: 'Choose a file on your desktop',
+      file: true,
     }),
     error: new FormError({ error: '' }),
   },

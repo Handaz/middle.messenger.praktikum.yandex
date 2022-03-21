@@ -21,6 +21,7 @@ export enum WSServiceEvents {
 
 export enum WSServiceMessageTypes {
   MESSAGE = 'message',
+  FILE = 'file',
   GetOld = 'get old',
   PING = 'ping',
 }
@@ -63,10 +64,7 @@ export default class WSService {
     );
   }
 
-  send(
-    content: string | Blob | ArrayBuffer | ArrayBufferView,
-    type: WSServiceMessageTypes,
-  ) {
+  send(type: WSServiceMessageTypes, content: string) {
     this.socket.send(
       JSON.stringify({
         content,
@@ -83,7 +81,7 @@ export default class WSService {
     console.log('Соединение установлено', e);
 
     setInterval(() => {
-      this.send('', WSServiceMessageTypes.PING);
+      this.send(WSServiceMessageTypes.PING, '');
     }, 30000);
 
     if (!Store.getState().areSocketsReady) {
@@ -107,7 +105,10 @@ export default class WSService {
       } else {
         Store.set('chat.messages', data);
       }
-    } else if (data.type !== 'message') {
+    } else if (
+      data.type !== WSServiceMessageTypes.MESSAGE &&
+      data.type !== WSServiceMessageTypes.FILE
+    ) {
       return;
     }
 

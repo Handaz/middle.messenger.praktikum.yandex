@@ -58,7 +58,7 @@ const fields = fieldsData.map(({ name, placeholder, type }) => ({
     profile: true,
   }),
   error: new FormError({ profile: true }),
-  label: new Label({ label: placeholder, regular: true }),
+  label: new Label({ label: placeholder, regular: true, name }),
 }));
 
 fields.forEach(({ input, error }) => {

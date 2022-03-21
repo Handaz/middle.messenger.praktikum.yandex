@@ -9,10 +9,10 @@ export default class FileInput extends Block<IFileInput> {
   }
 
   render() {
-    const { name, label, error } = this.props;
+    const { name, error } = this.props;
 
-    const blockClasses = { input: classes.input, label: classes.label };
+    const blockClasses = { input: classes.input };
 
-    return this.compile({ name, label, error, blockClasses });
+    return this.compile({ name, error, blockClasses });
   }
 }

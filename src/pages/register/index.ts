@@ -41,7 +41,7 @@ const fields = fieldsData.map(({ name, placeholder, type }) => ({
     type,
   }),
   error: new FormError({ error: '' }),
-  label: new Label({ label: placeholder }),
+  label: new Label({ label: placeholder, name }),
 }));
 
 fields.forEach(({ input, error }) => {

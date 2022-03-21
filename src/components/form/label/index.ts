@@ -10,14 +10,16 @@ export default class Label extends Block<ILabel> {
   }
 
   render() {
-    const { label, regular } = this.props;
+    const { label, regular, name, file } = this.props;
 
     const blockClasses = classNames({
       [classes.regular]: regular,
-      [classes.floating]: !regular,
+      [classes.floating]: !regular && !file,
+      [classes.file]: file,
     });
 
     return this.compile({
+      name,
       label,
       blockClasses,
     });

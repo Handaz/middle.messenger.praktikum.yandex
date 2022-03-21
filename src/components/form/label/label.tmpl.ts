@@ -1,7 +1,8 @@
 export default `
-<span
+<label
+    for='{{ name }}'
     class='{{ blockClasses }}'  
 >
     {{ label }}
-</span>
+</label>
 `;

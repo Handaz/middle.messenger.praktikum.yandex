@@ -92,7 +92,7 @@ export function ChatsModule(): Chats {
   const fields = chatAddFields.map(({ name, placeholder, type }) => ({
     input: new Input({ type, name, placeholder }),
     error: new FormError({}),
-    label: new Label({ label: 'Chat title' }),
+    label: new Label({ label: 'Chat title', name }),
   }));
 
   const modal = new Modal({

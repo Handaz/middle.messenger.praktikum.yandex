@@ -10,5 +10,6 @@ export interface IConversation extends BlockProps {
 }
 
 export type MessageForm = {
-  message: string;
+  message?: string;
+  file?: File;
 };

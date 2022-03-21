@@ -72,6 +72,7 @@ const mapStateToConversationInfo = ({
           error: new FormError({}),
           label: new Label({
             label: 'Login',
+            name: 'login',
           }),
         },
       ];

@@ -30,7 +30,7 @@ const mapStateToProfileChange = ({ user }: Indexed) => {
       profile: true,
     }),
     error: new FormError({ profile: true }),
-    label: new Label({ label: placeholder, regular: true }),
+    label: new Label({ label: placeholder, regular: true, name }),
   }));
 
   fields.forEach(({ input, error }) => {

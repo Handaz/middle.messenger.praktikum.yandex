@@ -10,11 +10,12 @@ export default class Message extends Block<IMessage> {
   }
 
   render() {
-    const { own, content, status, time } = this.props;
+    const { own, content, status, time, filePath } = this.props;
 
     const message = classNames(classes.message, {
       [classes.ownMessage]: own,
       [classes.incomingMessage]: !own,
+      [classes.imgMessage]: filePath,
     });
 
     const blockClasses = {
@@ -26,6 +27,7 @@ export default class Message extends Block<IMessage> {
     return this.compile({
       own,
       content,
+      filePath,
       status: own ? status : '',
       time,
       blockClasses,
