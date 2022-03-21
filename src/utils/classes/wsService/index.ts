@@ -1,5 +1,4 @@
 import Store from '../../../store';
-import { Indexed } from '../../../types';
 
 const socketUrl = 'wss://ya-praktikum.tech/ws/chats/';
 
@@ -39,10 +38,6 @@ export default class WSService {
       `${socketUrl}${this._userId}/${this._id}/${this._token}`,
     );
 
-    setInterval(() => {
-      this.send('', WSServiceMessageTypes.PING);
-    }, 30000);
-
     this.socket.addEventListener(OPEN, this.handleOpen);
     this.socket.addEventListener(MESSAGE, this.handleMessage.bind(this));
     this.socket.addEventListener(ERROR, this.handleError);
@@ -77,6 +72,10 @@ export default class WSService {
   handleOpen(e: Event) {
     console.log('Соединение установлено', e);
 
+    setInterval(() => {
+      this.send('', WSServiceMessageTypes.PING);
+    }, 30000);
+
     if (!Store.getState().areSocketsReady) {
       const { chatsInfo } = Store.getState();
 
@@ -90,22 +89,19 @@ export default class WSService {
 
   handleMessage(e: MessageEvent) {
     const data = JSON.parse(e.data);
-    const { chatsInfo, chat } = Store.getState();
+    const { chatsInfo } = Store.getState();
 
     if (Array.isArray(data)) {
       Store.set('chat.messages', data);
     } else if (data.type !== 'message') {
       return;
-    } else if (chat && chat.messages && chat.id === this._id) {
-      chat.messages.unshift(data);
-      Store.set('chat', chat);
     }
 
     if (!chatsInfo) {
       throw new Error('No chats info available');
     }
 
-    const currChats = chatsInfo.map((item: Indexed) => {
+    const currChats = chatsInfo.map((item) => {
       if (item.id === this._id) {
         if (item.messages) {
           if (Array.isArray(data)) {

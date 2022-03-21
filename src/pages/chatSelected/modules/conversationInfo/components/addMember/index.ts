@@ -15,6 +15,7 @@ export default class AddMember extends Block<IAddMember> {
       head: classes.head,
       addMember: classes.addMember,
       title: classes.title,
+      users: classes.users,
     };
 
     return this.compile({ form, button, blockClasses, users });

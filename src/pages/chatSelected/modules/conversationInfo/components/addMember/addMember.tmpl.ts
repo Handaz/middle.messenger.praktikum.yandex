@@ -12,9 +12,11 @@ export default `
         {{ form }}
     </div>
     {{#if users}}
-        {{#each users}}
-            {{ this }}
-        {{/each}}
+        <div class='{{ blockClasses.users }}'>
+            {{#each users}}
+                {{ this }}
+            {{/each}}
+        </div>
     {{/if}}
 </div>
 `;
