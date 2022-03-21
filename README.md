@@ -8,6 +8,8 @@ The project is build using following technologies: JavaScript, TypeScript, NodeJ
 It includes the implementation of reactive-components (which are based on Block and EventBus classes), router, store, live-messaging via WebSockets and Yandex's API.
 Tests are done with Mocha and Chai.
 
+#### Project currently is in build progress, many features are soon to be implemented
+
 ```
 npm start - build project and start server
 npm run dev - start development environment
