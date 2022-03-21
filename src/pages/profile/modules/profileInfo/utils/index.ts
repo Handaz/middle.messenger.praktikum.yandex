@@ -40,6 +40,9 @@ const form = new Form({
   fields,
   vertical: true,
   button: new Button({ type: 'submit', content: 'Change' }),
+  styles: {
+    gap: '45px',
+  },
   events: {
     submit: (e: SubmitEvent) =>
       ProfileController.changeAvatar({ e, fields }, callback),

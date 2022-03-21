@@ -131,7 +131,10 @@ export default class WSService {
     });
 
     Store.set('chatsInfo', currChats);
-    this.updateChats(data);
+
+    if (!Array.isArray(data)) {
+      this.updateChats(data);
+    }
   }
 
   @catchDec

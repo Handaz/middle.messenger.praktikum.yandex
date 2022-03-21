@@ -5,11 +5,12 @@
   width: 2em;
   height: 2em;
   border-radius: 50%;
-  background: linear-gradient(
-    180deg,
-    var(--primary200) 10%,
-    rgb(255 255 255 / 0%) 42%
-  );
+  background:
+    linear-gradient(
+      180deg,
+      var(--primary200) 10%,
+      rgb(255 255 255 / 0%) 42%
+    );
   position: relative;
   animation: load3 1.4s infinite linear;
   transform: translateZ(0);

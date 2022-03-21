@@ -1,8 +1,11 @@
 export default `
-<input 
-    class='{{ blockClasses }}' 
-    type='file'
-    name='{{ name }}' 
-    placeholder='{{ label }}'
-/>
+<div>
+    <label class='{{ blockClasses.label }}' for='{{ name }}'>{{ label }}</label>
+    <input 
+        class='{{ blockClasses.input }}' 
+        type='file'
+        name='{{ name }}'
+        id='{{ name }}'
+    />
+</div>
 `;

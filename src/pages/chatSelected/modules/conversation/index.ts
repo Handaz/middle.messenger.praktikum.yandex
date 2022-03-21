@@ -7,6 +7,7 @@ import Input from '../../../../components/form/input';
 import Form from '../../../../components/form';
 import ConversationActions from './components/conversationActions';
 import Messages from './components/messages';
+import FileInput from '../../../../components/form/fileInput';
 
 import ConversationController from './controller';
 import { IConversation } from './types';
@@ -37,12 +38,6 @@ const conversation = connect<IConversation>(mapStateToConversation);
 const ConversationHoc = conversation(Conversation);
 
 export function ConversationModule(): Conversation {
-  const optionsButton = new Button({
-    type: 'button',
-    content: optionsIcon,
-    transparent: true,
-  });
-
   const messageFields = [
     {
       input: new Input({
@@ -83,7 +78,15 @@ export function ConversationModule(): Conversation {
   });
 
   const bottomBar = new ConversationActions({
-    attachments: optionsButton,
+    attachments: new FileInput({
+      name: 'file',
+      label: optionsIcon,
+      events: {
+        change: (e: InputEvent) => {
+          console.log(e);
+        },
+      },
+    }),
     messageForm,
   });
 

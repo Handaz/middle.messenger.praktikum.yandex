@@ -73,14 +73,14 @@ class ConversationController extends Controller<MessageForm> {
       this.currentSocket.getChatHistory();
     }
 
-    // TODO: ВЛОЖЕННЫЙ, ВРОДЕ #${id}
+    // TODO: multi-level routing #${id}
     Router.go(`/chat`);
   }
 
   @validationDec(validationSchema)
   public send(_params: FormControllerProps) {
     const { message } = this.data;
-
+    console.log(message);
     this.currentSocket.send(message, WSServiceMessageTypes.MESSAGE);
   }
 

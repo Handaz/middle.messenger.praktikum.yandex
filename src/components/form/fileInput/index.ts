@@ -1,7 +1,6 @@
 import Block from '../../../modules/block';
 import template from './fileInput.tmpl';
 import { IFileInput } from './types';
-import classNames from '../../../utils/functions/classnames';
 import classes from './fileInput.module.scss';
 
 export default class FileInput extends Block<IFileInput> {
@@ -12,9 +11,7 @@ export default class FileInput extends Block<IFileInput> {
   render() {
     const { name, label, error } = this.props;
 
-    const blockClasses = classNames(classes.input, {
-      [classes.inputError]: error,
-    });
+    const blockClasses = { input: classes.input, label: classes.label };
 
     return this.compile({ name, label, error, blockClasses });
   }
