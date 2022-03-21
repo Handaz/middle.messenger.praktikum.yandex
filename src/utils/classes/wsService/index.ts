@@ -10,6 +10,12 @@ export enum WSServiceEvents {
   CLOSE = 'close',
 }
 
+export enum WSServiceMessageTypes {
+  MESSAGE = 'message',
+  GetOld = 'get old',
+  PING = 'ping',
+}
+
 const { OPEN, MESSAGE, ERROR, CLOSE } = WSServiceEvents;
 
 export default class WSService {
@@ -29,10 +35,13 @@ export default class WSService {
   }
 
   openSocket() {
-    // Store.set('areSocketsReady', false);
     this.socket = new WebSocket(
       `${socketUrl}${this._userId}/${this._id}/${this._token}`,
     );
+
+    setInterval(() => {
+      this.send('', WSServiceMessageTypes.PING);
+    }, 30000);
 
     this.socket.addEventListener(OPEN, this.handleOpen);
     this.socket.addEventListener(MESSAGE, this.handleMessage.bind(this));
@@ -49,11 +58,14 @@ export default class WSService {
     );
   }
 
-  send(message: string) {
+  send(
+    content: string | Blob | ArrayBuffer | ArrayBufferView,
+    type: WSServiceMessageTypes,
+  ) {
     this.socket.send(
       JSON.stringify({
-        content: message,
-        type: 'message',
+        content,
+        type,
       }),
     );
   }
@@ -90,7 +102,7 @@ export default class WSService {
     }
 
     if (!chatsInfo) {
-      return;
+      throw new Error('No chats info available');
     }
 
     const currChats = chatsInfo.map((item: Indexed) => {
@@ -123,6 +135,5 @@ export default class WSService {
     }
 
     console.log(`Код: ${e.code} | Причина: ${e.reason}`);
-    this.openSocket();
   }
 }

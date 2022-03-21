@@ -4,7 +4,9 @@ import {
 } from '../../../../../modules/controller';
 
 import ChatsAPI from '../../../../../api/chats';
-import WSService from '../../../../../utils/classes/wsService';
+import WSService, {
+  WSServiceMessageTypes,
+} from '../../../../../utils/classes/wsService';
 import Store from '../../../../../store';
 import validationDec from '../../../../../utils/decorators/validationDec';
 import validationSchema from '../utils/validationSchema';
@@ -68,7 +70,7 @@ class ConversationController extends Controller<MessageForm> {
   public send(_params: FormControllerProps) {
     const { message } = this.data;
 
-    this.currentSocket.send(message);
+    this.currentSocket.send(message, WSServiceMessageTypes.MESSAGE);
   }
 
   public close() {
