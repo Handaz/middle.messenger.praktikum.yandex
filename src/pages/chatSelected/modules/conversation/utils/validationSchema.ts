@@ -1,9 +1,16 @@
 import { ValidationSchema } from '../../../../../types';
-import { noEmptyRule } from '../../../../../utils/data/userValidationSchema';
+import {
+  isFile,
+  noEmptyRule,
+} from '../../../../../utils/data/userValidationSchema';
 
 const validationSchema: ValidationSchema = {
   message: {
     rule: noEmptyRule,
+    error: '',
+  },
+  file: {
+    rule: isFile,
     error: '',
   },
 };

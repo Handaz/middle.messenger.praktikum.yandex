@@ -3,8 +3,11 @@ import {
   FormControllerProps,
 } from '../../../../../modules/controller';
 
+import ConversationAPI from '../../../api';
 import ChatsAPI from '../../../../../api/chats';
-import WSService from '../../../../../utils/classes/wsService';
+import WSService, {
+  WSServiceMessageTypes,
+} from '../../../../../utils/classes/wsService';
 import Store from '../../../../../store';
 import validationDec from '../../../../../utils/decorators/validationDec';
 import validationSchema from '../utils/validationSchema';
@@ -17,64 +20,95 @@ class ConversationController extends Controller<MessageForm> {
   currentSocket: WSService;
 
   @catchDec
-  public async open(token: string, id: number) {
-    const state = Store.getState();
+  public async getConversation(id: number) {
+    const { chatsInfo, chats, chat } = Store.getState();
 
-    if (state.user) {
-      let { currChats } = state;
-      const socket = new WSService(state.user.id, id, token);
-
-      if (!currChats) {
-        Store.set('currChats', []);
-        currChats = Store.getState().currChats;
-      }
-
-      const members = await ChatsAPI.getChatMembers(id);
-
-      currChats.push({ socket, token, id, messages: [], members });
-      Store.set('currChats', currChats);
+    if (chat?.id === id) {
+      return;
     }
-  }
 
-  getConversation(id: number) {
-    const { currChats, messages } = Store.getState();
+    Store.set('chat', { id, messages: null, members: [] });
 
-    if (!currChats) {
+    if (!chatsInfo) {
       throw new Error('No chats available');
     }
 
-    if (!messages) {
-      Store.set('messages', { chat: id, data: [] });
-    }
+    const curChat = chatsInfo.find((item: Indexed) => item.id === id);
 
-    const chat = currChats.find((item: Indexed) => item.id === id);
-
-    if (!chat) {
+    if (!curChat) {
       throw new Error(`No chat found with id: ${id}`);
     }
 
-    this.currentSocket = chat.socket;
-
-    if (chat.messages.length === 0) {
-      this.currentSocket.getChatHistory();
-    } else {
-      Store.set('messages', { chat: chat.id, data: chat.messages });
+    if (!curChat.members) {
+      const members = await ChatsAPI.getChatMembers(id);
+      curChat.members = members;
+      Store.set(
+        'chatsInfo',
+        chatsInfo.map((item) => (item.id === id ? { ...item, members } : item)),
+      );
     }
 
+    const { socket, avatar, title, members, messages } = curChat;
+
+    this.currentSocket = socket;
+
+    Store.set('chat', {
+      id,
+      members,
+      messages,
+      avatar,
+      title,
+    });
+
+    Store.set(
+      'chats',
+      chats?.map((item) => {
+        if (item.id === id) {
+          item.unread_count = 0;
+        }
+        return item;
+      }),
+    );
+
+    if (!messages) {
+      this.currentSocket.getChatHistory();
+    }
+
+    // TODO: multi-level routing #${id}
     Router.go(`/chat`);
   }
 
+  @catchDec
   @validationDec(validationSchema)
-  public send(_params: FormControllerProps) {
-    const { message } = this.data;
+  public async send(_params: FormControllerProps) {
+    const { message, file } = this.data;
 
-    this.currentSocket.send(message);
+    let content = message ?? '';
+
+    if (file) {
+      const body = new FormData();
+      body.append('resource', file);
+
+      const res = await ConversationAPI.uploadFile(body);
+      content = res.id.toString();
+    }
+
+    this.currentSocket.send(
+      file ? WSServiceMessageTypes.FILE : WSServiceMessageTypes.MESSAGE,
+      content,
+    );
   }
 
   public close() {
     if (this.currentSocket) {
       this.currentSocket.close();
     }
+  }
+
+  public getMessages() {
+    const { chat } = Store.getState();
+
+    this.currentSocket.getChatHistory(chat?.messages?.length);
   }
 }
 

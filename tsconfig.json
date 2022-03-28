@@ -11,8 +11,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "noEmit": true
+    "experimentalDecorators": true
   },
   "exclude": ["node_modules"]
 }

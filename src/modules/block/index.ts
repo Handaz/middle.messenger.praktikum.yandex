@@ -1,15 +1,15 @@
 import Handlebars from 'handlebars';
 import { v4 as makeUUID } from 'uuid';
 import EventBus from '../eventBus';
-import { Nullable } from '../../types';
+import { Indexed, Nullable } from '../../types';
 import merge from '../../utils/functions/merge';
 import isEqual from '../../utils/functions/isEqual';
 
 type Events = typeof Block.EVENTS[keyof typeof Block.EVENTS];
 
-type BlocksObject = Record<string, Block>;
+type BlocksObject = Indexed<Block>;
 
-type Children = Record<string, Block | Block[] | BlocksObject[]>;
+type Children = Indexed<Block | Block[] | BlocksObject[]>;
 
 export default class Block<P = any> {
   static EVENTS = {
@@ -23,6 +23,8 @@ export default class Block<P = any> {
 
   eventBus: EventBus<Events>;
 
+  styles: Partial<CSSStyleDeclaration> | undefined;
+
   protected readonly props: P;
 
   private _template: string;
@@ -31,7 +33,7 @@ export default class Block<P = any> {
 
   private _element: Nullable<HTMLElement> = null;
 
-  constructor(tmpl: string, propsAndChildren: Record<string, Block | any>) {
+  constructor(tmpl: string, propsAndChildren: Indexed) {
     const { children, props } = this._getChildren(propsAndChildren);
 
     this.children = children;
@@ -70,7 +72,7 @@ export default class Block<P = any> {
               el.dispatchComponentDidMount();
             });
           } else {
-            (subChild as Block).dispatchComponentDidMount();
+            subChild.dispatchComponentDidMount();
           }
         });
       } else {
@@ -115,7 +117,7 @@ export default class Block<P = any> {
   }
 
   _addEvents() {
-    const { events = {} } = this.props as unknown as Record<string, any>;
+    const { events = {} } = this.props as Indexed;
 
     Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
@@ -123,7 +125,7 @@ export default class Block<P = any> {
   }
 
   _removeEvents() {
-    const { events = {} } = this.props as unknown as Record<string, any>;
+    const { events = {} } = this.props as Indexed;
 
     if (!this._element) {
       return;
@@ -154,41 +156,38 @@ export default class Block<P = any> {
     return new HTMLElement();
   }
 
-  compile(props: P): HTMLElement {
-    const propsAndStubs = { ...props };
+  getPropsAndStubs(props: P): Indexed {
+    const propsAndStubs: Indexed = { ...props };
 
     Object.entries(this.children).forEach(([key, child]) => {
       if (Array.isArray(child)) {
-        (propsAndStubs as Record<string, any>)[key] = child.map((subChild) => {
+        propsAndStubs[key] = child.map((subChild) => {
           if (this._isBlocksObject(subChild)) {
-            return Object.keys(subChild).reduce((acc, k) => {
-              acc[k] = `<div data-id="${
-                (subChild as BlocksObject)[k]._id
-              }"></div>`;
-              return acc;
-            }, {} as Record<string, string>);
+            return Object.keys(subChild).reduce<Record<string, string>>(
+              (acc, k) => {
+                acc[k] = `<div data-id="${subChild[k]._id}"></div>`;
+                return acc;
+              },
+              {},
+            );
           }
-          return `<div data-id="${(subChild as Block)._id}"></div>`;
+          return `<div data-id="${subChild._id}"></div>`;
         });
       } else {
-        (propsAndStubs as Record<string, any>)[
-          key
-        ] = `<div data-id="${child._id}"></div>`;
+        propsAndStubs[key] = `<div data-id="${child._id}"></div>`;
       }
     });
 
-    const fragment = document.createElement('template');
-    const render = Handlebars.compile(this._template, { noEscape: true });
-    fragment.insertAdjacentHTML('afterbegin', render(propsAndStubs));
+    return propsAndStubs;
+  }
 
-    const element = fragment.firstElementChild as HTMLElement;
-
+  substituteStubs(element: HTMLElement) {
     Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
         child.forEach((subChild) => {
           if (this._isBlocksObject(subChild)) {
             Object.keys(subChild).forEach((k) => {
-              const block = (subChild as BlocksObject)[k];
+              const block = subChild[k];
               const stub = element.querySelector(`[data-id="${block._id}"]`);
 
               if (!stub || !block.element) {
@@ -198,14 +197,13 @@ export default class Block<P = any> {
               stub.replaceWith(block.element);
             });
           } else {
-            const block = subChild as Block;
-            const stub = element.querySelector(`[data-id="${block._id}"]`);
+            const stub = element.querySelector(`[data-id="${subChild._id}"]`);
 
-            if (!stub || !block.element) {
+            if (!stub || !subChild.element) {
               return;
             }
 
-            stub!.replaceWith(block.element);
+            stub!.replaceWith(subChild.element);
           }
         });
       } else {
@@ -218,6 +216,30 @@ export default class Block<P = any> {
         stub!.replaceWith(child.element);
       }
     });
+  }
+
+  setStyles(element: HTMLElement) {
+    if (this.styles) {
+      Object.entries(this.styles).forEach(
+        ([k, val]: [k: string, val: string]) => {
+          element.style.setProperty(k, val);
+        },
+      );
+    }
+  }
+
+  compile(props: P): HTMLElement {
+    const propsAndStubs: Indexed = this.getPropsAndStubs(props);
+
+    const fragment = document.createElement('template');
+    const render = Handlebars.compile(this._template, { noEscape: true });
+    fragment.insertAdjacentHTML('afterbegin', render(propsAndStubs));
+
+    const element = fragment.firstElementChild as HTMLElement;
+
+    this.setStyles(element);
+
+    this.substituteStubs(element);
 
     return element;
   }
@@ -226,28 +248,24 @@ export default class Block<P = any> {
     return this.element;
   }
 
-  _isBlocksObject(obj: any): obj is BlocksObject {
-    let isBlocksObject = true;
-    Object.values(obj).forEach((val) => {
-      if (!(val instanceof Block)) {
-        isBlocksObject = false;
-      }
-    });
-    return isBlocksObject;
+  _isBlocksObject(obj: Indexed): obj is BlocksObject {
+    return Object.values(obj).every((val) => val instanceof Block);
   }
 
-  _getChildren(propsAndChildren: Record<string, any | Block>): {
+  _getChildren(propsAndChildren: Indexed): {
     children: Children;
     props: P;
   } {
     const children: Children = {};
-    const props: P = {} as unknown as P;
+    const props = {} as unknown as P;
 
     Object.entries(propsAndChildren).forEach(([key, value]) => {
       if (this._isChild(value)) {
         children[key] = value;
+      } else if (key === 'styles') {
+        this.styles = value;
       } else {
-        (props as Record<string, any>)[key] = value;
+        (props as Indexed)[key] = value;
       }
     });
 
@@ -285,21 +303,5 @@ export default class Block<P = any> {
         throw new Error('Нет прав');
       },
     }) as unknown as P;
-  }
-
-  show() {
-    if (!this._element) {
-      return;
-    }
-
-    this._element.style.display = '';
-  }
-
-  hide() {
-    if (!this._element) {
-      return;
-    }
-
-    this._element.style.display = 'none';
   }
 }

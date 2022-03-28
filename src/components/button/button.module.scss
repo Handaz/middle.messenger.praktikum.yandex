@@ -1,3 +1,5 @@
+@import '../../styles/global';
+
 .btn {
   outline: none;
   border: none;
@@ -15,8 +17,14 @@
 
 .transparent {
   background: transparent;
+  padding: 0;
 
   &:hover {
     background: transparent;
   }
+}
+
+.round {
+  @include flexCenter;
+  border-radius: 50%;
 }

@@ -6,6 +6,12 @@ export interface ILastMessageInfo {
   content: string;
 }
 
+export interface IGetChats {
+  title?: string;
+  limit?: number;
+  offset?: number;
+}
+
 export interface IChatsInfo {
   avatar: string | null;
   created_by: number;

@@ -1,18 +1,19 @@
-import * as classes from './chats.module.scss';
-
 export default `
-<div class=${classes.chats}>
-  <div class=${classes.header}>
+<div class='{{ blockClasses.chats }}'>
+  <div class='{{ blockClasses.header }}'>
     <div>{{ profile }}</div>
-    <div>{{ search }}</div>
-    <div>{{ chatAdd }}</div>
+    <div class='{{ blockClasses.searchWrapper }}'>{{ search }}</div>
+    <div class='{{ blockClasses.chatAdd }}'>{{ chatAdd }}</div>
     <div>{{ modal }}</div>
   </div>
-  <div>
-    <ul>
-      {{#each chatList}}
-      {{ this }}
-      {{/each}}
-    </ul>
-  </div>
+    {{#if loader}}
+      {{ loaderComponent }}
+    {{ else }}
+      <ul class='{{ blockClasses.chatList }}'>
+        {{#each chatList}}
+          {{ this }}
+        {{/each}}
+        <div class='{{ blockClasses.loadChats }}'>{{ loadChats }}</div>
+      </ul>
+    {{/if}}
 </div>`;

@@ -1,10 +1,9 @@
-import * as classes from './form.module.scss';
-
 export default `
-<form class='${classes.form}{{#if vertical}} ${classes.vertical}{{/if}}' novalidate>
+<form class='{{ blockClasses.form }}' novalidate>
   {{#each fields}}
-    <div class=${classes.inputWrapper}>
+    <div class='{{ ../blockClasses.inputWrapper }}'>
       {{ this.input }}
+      {{#if this.label}} {{ this.label }} {{/if}}
       {{#if this.error}} {{ this.error }} {{/if}}
     </div>
   {{/each}}

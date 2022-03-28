@@ -1,3 +1,1 @@
-import * as classes from './systemMessage.module.scss';
-
-export default `<div class=${classes.message}>{{ message }}</div>`;
+export default `<div class='{{ blockClasses }}'>{{ message }}</div>`;

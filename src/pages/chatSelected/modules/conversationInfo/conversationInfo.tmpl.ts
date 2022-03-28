@@ -1,15 +1,16 @@
-import * as classes from './conversationInfo.module.scss';
-
 export default `
-<div class=${classes.info}>
-    <div class=${classes.user}>
-        <div class=${classes.avatar}>
+<div class='{{ blockClasses.info }}'>
+    <div class='{{ blockClasses.chat }}'>
+        <div class='{{ blockClasses.avatar }}'>
             {{ avatar }} 
         </div>
-        <div>
+        <div class='{{ blockClasses.title }}'>
             {{ title }}
         </div>
-    </div> 
+    </div>
+    <div class='{{ blockClasses.button }}'> 
     {{ button }}
-    {{ modal }}
+    </div>
+    {{ manageModal }}
+    {{ usersModal }}
 </div>`;

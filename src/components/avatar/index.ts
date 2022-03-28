@@ -1,6 +1,8 @@
 import Block from '../../modules/block';
 import template from './avatar.tmpl';
 import { IAvatar } from './types';
+import classNames from '../../utils/functions/classnames';
+import classes from './avatar.module.scss';
 
 export default class Avatar extends Block<IAvatar> {
   constructor(props: IAvatar) {
@@ -10,6 +12,8 @@ export default class Avatar extends Block<IAvatar> {
   render() {
     const { source } = this.props;
 
-    return this.compile({ source });
+    const blockClasses = classNames(classes.img);
+
+    return this.compile({ source, blockClasses });
   }
 }

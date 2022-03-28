@@ -7,8 +7,13 @@
   font-weight: normal;
   font-size: 8px;
   line-height: 10px;
+  width: auto !important;
 }
 
 .errorShow {
   display: block;
+}
+
+.errorProfile {
+  bottom: 0;
 }

@@ -1,0 +1,33 @@
+.floating {
+  position: absolute;
+  pointer-events: none;
+  left: -1px;
+  bottom: 5px;
+  color: var(--primary200);
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  width: auto !important;
+}
+
+input:focus ~ .floating,
+input:not(:placeholder-shown) ~ .floating,
+input:-webkit-autofill ~ .floating,
+input:not([value='']):valid ~ .floating,
+input[value='']:focus ~ .floating {
+  bottom: 29px;
+  font-size: 11px;
+}
+
+.regular {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 13px;
+}
+
+.file {
+  color: var(--primary);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}

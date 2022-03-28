@@ -4,13 +4,46 @@
   background: transparent;
   outline: none;
   border: none;
+  font-size: 14px;
+  padding: 5px 0;
+  width: 100%;
   border-bottom: 1px solid var(--primary300);
 
   &::placeholder {
-    color: var(--primary200);
+    opacity: 0;
   }
+
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 1000px var(--primary800) inset !important;
+    -webkit-text-fill-color: var(--clr-font) !important;
+  }
+}
+
+.inputOpaque {
+  background: var(--primary700);
+  border-radius: 5px;
+  border: none;
+  padding: 9px 15px;
+
+  &::placeholder {
+    color: var(--primary200);
+    opacity: 1;
+  }
+}
+
+.inputRound {
+  border-radius: 30px;
 }
 
 .inputError {
   border-bottom-color: var(--danger);
+}
+
+.profile {
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary200);
+  border: none;
+  text-align: right;
 }

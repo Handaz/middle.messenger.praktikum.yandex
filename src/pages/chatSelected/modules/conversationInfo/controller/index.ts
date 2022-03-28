@@ -15,10 +15,15 @@ import validationSchema from '../utils/validationSchema';
 class ConversationController extends Controller<IAddMember> {
   @catchDec
   public async removeMember(id: number) {
-    const { messages } = Store.getState();
+    const { chat } = Store.getState();
+
+    if (!chat) {
+      throw new Error('No chat data is available');
+    }
+
     const data = {
       users: [id],
-      chatId: messages.chat,
+      chatId: chat.id,
     };
 
     await ChatsAPI.removeChatMember(data);
@@ -28,14 +33,29 @@ class ConversationController extends Controller<IAddMember> {
 
   @validationDec(validationSchema)
   @catchDec
-  public async addMember(_props: FormControllerProps) {
-    const { messages } = Store.getState();
+  public async findUser(_props: FormControllerProps) {
+    const { chat } = Store.getState();
+
+    if (!chat) {
+      throw new Error('No chat was selected');
+    }
+
     const users = await UserAPI.findUser(this.data);
 
-    // TODO: make a dropdown menu with list of users from last api call
+    Store.set('foundUsers', users);
+  }
+
+  @catchDec
+  public async addMember(userId: number) {
+    const { chat } = Store.getState();
+
+    if (!chat) {
+      throw new Error('No chat was selected');
+    }
+
     const data = {
-      users: [users[0].id],
-      chatId: messages.chat,
+      users: [userId],
+      chatId: chat.id,
     };
 
     await ChatsAPI.addChatMember(data);
@@ -45,17 +65,22 @@ class ConversationController extends Controller<IAddMember> {
 
   @catchDec
   public async updateUsers() {
-    const { currChats, messages } = Store.getState();
+    const { chatsInfo, chat } = Store.getState();
 
-    const members = await ChatsAPI.getChatMembers(messages.chat);
-    const chats = currChats.map((item: Indexed) => {
-      if (item.id === messages.chat) {
+    if (!chat || !chatsInfo) {
+      throw new Error('No data for chats is available');
+    }
+
+    const members = await ChatsAPI.getChatMembers(chat.id);
+    const currChats = chatsInfo.map((item: Indexed) => {
+      if (item.id === chat.id) {
         item.members = members;
       }
       return item;
     });
 
-    Store.set('currChants', chats);
+    Store.set('chat.members', members);
+    Store.set('chatsInfo', currChats);
   }
 }
 

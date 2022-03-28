@@ -16,6 +16,12 @@ class UserAPI extends BaseAPI<undefined, Promise<IUserInfo | IUserInfo[]>> {
 
     return res;
   }
+
+  public async getUser(id: number) {
+    const res = await apiCall.get<number, IUserInfo>(`user/${id}`);
+
+    return res;
+  }
 }
 
 export default new UserAPI();

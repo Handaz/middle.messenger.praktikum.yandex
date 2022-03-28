@@ -1,21 +1,45 @@
+@import '../../styles/global';
+
 .contentBlock {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flexCenter;
   background: var(--primary900);
-  padding: 30px;
   border-radius: 12px;
+  width: 320px;
+
+  .content {
+    @include scrollbar;
+    @include flexCol;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 40px 30px;
+    max-height: 90vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .title {
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 20px;
+      margin-bottom: 44px;
+    }
+
+    .link {
+      margin-top: 17px;
+    }
+  }
 }
 
 .authForm {
   background: var(--primary800);
   border: 2px solid var(--primary700);
-}
 
-.title {
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 20px;
+  .content {
+    padding: 30px 50px;
+  }
+
+  * {
+    width: 100%;
+  }
 }

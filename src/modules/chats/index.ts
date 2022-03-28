@@ -8,6 +8,8 @@ import ContentBlock from '../../components/contentBlock';
 import Form from '../../components/form';
 import Modal from '../../components/modal';
 import FormError from '../../components/form/error';
+import Loader from '../../components/loader';
+import Label from '../../components/form/label';
 
 import ChatsController from './controller';
 import Store from '../../store';
@@ -15,6 +17,8 @@ import { IChats } from './types';
 import burgerIcon from '../../../static/icons/burgerIcon';
 import connect from '../../utils/functions/hoc';
 import mapStateToChats, { chatAddFields } from './utils';
+import classes from './chats.module.scss';
+import handleInputChange from '../../utils/functions/handleInputChange';
 
 export class Chats extends Block<IChats> {
   constructor(props: IChats) {
@@ -22,12 +26,32 @@ export class Chats extends Block<IChats> {
   }
 
   render() {
-    const { profile, search, chatList, chatAdd, modal } = this.props;
+    const {
+      profile,
+      search,
+      chatList,
+      chatAdd,
+      modal,
+      loader,
+      loaderComponent,
+      loadChats,
+    } = this.props;
     const { chats, user } = Store.getState();
 
     if (!chats && user) {
-      ChatsController.getChats();
+      ChatsController.getChats({ limit: 10 });
     }
+
+    const blockClasses = {
+      chats: classes.chats,
+      header: classes.header,
+      loader: classes.loader,
+      chatAdd: classes.chatAdd,
+      modalWrapper: classes.modalWrapper,
+      searchWrapper: classes.searchWrapper,
+      chatList: classes.chatList,
+      loadChats: classes.loadChats,
+    };
 
     return this.compile({
       profile,
@@ -35,6 +59,10 @@ export class Chats extends Block<IChats> {
       chatAdd,
       modal,
       chatList,
+      loader,
+      loaderComponent,
+      blockClasses,
+      loadChats,
     });
   }
 }
@@ -52,10 +80,25 @@ export function ChatsModule(): Chats {
   const search = new Input({
     type: 'text',
     name: 'chatSearch',
+    placeholder: 'Search',
+    opaque: true,
+  });
+
+  search.setProps({
     events: {
-      keyup: (e: InputEvent) => {
+      change: (e: FocusEvent) => {
+        handleInputChange(search, e);
+        const { unfilteredChats } = Store.getState();
         const input = e.target as HTMLInputElement;
-        console.log(input.value);
+
+        if (input.value === '') {
+          Store.set('chats', unfilteredChats);
+        } else {
+          Store.set(
+            'chats',
+            unfilteredChats?.filter(({ title }) => title.includes(input.value)),
+          );
+        }
       },
     },
   });
@@ -63,6 +106,7 @@ export function ChatsModule(): Chats {
   const fields = chatAddFields.map(({ name, placeholder, type }) => ({
     input: new Input({ type, name, placeholder }),
     error: new FormError({}),
+    label: new Label({ label: 'Chat title', name }),
   }));
 
   const modal = new Modal({
@@ -78,7 +122,9 @@ export function ChatsModule(): Chats {
       type: 'submit',
       content: 'Create',
     }),
-    vertical: true,
+    styles: {
+      gap: '20px',
+    },
     events: {
       submit: (e: SubmitEvent) =>
         ChatsController.createChat({ e, fields }, callback),
@@ -94,10 +140,21 @@ export function ChatsModule(): Chats {
 
   const chatAdd = new Button({
     type: 'button',
-    content: 'Add chat',
+    content: '+',
     transparent: true,
     events: {
       click: () => modal.setProps({ isModalOpen: true }),
+    },
+  });
+
+  const loadChats = new Button({
+    type: 'button',
+    content: 'Load more...',
+    transparent: true,
+    events: {
+      click: () => {
+        ChatsController.getChats();
+      },
     },
   });
 
@@ -106,6 +163,9 @@ export function ChatsModule(): Chats {
     search,
     chatAdd,
     modal,
+    loader: true,
+    loadChats,
+    loaderComponent: Loader,
     chatList: [],
   });
 }

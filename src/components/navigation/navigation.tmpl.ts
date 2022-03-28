@@ -1,3 +1,1 @@
-import * as classes from './navigation.module.scss';
-
-export default `<nav class=${classes.navigation}>{{ link }}</nav>`;
+export default `<nav class='{{ blockClasses }}'>{{ link }}</nav>`;

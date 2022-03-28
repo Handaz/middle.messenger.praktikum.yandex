@@ -3,6 +3,7 @@
 
 :root {
   --danger: #f65d53;
+  --success: #38af65;
   --primary200: #9baacf;
   --primary300: #5d81d4;
   --primary400: #5f8efa;
@@ -20,6 +21,14 @@ body {
   background: var(--primary900);
   color: var(--clr-font);
   font-family: Sora, sans-serif;
+}
+
+html,
+body,
+#root,
+main {
+  height: 100%;
+  overflow: hidden;
 }
 
 code {

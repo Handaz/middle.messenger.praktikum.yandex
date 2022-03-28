@@ -1,27 +1,69 @@
 import Message from '../components/message';
-import { Indexed } from '../../../../../types';
-import { IMessageData } from '../types';
-import getTime from '../../../../../utils/functions/getTime';
+import { IMessageData } from '../components/message/types';
+import Messages from '../components/messages';
+import Loader from '../../../../../components/loader';
 
-const mapStateToConversation = ({ user, messages }: Indexed) => {
-  if (user && messages) {
-    if (messages.data.length === 0) {
+import ConversationController from '../controller';
+import getTime from '../../../../../utils/functions/getTime';
+import readIcon from '../../../../../../static/icons/readIcon';
+import unreadIcon from '../../../../../../static/icons/unreadIcon';
+import { IStoreState } from '../../../../../store/types';
+import { staticUrl } from '../../../../../utils/classes/request';
+
+const mapStateToConversation = ({ user, chat }: IStoreState) => {
+  if (user && chat) {
+    if (!chat.messages) {
       return {
-        messages: [],
+        messages: new Messages({
+          messages: [],
+          loader: true,
+          loaderComponent: Loader,
+        }),
       };
     }
 
-    const conversationContent = messages.data.map(
-      ({ user_id, content, is_read, time }: IMessageData) =>
+    if (chat.messages.length === 0) {
+      return {
+        messages: new Messages({
+          messages: [],
+          loader: false,
+        }),
+      };
+    }
+
+    const conversationContent = chat.messages.map(
+      ({ user_id, content, is_read, time, file }: IMessageData) =>
         new Message({
           own: user.id === user_id,
           content,
-          status: is_read ? 'read' : 'unread',
+          filePath: file ? `${staticUrl}${file.path}` : undefined,
+          status: is_read ? readIcon : unreadIcon,
           time: getTime(time),
         }),
     );
 
-    return { messages: conversationContent };
+    const messages = new Messages({
+      messages: conversationContent,
+      loader: false,
+      events: {
+        scroll: (e: WheelEvent) => {
+          const el = e.target as HTMLElement;
+
+          if (el) {
+            const scrolledToTop =
+              Math.round(el.scrollHeight + el.scrollTop) === el.clientHeight;
+
+            if (scrolledToTop) {
+              ConversationController.getMessages();
+            }
+          }
+        },
+      },
+    });
+
+    return {
+      messages,
+    };
   }
   return {};
 };

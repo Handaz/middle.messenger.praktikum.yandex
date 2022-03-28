@@ -11,6 +11,7 @@ import { IProfileForm } from './types';
 import { IFields } from '../../components/form/types';
 import profilePicture from '../../../static/images/profilePicture.png';
 import connect from '../../utils/functions/hoc';
+import classes from './profileForm.module.scss';
 
 export class ProfileForm extends Block<IProfileForm> {
   constructor(props: IProfileForm) {
@@ -20,9 +21,16 @@ export class ProfileForm extends Block<IProfileForm> {
   render() {
     const { avatar, form } = this.props;
 
+    const blockClasses = {
+      profileForm: classes.profileForm,
+      avatar: classes.avatar,
+      formWrapper: classes.formWrapper,
+    };
+
     return this.compile({
       avatar,
       form,
+      blockClasses,
     });
   }
 }
@@ -53,6 +61,7 @@ export function ProfileFormModule(
         }
       },
     },
+    profile: true,
   });
 
   const avatar = new Avatar({

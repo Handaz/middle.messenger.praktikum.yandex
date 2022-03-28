@@ -1,4 +1,4 @@
-import * as classes from './profile.module.scss';
+import classes from './profile.module.scss';
 
 export default `
 <main class=${classes.main}>

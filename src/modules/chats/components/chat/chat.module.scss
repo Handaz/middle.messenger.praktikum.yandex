@@ -1,33 +1,80 @@
+@import '../../../../styles/global';
+
 .chat {
-  display: flex;
+  @include flexBetween;
+  align-items: flex-start;
   max-width: 100%;
-  gap: 10px;
+  padding: 7px 15px;
   cursor: pointer;
 
   &:hover {
     background: var(--primary300);
   }
+
+  .chatInfo {
+    display: flex;
+    gap: 10px;
+    width: 60%;
+
+    .avatar {
+      width: 47px;
+      height: 47px;
+      flex-shrink: 0;
+    }
+
+    .messageInfo {
+      @include flexCol;
+      gap: 4px;
+      overflow: hidden;
+      font-weight: 600;
+
+      .title {
+        font-size: 14px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .messageContent {
+        display: flex;
+        gap: 5px;
+        font-size: 12px;
+
+        .sender {
+          white-space: nowrap;
+        }
+
+        .message {
+          color: var(--primary200);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  .metaInfo {
+    @include flexCol;
+    align-items: flex-end;
+    gap: 4px;
+
+    .time {
+      color: var(--primary200);
+      font-size: 11px;
+    }
+
+    .unread {
+      @include flexCenter;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-size: 10px;
+      background: var(--primary);
+    }
+  }
 }
 
-.avatar {
-  width: 47px;
-  height: 47px;
-}
-
-.chatInfo {
-  width: 60%;
-}
-
-.messageInfo {
-  display: flex;
-  gap: 5px;
-}
-
-.sender {
-  white-space: nowrap;
-}
-
-.message {
-  overflow: hidden;
-  text-overflow: ellipsis;
+.selectedChat {
+  background: var(--primary300);
 }

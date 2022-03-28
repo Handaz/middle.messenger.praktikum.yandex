@@ -10,8 +10,9 @@ import ContentBlock from '../../../../../components/contentBlock';
 import ProfileController from '../controller';
 import profilePicture from '../../../../../../static/images/profilePicture.png';
 import { IProfileInfo, ProfileFields } from '../types';
-import { Indexed } from '../../../../../types';
 import { staticUrl } from '../../../../../utils/classes/request';
+import { IStoreState } from '../../../../../store/types';
+import Label from '../../../../../components/form/label';
 
 export const profileLinks: ILink[] = [
   { url: 'profile-change', content: 'Change profile' },
@@ -23,7 +24,11 @@ const fields = [
   {
     input: new FileInput({
       name: 'avatar',
+    }),
+    label: new Label({
+      name: 'avatar',
       label: 'Choose a file on your desktop',
+      file: true,
     }),
     error: new FormError({ error: '' }),
   },
@@ -40,6 +45,9 @@ const form = new Form({
   fields,
   vertical: true,
   button: new Button({ type: 'submit', content: 'Change' }),
+  styles: {
+    gap: '45px',
+  },
   events: {
     submit: (e: SubmitEvent) =>
       ProfileController.changeAvatar({ e, fields }, callback),
@@ -53,11 +61,12 @@ const content = new ContentBlock({
 
 modal.setProps({ content });
 
-export const mapStateToProfile = ({ user }: Indexed) => {
+export const mapStateToProfile = ({ user }: IStoreState) => {
   if (!user) {
     return {};
   }
-  return Object.keys(user).reduce((acc, k) => {
+
+  const profileInfo = Object.keys(user).reduce((acc, k: keyof typeof user) => {
     if (k in ProfileFields) {
       const key = k as keyof typeof ProfileFields;
       if (!acc.profileFields) {
@@ -65,7 +74,7 @@ export const mapStateToProfile = ({ user }: Indexed) => {
       }
       acc.profileFields.push({
         label: ProfileFields[key],
-        value: user[k] ?? '',
+        value: user[key] ?? '',
       });
     } else if (k === 'avatar') {
       const avatar = new Avatar({
@@ -77,9 +86,11 @@ export const mapStateToProfile = ({ user }: Indexed) => {
 
       acc.avatar = avatar;
       acc.modal = modal;
-    } else {
-      acc.username = user[k];
     }
     return acc;
   }, {} as IProfileInfo);
+
+  profileInfo.username = user.display_name ?? user.login;
+
+  return profileInfo;
 };

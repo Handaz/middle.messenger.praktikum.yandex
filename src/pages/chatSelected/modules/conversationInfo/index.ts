@@ -11,6 +11,7 @@ import infoIcon from '../../../../../static/icons/infoIcon';
 import userAvatar from '../../../../../static/images/userAvatar.png';
 import mapStateToConversationInfo from './utils';
 import connect from '../../../../utils/functions/hoc';
+import classes from './conversationInfo.module.scss';
 
 export default class ConversationInfo extends Block<IConversationInfo> {
   constructor(props: IConversationInfo) {
@@ -18,13 +19,23 @@ export default class ConversationInfo extends Block<IConversationInfo> {
   }
 
   render() {
-    const { avatar, title, button, modal } = this.props;
+    const { avatar, title, button, manageModal, usersModal } = this.props;
+
+    const blockClasses = {
+      info: classes.info,
+      chat: classes.chat,
+      avatar: classes.avatar,
+      button: classes.button,
+      title: classes.title,
+    };
 
     return this.compile({
       avatar,
       title,
       button,
-      modal,
+      manageModal,
+      usersModal,
+      blockClasses,
     });
   }
 }
@@ -54,7 +65,8 @@ export function ConversationInfoModule() {
   });
 
   return new ConversationInfoHoc({
-    modal,
+    manageModal: modal,
+    usersModal: modal,
     avatar: new Avatar({
       source: userAvatar,
     }),

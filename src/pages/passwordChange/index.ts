@@ -6,6 +6,8 @@ import Sidebar from '../../components/sidebar';
 import Input from '../../components/form/input';
 import Link from '../../components/link';
 import FormError from '../../components/form/error';
+import Button from '../../components/button';
+import Label from '../../components/form/label';
 
 import profile from '../../layouts/profile';
 import { IPasswordChange } from './types';
@@ -13,6 +15,7 @@ import fieldsData from './utils';
 import validationSchema from '../../utils/data/userValidationSchema';
 import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
+import arrow from '../../../static/icons/arrow';
 
 class PasswordChange extends Block<IPasswordChange> {
   constructor(props: IPasswordChange) {
@@ -30,7 +33,11 @@ class PasswordChange extends Block<IPasswordChange> {
 }
 
 const link = new Link({
-  content: 'Back to profile',
+  content: new Button({
+    type: 'button',
+    content: arrow,
+    round: true,
+  }),
   url: 'profile',
 });
 
@@ -43,8 +50,15 @@ const sidebar = new Sidebar({
 });
 
 const fields = fieldsData.map(({ name, placeholder, type }) => ({
-  input: new Input({ name, placeholder, type }),
-  error: new FormError({}),
+  input: new Input({
+    name,
+    placeholder,
+    type,
+    noautocomplete: true,
+    profile: true,
+  }),
+  error: new FormError({ profile: true }),
+  label: new Label({ label: placeholder, regular: true, name }),
 }));
 
 fields.forEach(({ input, error }) => {

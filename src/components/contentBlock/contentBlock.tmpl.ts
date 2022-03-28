@@ -1,7 +1,8 @@
-import * as classes from './contentBlock.module.scss';
-
 export default `
-<div class='${classes.contentBlock} {{#if authForm}}${classes.authForm}{{/if}}'>
-  <div class=${classes.title}>{{ title }}</div>
-  <div>{{ content }}<div>
+<div class='{{ blockClasses.contentBlockClasses }}'>
+  <div class='{{ blockClasses.content }}'>
+  {{#if title}}<div class='{{ blockClasses.titleClass }}'>{{ title }}</div>{{/if}}
+    {{ content }}
+  {{#if link}}<div class='{{ blockClasses.link }}'>{{ link }}</div>{{/if}}
+  </div>
 </div>`;

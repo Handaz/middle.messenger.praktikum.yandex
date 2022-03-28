@@ -1,9 +1,7 @@
-import * as classes from './profileForm.module.scss';
-
 export default `
-<div>
-  <div class=${classes.avatar}>{{ avatar }}</div>
-  <div>
+<div class='{{ blockClasses.profileForm }}'>
+  <div class='{{ blockClasses.avatar }}'>{{ avatar }}</div>
+  <div class='{{ blockClasses.formWrapper }}'>
     {{ form }}
   </<div>
 </div>`;

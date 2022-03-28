@@ -6,6 +6,7 @@ import Input from '../../components/form/input';
 import Form from '../../components/form';
 import Link from '../../components/link';
 import FormError from '../../components/form/error';
+import Label from '../../components/form/label';
 
 import authorization from '../../layouts/authorization';
 import { ILogin } from './types';
@@ -20,11 +21,10 @@ class Login extends Block<ILogin> {
   }
 
   render() {
-    const { form, link } = this.props;
+    const { form } = this.props;
 
     return this.compile({
       form,
-      link,
     });
   }
 }
@@ -41,6 +41,7 @@ const fields = fieldsData.map(({ name, placeholder, type }) => ({
     type,
   }),
   error: new FormError({ error: '' }),
+  label: new Label({ label: placeholder, name }),
 }));
 
 fields.forEach(({ input, error }) => {
@@ -61,6 +62,9 @@ const form = new Form({
   events: {
     submit: (e: SubmitEvent) => LoginController.login({ fields, e }),
   },
+  styles: {
+    gap: '41px',
+  },
 });
 
 const link = new Link({ content: 'Sign up', url: 'register' });
@@ -68,10 +72,10 @@ const link = new Link({ content: 'Sign up', url: 'register' });
 const loginForm = new ContentBlock({
   title: 'Sign in',
   content: form,
+  link,
   authForm: true,
 });
 
 export default new Login({
   form: loginForm,
-  link,
 });

@@ -6,13 +6,13 @@ import Input from '../../components/form/input';
 import Form from '../../components/form';
 import Link from '../../components/link';
 import FormError from '../../components/form/error';
+import Label from '../../components/form/label';
 
 import authorization from '../../layouts/authorization';
 import { IRegister } from './types';
 import RegisterController from './controller';
 import fieldsData from './utils';
 import validationSchema from '../../utils/data/userValidationSchema';
-// import handleSubmit from '../../utils/functions/handleSubmit';
 import handleInputChange from '../../utils/functions/handleInputChange';
 import validateField from '../../utils/functions/validateField';
 
@@ -22,11 +22,10 @@ class Register extends Block<IRegister> {
   }
 
   render() {
-    const { form, link } = this.props;
+    const { form } = this.props;
 
     return this.compile({
       form,
-      link,
     });
   }
 }
@@ -42,6 +41,7 @@ const fields = fieldsData.map(({ name, placeholder, type }) => ({
     type,
   }),
   error: new FormError({ error: '' }),
+  label: new Label({ label: placeholder, name }),
 }));
 
 fields.forEach(({ input, error }) => {
@@ -62,6 +62,9 @@ const form = new Form({
   events: {
     submit: (e: SubmitEvent) => RegisterController.register({ fields, e }),
   },
+  styles: {
+    gap: '31px',
+  },
 });
 
 const link = new Link({ content: 'Sign in', url: '/' });
@@ -69,10 +72,10 @@ const link = new Link({ content: 'Sign in', url: '/' });
 const registerForm = new ContentBlock({
   title: 'Sign up',
   content: form,
+  link,
   authForm: true,
 });
 
 export default new Register({
   form: registerForm,
-  link,
 });

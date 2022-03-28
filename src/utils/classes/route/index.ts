@@ -1,5 +1,6 @@
 import Block from '../../../modules/block';
 import render from '../../functions/renderDom';
+import remove from '../../functions/removeFromDom';
 
 export default class Route {
   private _pathname: string;
@@ -26,11 +27,10 @@ export default class Route {
   }
 
   leave() {
-    this._block.hide();
+    remove(this._props.rootQuery, this._block);
   }
 
   render() {
     render(this._props.rootQuery, this._block);
-    this._block.show();
   }
 }

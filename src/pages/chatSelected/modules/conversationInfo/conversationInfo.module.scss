@@ -4,14 +4,26 @@
   @include flexBetween;
   padding: 19px 31px;
   height: 70px;
+  border-bottom: 0.5px solid var(--primary700);
 }
 
-.user {
+.chat {
   @include flexCenter;
   gap: 10px;
+
+  .avatar {
+    height: 47px;
+    width: 47px;
+  }
+
+  .title {
+    font-size: 14px;
+    font-weight: 600;
+  }
 }
 
-.avatar {
-  height: 47px;
-  width: 47px;
+.button {
+  button {
+    padding: 20px;
+  }
 }

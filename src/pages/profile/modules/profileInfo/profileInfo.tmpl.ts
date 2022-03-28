@@ -1,26 +1,24 @@
-import * as classes from './profileInfo.module.scss';
-
 export default `
-<div>
-  <div class=${classes.avatarWrapper}>
-    <div class=${classes.avatarField}>Change avatar</div>
-    <div class=${classes.avatar}>{{ avatar }}</div>
+<div class='{{ blockClasses.profileInfo }}'>
+  <div class='{{ blockClasses.avatarWrapper }}'>
+    <div class='{{ blockClasses.avatar }}'>{{ avatar }}</div>
+    <div class='{{ blockClasses.avatarField }}'>Change avatar</div>
+    <div class='{{ blockClasses.username }}'>{{ username }}</div>
   </div>
   {{ modal }}
-  <div>{{ username }}</div>
-  <div class=${classes.infoFields}>
+  <div class='{{ blockClasses.infoFields }}'>
     {{#each profileFields}}
-      <div class=${classes.infoField}>
+      <div class='{{ ../blockClasses.infoField }}'>
         <div>{{ this.label }}</div>
-        <div>{{ this.value }}</div>
+        <div class='{{ ../blockClasses.fieldValue }}'>{{ this.value }}</div>
       </div>
     {{/each}}
   </div>
-  <div>
-    <div class=${classes.links}>
-      {{#each links}}
+  <div class='{{ blockClasses.links }}'>
+    {{#each links}}
+      <div class='{{ ../blockClasses.link }}'>
         {{this}}
-      {{/each}}
-    </div>
+      </div>
+    {{/each}}
   </div>
 </div>`;

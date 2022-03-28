@@ -12,6 +12,7 @@ import { profileLinks, mapStateToProfile } from './utils';
 import connect from '../../../../utils/functions/hoc';
 import profilePicture from '../../../../../static/images/profilePicture.png';
 import ContentBlock from '../../../../components/contentBlock';
+import classes from './profileInfo.module.scss';
 
 export class ProfileInfo extends Block<IProfileInfo> {
   constructor(props: IProfileInfo) {
@@ -27,12 +28,26 @@ export class ProfileInfo extends Block<IProfileInfo> {
       ProfileController.getUser();
     }
 
+    const blockClasses = {
+      profileInfo: classes.profileInfo,
+      avatarWrapper: classes.avatarWrapper,
+      avatarField: classes.avatarField,
+      username: classes.username,
+      avatar: classes.avatar,
+      infoFields: classes.infoFields,
+      infoField: classes.infoField,
+      fieldValue: classes.fieldValue,
+      links: classes.links,
+      link: classes.link,
+    };
+
     return this.compile({
       avatar,
       modal,
       username,
       profileFields,
       links,
+      blockClasses,
     });
   }
 }

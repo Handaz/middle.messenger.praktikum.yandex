@@ -1,11 +1,10 @@
-import * as classes from './input.module.scss';
-
 export default `
 <input 
-    class='${classes.input} {{#if error}}${classes.inputError}{{/if}}' 
+    class='{{ blockClasses }}' 
     type='{{ type }}'
     name='{{ name }}' 
     placeholder='{{ placeholder }}'
-    value='{{ value }}' 
+    value='{{ value }}'
+    {{#if noautocomplete}}autocomplete="off"{{/if}}
 />
 `;

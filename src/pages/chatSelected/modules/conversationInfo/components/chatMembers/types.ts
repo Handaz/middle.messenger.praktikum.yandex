@@ -1,8 +1,8 @@
 import ChatMember from '../chatMember';
-import Form from '../../../../../../components/form';
+import Button from '../../../../../../components/button';
 import { BlockProps } from '../../../../../../types';
 
 export interface IChatMembers extends BlockProps {
-  form: Form;
+  button: Button;
   members: ChatMember[];
 }

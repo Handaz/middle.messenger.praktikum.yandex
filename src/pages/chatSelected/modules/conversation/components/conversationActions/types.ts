@@ -1,8 +1,7 @@
-import { BlockProps } from '../../../../../../types';
-import Button from '../../../../../../components/button';
 import Form from '../../../../../../components/form';
+import { BlockProps } from '../../../../../../types';
 
 export interface IConversationActions extends BlockProps {
-  attachments: Button;
+  attachments: Form;
   messageForm: Form;
 }

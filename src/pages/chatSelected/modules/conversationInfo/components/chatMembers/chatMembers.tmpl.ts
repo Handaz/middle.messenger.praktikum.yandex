@@ -1,12 +1,15 @@
-import * as classes from './chatMembers.module.scss';
-
 export default `
 <div
-    class=${classes.members}
->
-    {{ form }}
-    {{#each members}}
-        {{ this }}
-    {{/each}}
+    class='{{ blockClasses.membersWrapper }}'
+>   
+    <div class='{{ blockClasses.head }}'>
+        <div class='{{ blockClasses.title }}'>Members</div>
+        {{ button }}
+    </div>
+    <div class='{{ blockClasses.members}}'>
+        {{#each members}}
+            {{ this }}
+        {{/each}}
+    </div>
 </div>
 `;

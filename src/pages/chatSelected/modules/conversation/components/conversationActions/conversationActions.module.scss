@@ -1,6 +1,9 @@
 .actions {
   display: flex;
+  align-items: center;
   height: 54px;
+  padding: 11px 15px;
+  border-top: 0.5px solid var(--primary700);
 }
 
 .form {
@@ -14,4 +17,8 @@
       width: 100%;
     }
   }
+}
+
+.attachment {
+  margin-right: 15px;
 }

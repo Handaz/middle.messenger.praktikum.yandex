@@ -3,4 +3,41 @@
 .member {
   @include flexBetween;
   min-width: 200px;
+
+  .userInfo {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+
+    .avatar {
+      flex-shrink: 0;
+      height: 60px;
+      width: 60px;
+    }
+
+    .username {
+      font-size: 13px;
+    }
+  }
+
+  .removeUser {
+    button {
+      font-size: 35px;
+      color: var(--danger);
+      transform: rotate(45deg);
+    }
+  }
+
+  .addUser {
+    button {
+      font-size: 35px;
+    }
+  }
+
+  .inChat {
+    button {
+      cursor: default;
+      color: var(--success);
+    }
+  }
 }
